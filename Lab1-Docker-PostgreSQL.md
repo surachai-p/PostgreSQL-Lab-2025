@@ -778,17 +778,39 @@ docker stats
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+
+-- STEP 1: สร้าง Role Groups
+-- =======================================
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
+
+-- =======================================
+-- STEP 2: สร้าง Users และกำหนด Password + Membership
+-- =======================================
+-- dev_user → สมาชิก app_developers
+CREATE USER dev_user WITH PASSWORD 'dev123';
+GRANT app_developers TO dev_user;
+
+-- analyst_user → สมาชิก data_analysts
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+GRANT data_analysts TO analyst_user;
+
+-- admin_user → สมาชิก db_admins
+CREATE USER admin_user WITH PASSWORD 'admin123';
+GRANT db_admins TO admin_user;
 
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
-ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+
+<img width="449" height="132" alt="image" src="https://github.com/user-attachments/assets/ab030adb-a8e8-4aaf-93e5-13f497381bdb" />
+
+<img width="713" height="252" alt="image" src="https://github.com/user-attachments/assets/cba14ded-8cd0-498e-b486-c1e43700890e" />
+
+<img width="1014" height="44" alt="image" src="https://github.com/user-attachments/assets/666da8c7-a828-4f35-a319-0c4735ff9871" />
+
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
