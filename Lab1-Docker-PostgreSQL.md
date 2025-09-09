@@ -130,11 +130,11 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
-```
+
 <img width="877" height="542" alt="Screenshot 2025-09-09 143707" src="https://github.com/user-attachments/assets/1ada614b-9892-4e11-b8dd-55254ce26518" />
 
 
-```
+
 
 ### Step 3: Create PostgreSQL Container with Volume
 
@@ -166,11 +166,11 @@ docker run --name postgres-lab
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
-```
+
 <img width="1232" height="73" alt="Screenshot 2025-09-09 144454" src="https://github.com/user-attachments/assets/e25f68e3-550f-4326-a6ca-c511469317a0" />
 <img width="1173" height="116" alt="image" src="https://github.com/user-attachments/assets/775c79a1-0838-4d32-a294-bf1d544f8ccf" />
 
-```
+
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -189,7 +189,7 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการรัน docker ps
 <img width="1143" height="230" alt="image" src="https://github.com/user-attachments/assets/725dd1e5-9bdc-4954-aafb-9117ddc90bc8" />
@@ -201,7 +201,7 @@ docker volume inspect postgres-data
 <img width="985" height="78" alt="image" src="https://github.com/user-attachments/assets/22db2b3e-40c5-4f8a-ac0a-5109f22a6e5f" />
 <img width="1047" height="302" alt="image" src="https://github.com/user-attachments/assets/3b791df0-7c21-4a3b-8f3d-5a2f6a2a007d" />
 
-```
+
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
@@ -241,7 +241,6 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
 ใส่ Screenshot ของ:
 1. ผลการรัน SELECT version();
 <img width="1072" height="218" alt="image" src="https://github.com/user-attachments/assets/2c6ff797-3da9-4b2c-8056-16cb21c41a49" />
@@ -254,7 +253,7 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 3. ผลการรัน \l และ \du
 <img width="1135" height="415" alt="image" src="https://github.com/user-attachments/assets/76b46510-60f8-4ecc-adf2-7fecb436cbc9" />
 
-```
+
 
 ### Step 6: Database Management Operations
 
@@ -293,7 +292,7 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง lab_db
 <img width="362" height="152" alt="image" src="https://github.com/user-attachments/assets/5b6e082f-bcbe-4999-842a-9796a9a7c72f" />
@@ -303,7 +302,7 @@ WHERE datname = 'lab_db';
 
 3. ผลการ query ข้อมูลฐานข้อมูล
 
-```
+
 
 ### Step 7: User และ Role Management
 
@@ -356,7 +355,7 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง users ทั้งหมด
 <img width="1063" height="567" alt="image" src="https://github.com/user-attachments/assets/08a64c5c-f078-4145-a83f-9c9c17d07f1d" />
@@ -367,7 +366,7 @@ WHERE r.rolname NOT LIKE 'pg_%';
 3. ผลการ query pg_roles
 <img width="1065" height="458" alt="image" src="https://github.com/user-attachments/assets/4bd14792-add8-47e4-a292-a04195b5267e" />
 
-```
+
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -424,7 +423,7 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการ ALTER USER commands
 2. ผลการรัน \dp test_permissions
@@ -434,15 +433,14 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 <img width="603" height="200" alt="image" src="https://github.com/user-attachments/assets/2487846b-5497-4cc4-b089-a12a870d3d01" />
 
 
-```
+
 **คำถาม
- ```
+ 
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
  - `postgres=arwdDxtm/postgres` แปลว่า
     - ผู้ใช้ postgres มีสิทธิ์ครบทั้งหมด (insert, select, update, update column) บน object นี้
 - สิทธิ์ถูก มอบโดย user postgres เช่นกัน
 
- ```
 ### Step 9: Schema Management และ Namespace
 
 ```sql
@@ -542,7 +540,7 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง schemas (\dn+)
 <img width="1071" height="412" alt="image" src="https://github.com/user-attachments/assets/47dbfd6b-525f-48da-bae8-c772fb835a41" />
@@ -556,7 +554,7 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
 <img width="1085" height="852" alt="image" src="https://github.com/user-attachments/assets/0cbd9041-cd2e-4079-a639-b72b4560bc40" />
 
-```
+
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
