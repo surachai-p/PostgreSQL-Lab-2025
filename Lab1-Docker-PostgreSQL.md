@@ -862,7 +862,24 @@ docker ps
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+#เข้าสู่ PostgreSQL CLI ใน container
+docker exec -it multi-postgres psql -U postgres
+#สร้าง Role Groups
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
+#สร้าง Users พร้อมรหัสผ่าน
+CREATE ROLE dev_user WITH LOGIN PASSWORD 'dev123';
+CREATE ROLE analyst_user WITH LOGIN PASSWORD 'analyst123';
+CREATE ROLE admin_user WITH LOGIN PASSWORD 'admin123';
+#เพิ่ม Users เข้าไปใน Role Groups
+GRANT app_developers TO dev_user;
+GRANT data_analysts TO analyst_user;
+GRANT db_admins TO admin_user;
+#ตรวจสอบ Roles และ Users
+\du
+#ออกจาก PostgreSQL CLI
+\q
 
 ```
 
@@ -873,6 +890,7 @@ docker ps
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
 ```
+<img width="1081" height="870" alt="image" src="https://github.com/user-attachments/assets/d1ede41c-c5f2-42ca-8bc3-b1f774c8020b" />
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -1016,7 +1034,74 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+#ขั้นตอนทั้งหมด: Schema Design + Insert Data
+#เข้าสู่ PostgreSQL CLI
+docker exec -it multi-postgres psql -U postgres
+#สร้าง Schemas
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+#สร้าง Tables ภายใต้ Schema
+-- ตาราง categories
+CREATE TABLE ecommerce.categories (
+    category_id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT
+);
+
+-- ตาราง products
+CREATE TABLE ecommerce.products (
+    product_id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    price NUMERIC(10, 2) NOT NULL,
+    category_id INTEGER REFERENCES ecommerce.categories(category_id),
+    stock INTEGER NOT NULL
+);
+
+-- ตาราง customers
+CREATE TABLE ecommerce.customers (
+    customer_id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    phone TEXT,
+    address TEXT
+);
+
+-- ตาราง orders
+CREATE TABLE ecommerce.orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES ecommerce.customers(customer_id),
+    order_date TIMESTAMP NOT NULL,
+    status TEXT NOT NULL,
+    total NUMERIC(10, 2) NOT NULL
+);
+
+-- ตาราง order_items
+CREATE TABLE ecommerce.order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INTEGER REFERENCES ecommerce.orders(order_id),
+    product_id INTEGER REFERENCES ecommerce.products(product_id),
+    quantity INTEGER NOT NULL,
+    price NUMERIC(10, 2) NOT NULL
+);
+#ใส่ข้อมูล
+-- ใส่ข้อมูลใน categories
+INSERT INTO ecommerce.categories (name, description) VALUES
+('Electronics', 'Electronic devices and gadgets'),
+('Clothing', 'Apparel and fashion items'),
+('Books', 'Books and educational materials'),
+('Home & Garden', 'Home improvement and garden supplies'),
+('Sports', 'Sports equipment and accessories');
+#ทดสอบว่าข้อมูลเข้าแล้ว
+-- ดู 5 รายการสินค้าจาก products
+SELECT * FROM ecommerce.products LIMIT 5;
+
+-- ดูคำสั่งซื้อของลูกค้า John Smith
+SELECT * FROM ecommerce.orders WHERE customer_id = 1;
+
+-- ดู order_items ของ order_id = 1
+SELECT * FROM ecommerce.order_items WHERE order_id = 1;
 
 ```
 
@@ -1028,6 +1113,8 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 3. ผลการรัน queries ที่สร้าง
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
+<img width="1518" height="955" alt="image" src="https://github.com/user-attachments/assets/7a5aa273-0727-4294-8e0e-7f1dae0b4abe" />
+<img width="1465" height="842" alt="image" src="https://github.com/user-attachments/assets/58255f35-4a85-43f2-bb8e-b0524e2fbf9b" />
 
 
 ## การทดสอบความเข้าใจ
@@ -1042,7 +1129,11 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 **คำตอบ Quiz 1:**
 ```
-เขียนคำตอบที่นี่
+1.Named Volume สะดวก ปลอดภัย
+Bind Mount ยืดหยุ่น เหมาะสำหรับ dev ที่ต้องดูไฟล์จริงๆ
+2.เพราะมันคือ พื้นที่เก็บข้อมูลในหน่วยความจำ (cache) ที่ PostgreSQL ใช้  25% = ค่าที่ สมดุล ระหว่าง PostgreSQL กับระบบอื่นในเครื่อง ช่วยให้ PostgreSQL ทำงานเร็วขึ้น โดยลดการอ่าน/เขียนจาก disk
+3.แยกกลุ่มข้อมูลออกเป็นหมวดหมู่ เช่น ecommerce, analytics, audit ป้องกัน ชื่อ table ซ้ำกัน ช่วยเรื่อง ความปลอดภัย (ให้สิทธิ์เฉพาะ schema ได้) เหมือนมี “โฟลเดอร์” ในฐานข้อมูล — ทำให้จัดระเบียบง่าย
+4.สร้าง/ลบฐานข้อมูลได้เร็ว โดยไม่กระทบระบบจริง มี สภาพแวดล้อมที่เหมือนกันทุกเครื่อง (dev, test, prod) ง่ายต่อการ ทดลองหลายๆ เวอร์ชัน รวดเร็ว / ปลอดภัย / ควบคุมง่าย
 ```
 
 
