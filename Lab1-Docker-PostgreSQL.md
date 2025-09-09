@@ -1,4 +1,4 @@
-# Lab 01: PostgreSQL Docker Setup and Basic Operations
+<img width="663" height="315" alt="image" src="https://github.com/user-attachments/assets/d313c656-e74b-4a54-a0a8-a0b656b4b923" /># Lab 01: PostgreSQL Docker Setup and Basic Operations
 
 ## วัตถุประสงค์
 1. ติดตั้งและใช้งาน PostgreSQL ผ่าน Docker
@@ -218,12 +218,10 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
-ใส่ Screenshot ของ:
-1. ผลการรัน SELECT version();
-2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
-3. ผลการรัน \l และ \du
-```
+<img width="973" height="103" alt="image" src="https://github.com/user-attachments/assets/37555594-7747-405c-ae2d-6d621b768418" />
+<img width="936" height="562" alt="image" src="https://github.com/user-attachments/assets/86654218-6a2e-4890-89f1-e44e1ffb6f74" />
+<img width="991" height="292" alt="image" src="https://github.com/user-attachments/assets/6140f153-baa0-43e6-9624-f01d7a490726" />
+
 
 ### Step 6: Database Management Operations
 
@@ -262,12 +260,9 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
-ใส่ Screenshot ของ:
-1. ผลการสร้าง lab_db
-2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
-3. ผลการ query ข้อมูลฐานข้อมูล
-```
+<img width="995" height="321" alt="image" src="https://github.com/user-attachments/assets/8865814b-4a74-42cd-91a2-73882d0c782f" />
+<img width="990" height="206" alt="image" src="https://github.com/user-attachments/assets/9dea7e41-e71d-4517-9ab5-3c0fb889a822" />
+<img width="663" height="315" alt="image" src="https://github.com/user-attachments/assets/7a6e0378-2fc7-43c6-82f2-0c03209fc86d" />
 
 ### Step 7: User และ Role Management
 
@@ -320,12 +315,10 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
-ใส่ Screenshot ของ:
-1. ผลการสร้าง users ทั้งหมด
-2. ผลการรัน \du+
-3. ผลการ query pg_roles
-```
+<img width="341" height="418" alt="image" src="https://github.com/user-attachments/assets/85d2cc08-4b2f-4830-8c55-a5df60d2fab6" />
+<img width="709" height="178" alt="image" src="https://github.com/user-attachments/assets/09c36d72-9009-4d7f-aa14-68aa9b3911fc" />
+<img width="919" height="323" alt="image" src="https://github.com/user-attachments/assets/b6d2918a-8f32-459e-9e17-b0017512b93d" />
+
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -382,16 +375,14 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
-ใส่ Screenshot ของ:
-1. ผลการ ALTER USER commands
-2. ผลการรัน \dp test_permissions
-3. ผลการ GRANT commands
-```
+<img width="400" height="73" alt="image" src="https://github.com/user-attachments/assets/57f23ad9-d012-48d3-8990-a7873225bcc7" />
+<img width="791" height="138" alt="image" src="https://github.com/user-attachments/assets/896aa137-ec0d-4c2b-8a65-9e5c81b65244" />
+<img width="540" height="316" alt="image" src="https://github.com/user-attachments/assets/00c7ced0-01f3-47cf-bfb9-f31f90d8b94f" />
+
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
-
+ตอบ User postgres มีสิทธิ์ ครบทุกอย่าง โดย สิทธิ์เหล่านี้ได้มาจาก postgres เอง
 
  ```
 ### Step 9: Schema Management และ Namespace
