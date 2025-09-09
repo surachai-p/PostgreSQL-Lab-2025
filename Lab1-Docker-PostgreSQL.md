@@ -417,7 +417,7 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 <img width="603" height="403" alt="image" src="https://github.com/user-attachments/assets/691d7647-50ff-49d3-a128-a26600862cde" />
 
 
-**คำถาม
+**คำถาม**
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
  ```
@@ -857,6 +857,31 @@ docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:54
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
 
+--1
+docker exec -it multi-postgres psql -U postgres
+
+--2
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
+
+CREATE ROLE dev_user     LOGIN PASSWORD 'dev123'     IN ROLE app_developers;
+CREATE ROLE analyst_user LOGIN PASSWORD 'analyst123' IN ROLE data_analysts;
+CREATE ROLE admin_user   LOGIN PASSWORD 'admin123'   IN ROLE db_admins;
+
+--3
+# 1) ทดสอบ dev_user
+docker exec -e PGPASSWORD=dev123 -it multi-postgres \
+  psql -U dev_user -d postgres -c "SELECT current_user, session_user;"
+
+# 2) ทดสอบ analyst_user
+docker exec -e PGPASSWORD=analyst123 -it multi-postgres \
+  psql -U analyst_user -d postgres -c "SELECT current_user, session_user;"
+
+# 3) ทดสอบ admin_user
+docker exec -e PGPASSWORD=admin123 -it multi-postgres \
+  psql -U admin_user -d postgres -c "SELECT current_user, session_user;"
+
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
@@ -1014,6 +1039,7 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+
 --1
 docker exec -it multi-postgres psql -U postgres
 
