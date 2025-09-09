@@ -562,13 +562,16 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
-ใส่ Screenshot ของ:
-1. ผลการแสดง search_path
-2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
-3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
-4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-```
+
+
+<img width="812" height="651" alt="image" src="https://github.com/user-attachments/assets/4bbc4538-1bc0-479a-bb95-a88f9febb2ea" />
+
+<img width="735" height="244" alt="image" src="https://github.com/user-attachments/assets/bf9c7f80-bd88-4c97-9d12-bf69658ad443" />
+
+<img width="816" height="652" alt="image" src="https://github.com/user-attachments/assets/87db5b0c-de82-4f19-8594-30039b976e50" />
+
+<img width="763" height="555" alt="image" src="https://github.com/user-attachments/assets/4151e9d6-9141-4bd8-b4c9-a39528d1da14" />
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
