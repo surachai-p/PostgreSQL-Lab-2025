@@ -860,12 +860,17 @@ docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:54
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
 ใส่ Screenshot ของ:
 1. การสร้าง roles และ users
+<img width="792" height="296" alt="image" src="https://github.com/user-attachments/assets/12346256-4044-4714-8760-1b56712f9a0a" />
+
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
+<img width="792" height="296" alt="image" src="https://github.com/user-attachments/assets/6b55a9b3-d86b-40f2-9366-ab0e790643ca" />
+
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+<img width="1354" height="169" alt="image" src="https://github.com/user-attachments/assets/0d7e11d9-9811-42d4-865d-53d1ad524d0c" />
+<img width="1361" height="148" alt="image" src="https://github.com/user-attachments/assets/1b2e80ac-8894-42f1-a3c4-24e6dadbb9a0" />
+<img width="1361" height="148" alt="image" src="https://github.com/user-attachments/assets/c3d0878b-b85b-4a2b-a690-4c374bcc6d81" />
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -1014,15 +1019,27 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
 ใส่ Screenshot ของ:
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
+<img width="888" height="464" alt="image" src="https://github.com/user-attachments/assets/30c482ea-9387-4285-8729-252243697fa6" />
+
 2. ข้อมูลตัวอย่างในตารางต่างๆ
+
+<img width="962" height="865" alt="image" src="https://github.com/user-attachments/assets/9943c1cd-3ed9-4ea4-872d-9d6c2ff4d222" />
+
+<img width="628" height="585" alt="image" src="https://github.com/user-attachments/assets/3c983e77-8612-4c48-873e-44c40b8fb1ac" />
+
 3. ผลการรัน queries ที่สร้าง
+
+<img width="865" height="324" alt="image" src="https://github.com/user-attachments/assets/0e2543cc-a122-481c-b0cd-940072412a70" />
+
+<img width="680" height="320" alt="image" src="https://github.com/user-attachments/assets/624b983d-59ad-4ce3-81d7-e1bb55be8f0c" />
+
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
-
-
+จาก Query 7.1 → สินค้าอะไรขายดีสุด (มักเป็น Football หรือ T-Shirt)
+จาก Query 7.2 → หมวดหมู่ไหนทำรายได้มากที่สุด (เช่น Electronics)
+```
 ## การทดสอบความเข้าใจ
 
 ### Quiz 1: Conceptual Questions
