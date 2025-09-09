@@ -769,6 +769,17 @@ docker volume create postgres-data
 
 ```bash
 # พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker volume create multi-postgres-data
+docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1.5g" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres:latest
+docker ps
+docker stats
 
 ```
 
