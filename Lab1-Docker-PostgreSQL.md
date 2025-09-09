@@ -818,6 +818,10 @@ docker volume create postgres-data
 2. docker ps แสดง container ใหม่
 3. docker stats แสดงการใช้ resources
 ```
+<img width="851" height="81" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 11 08 01" src="https://github.com/user-attachments/assets/8a7b4661-1736-4a18-9474-6c889908469e" />
+<img width="655" height="489" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 11 10 38" src="https://github.com/user-attachments/assets/f3423535-8b1d-49f9-9943-b9b497ef7d7f" />
+
+
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -844,6 +848,8 @@ docker volume create postgres-data
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
 ```
+<img width="740" height="304" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 11 11 43" src="https://github.com/user-attachments/assets/1b28b0c1-7890-48dc-995c-df423cda95ed" />
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -999,6 +1005,8 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 3. ผลการรัน queries ที่สร้าง
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
+<img width="740" height="304" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 11 11 43" src="https://github.com/user-attachments/assets/13c236ae-40ca-4124-a1d8-1902175b9709" />
+
 
 
 ## การทดสอบความเข้าใจ
@@ -1013,7 +1021,11 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 **คำตอบ Quiz 1:**
 ```
-เขียนคำตอบที่นี่
+ข้อที่ 1. Named Volume → ปลอดภัย, เหมาะกับ production, Docker จัดการทุกอย่าง
+Bind Mount → ยืดหยุ่น, เหมาะกับ development/testing, สามารถเข้าถึงไฟล์ host ได้
+ข้อที่ 2. PostgreSQL มี buffer เพียงพอสำหรับ caching OS ยังมี memory เหลือจัดการ filesystem cache, background process
+ข้อที่ 3.Schema ทำให้ฐานข้อมูลใหญ่เป็นระบบระเบียบ ลดความสับสน และควบคุม security ได้ดีขึ้น
+ข้อที่ 4.ช่วยให้การสร้างและจัดการฐานข้อมูลทำได้ รวดเร็ว ปลอดภัย และยืดหยุ่น เพราะมี environment แยก, ใช้งานได้ทุกเครื่อง, สลับเวอร์ชันง่าย, ควบคุม resource ได้ และเหมาะกับการทดสอบและ automation
 ```
 
 
