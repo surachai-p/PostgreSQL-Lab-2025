@@ -806,7 +806,16 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker volume create multi-postgres-data
+
+docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1.5g" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres:16.3
 
 ```
 
@@ -836,7 +845,29 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
+
+ALTER ROLE app_developers CREATEDB;
+ALTER ROLE app_developers CREATEROLE;
+
+ALTER ROLE data_analysts CREATEDB;
+
+ALTER ROLE db_admins CREATEDB;
+ALTER ROLE db_admins CREATEROLE;
+ALTER ROLE db_admins BYPASSRLS;
+
+CREATE USER dev_user WITH PASSWORD 'dev123';
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+CREATE USER admin_user WITH PASSWORD 'admin123';
+
+GRANT app_developers TO dev_user;
+GRANT data_analysts TO analyst_user;
+GRANT db_admins TO admin_user;
+
+GRANT CONNECT ON DATABASE lab_db TO app_developers, data_analysts, db_admins;
+GRANT USAGE ON SCHEMA public TO app_developers, data_analysts, db_admins;
 
 ```
 
@@ -989,10 +1020,6 @@ docker volume create postgres-data
    - หายอดขายรวมของแต่ละหมวดหมู่
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
-```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
-
-```
 
 **ผลการทำแบบฝึกหัด 3:**
 ```
