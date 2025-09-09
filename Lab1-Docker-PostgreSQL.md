@@ -353,6 +353,8 @@ WHERE r.rolname NOT LIKE 'pg_%';
 2. ผลการรัน \du+
 3. ผลการ query pg_roles
 ```
+<img width="837" height="795" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 11 41" src="https://github.com/user-attachments/assets/5a4b1478-a3fc-4876-8969-d77e1ad7e3af" />
+
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -415,6 +417,8 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 2. ผลการรัน \dp test_permissions
 3. ผลการ GRANT commands
 ```
+<img width="838" height="535" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 15 12" src="https://github.com/user-attachments/assets/d65a71e5-6634-4adf-aa9e-f30166aff2ad" />
+
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
@@ -518,7 +522,6 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
     (2, 3, '2024-02-10 16:20:00', 104.99),
     (3, 1, '2024-02-20 14:45:00', 8.99);
 ```
-
 **บันทึกผลการทดลอง - Step 9:**
 ```
 ใส่ Screenshot ของ:
@@ -527,6 +530,10 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 3. ผลการใส่ข้อมูลและ query ข้อมูล
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
 ```
+<img width="815" height="163" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 44 11" src="https://github.com/user-attachments/assets/82564e5f-2281-4bf1-afb2-0e8423bbe68c" />
+<img width="422" height="320" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 44 25" src="https://github.com/user-attachments/assets/0da448c5-2e92-4968-ad35-69557e287eef" />
+<img width="817" height="528" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 44 39" src="https://github.com/user-attachments/assets/a235fcdc-257e-4550-ba23-cf7c2e129cef" />
+
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
