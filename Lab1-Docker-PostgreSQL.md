@@ -1250,7 +1250,7 @@ ORDER BY total_spent DESC, items_qty DESC;
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+
 ใส่ Screenshot ของ:
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
 <img width="1070" height="353" alt="image" src="https://github.com/user-attachments/assets/946520b3-0603-4eb1-9460-0f98b0b80e00" />
@@ -1271,7 +1271,7 @@ ORDER BY total_spent DESC, items_qty DESC;
 
 <img width="623" height="397" alt="image" src="https://github.com/user-attachments/assets/8e3fc3ac-ee73-459a-8e10-e23a0967e86b" />
 
-```
+
 
 
 ## การทดสอบความเข้าใจ
