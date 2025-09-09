@@ -426,7 +426,7 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
-
+user postgres ได้รับสิทธิ์ insert, select, update, delete, truncate, references, trigger, column-level update บน object นั้น และสิทธิ์ถูกให้โดย user postgres
 
  ```
 ### Step 9: Schema Management และ Namespace
@@ -817,7 +817,18 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้:
+docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1536m" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres
+
+oneliner:
+docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:5432 --memory="1536m" --cpus="1.5" -v multi-postgres-data:/var/lib/postgresql/data postgres
 
 ```
 
@@ -828,6 +839,9 @@ docker volume create postgres-data
 2. docker ps แสดง container ใหม่
 3. docker stats แสดงการใช้ resources
 ```
+<img width="1312" height="90" alt="image" src="https://github.com/user-attachments/assets/a92a0e00-abdd-4660-a34e-5724a2ecf875" />
+<img width="1336" height="150" alt="image" src="https://github.com/user-attachments/assets/d0e510cc-d9ec-48f5-b179-4251edb59961" />
+<img width="1110" height="126" alt="image" src="https://github.com/user-attachments/assets/86d1fcae-077e-4457-9565-b8791058e85a" />
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -843,9 +857,25 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+-- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้:
+-- สร้าง Role Groups
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
 
+-- สร้าง Users และกำหนดรหัสผ่าน
+CREATE ROLE dev_user LOGIN PASSWORD 'dev123';
+CREATE ROLE analyst_user LOGIN PASSWORD 'analyst123';
+CREATE ROLE admin_user LOGIN PASSWORD 'admin123';
+
+-- จัด Users เข้ากลุ่ม
+GRANT app_developers TO dev_user;
+GRANT data_analysts TO analyst_user;
+GRANT db_admins TO admin_user;
+
+\du
 ```
+<img width="815" height="383" alt="image" src="https://github.com/user-attachments/assets/6954d5f6-09ac-466b-89f5-cbdc00124953" />
 
 **ผลการทำแบบฝึกหัด 2:**
 ```
