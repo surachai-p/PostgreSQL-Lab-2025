@@ -608,6 +608,9 @@ SET search_path TO public;
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
 ```
 <img width="334" height="148" alt="image" src="https://github.com/user-attachments/assets/2e146391-bca4-4122-b6d2-124be9be8cac" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/beee5974-cb80-4da9-ae56-6ac8acb51b3b" />
+<img width="1915" height="1079" alt="image" src="https://github.com/user-attachments/assets/dd98e704-7b14-4f1a-91bc-d95dee501b83" />
+<img width="415" height="58" alt="image" src="https://github.com/user-attachments/assets/44b0aa20-8fd9-4e12-8369-e2e822987854" />
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -639,6 +642,7 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 2. ผลการทดสอบสิทธิ์ต่างๆ
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
 ```
+<img width="1473" height="617" alt="image" src="https://github.com/user-attachments/assets/967c9165-f51f-42ff-981d-f775212b64a8" />
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
