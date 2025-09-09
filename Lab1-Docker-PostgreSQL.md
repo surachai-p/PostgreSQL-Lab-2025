@@ -627,12 +627,8 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
-ใส่ Screenshot ของ:
-1. ผลการหยุดและเริ่ม Container
-2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-3. ผลการสร้าง container พร้อม bind mount
-```
+<img width="1304" height="633" alt="image" src="https://github.com/user-attachments/assets/da20c28e-8991-4824-b622-fb2ce16bbd9a" />
+
 
 ## การตรวจสอบผลงานและ Performance
 
