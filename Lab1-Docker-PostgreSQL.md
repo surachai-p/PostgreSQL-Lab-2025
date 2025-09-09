@@ -694,12 +694,11 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
-ใส่ Screenshot ของ:
-1. Database statistics
-2. Memory configuration
-3. Active connections
-```
+
+<img width="941" height="764" alt="image" src="https://github.com/user-attachments/assets/5592d877-a30c-4143-afad-13c54694bb1a" />
+
+<img width="749" height="468" alt="image" src="https://github.com/user-attachments/assets/14de7ac4-706f-4dbb-8ae4-0a3ceff5ae50" />
+
 
 ## การแก้ไขปัญหาเบื้องต้น
 
