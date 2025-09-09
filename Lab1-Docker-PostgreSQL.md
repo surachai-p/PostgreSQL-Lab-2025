@@ -823,6 +823,8 @@ docker volume create postgres-data
 2. docker ps แสดง container ใหม่
 3. docker stats แสดงการใช้ resources
 ```
+<img width="1452" height="678" alt="image" src="https://github.com/user-attachments/assets/c6a2a7ba-ce4b-47d8-a190-915451d53562" />
+<img width="1279" height="87" alt="image" src="https://github.com/user-attachments/assets/9bdb00a0-cecc-46de-aa2e-13cc070de7e4" />
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -849,6 +851,8 @@ docker volume create postgres-data
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
 ```
+<img width="660" height="575" alt="image" src="https://github.com/user-attachments/assets/1a44e368-be58-40ae-b69f-118c35f348e3" />
+<img width="1024" height="384" alt="image" src="https://github.com/user-attachments/assets/e1838183-3910-4eef-ad0a-12bd7425c7d2" />
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -1004,6 +1008,10 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 3. ผลการรัน queries ที่สร้าง
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
+<img width="815" height="902" alt="image" src="https://github.com/user-attachments/assets/7efbb1e7-98f6-4602-92ab-6fc216941ce2" />
+<img width="798" height="502" alt="image" src="https://github.com/user-attachments/assets/276b54f8-06dd-4487-a288-ac2f2aaf345c" />
+<img width="732" height="775" alt="image" src="https://github.com/user-attachments/assets/30accb66-4502-4404-ba32-97dd2d42783b" />
+<img width="760" height="434" alt="image" src="https://github.com/user-attachments/assets/385a1e30-c24f-4e78-857c-c548d7cfa886" />
 
 
 ## การทดสอบความเข้าใจ
