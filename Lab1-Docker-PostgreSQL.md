@@ -908,7 +908,7 @@ GRANT db_admins TO admin_user;
    - `order_items` (order_item_id, order_id, product_id, quantity, price)
 
 3. ใส่ข้อมูลตัวอย่างดังนี้
-   ```
+   ```sql
 -- ใส่ข้อมูลใน categories
 INSERT INTO ecommerce.categories (name, description) VALUES
     ('Electronics', 'Electronic devices and gadgets'),
