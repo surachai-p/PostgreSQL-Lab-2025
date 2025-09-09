@@ -926,11 +926,38 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หายอดขายรวมของแต่ละหมวดหมู่
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
-```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+sql
+-- 1 หาสินค้าที่ขายดีที่สุด 5 อันดับ
+SELECT p.name AS product_name,
+       SUM(oi.quantity) AS total_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.name
+ORDER BY total_sold DESC
+LIMIT 5;
+
+
+-- 2 หายอดขายรวมของแต่ละหมวดหมู่
+SELECT c.name AS category_name,
+       SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.name
+ORDER BY total_sales DESC;
+
+
+-- 3 หาลูกค้าที่ซื้อสินค้ามากที่สุด (ยอดรวม)
+SELECT cu.name AS customer_name,
+       SUM(oi.quantity * oi.price) AS total_spent
+FROM ecommerce.order_items oi
+JOIN ecommerce.orders o ON oi.order_id = o.order_id
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+GROUP BY cu.name
+ORDER BY total_spent DESC
+LIMIT 5;
 
 ```
-
 **ผลการทำแบบฝึกหัด 3:**
 
 **1.Schemas + 2. Tables ใน ecommerce + 3. Columns + 4. Top 5 Products**
