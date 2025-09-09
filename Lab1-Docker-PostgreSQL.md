@@ -622,12 +622,15 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการเชื่อมต่อด้วย lab_user
+<img width="707" height="162" alt="image" src="https://github.com/user-attachments/assets/262e7799-625f-4eb0-b5c2-aa579c973feb" />
 2. ผลการทดสอบสิทธิ์ต่างๆ
+<img width="697" height="294" alt="image" src="https://github.com/user-attachments/assets/7958d903-13bd-4367-ab3b-912d4fb1169a" />
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+<img width="351" height="20" alt="image" src="https://github.com/user-attachments/assets/453fe3d7-c3b0-444c-b08c-2cd2024ba22a" />
+<img width="434" height="19" alt="image" src="https://github.com/user-attachments/assets/e3853e56-fec4-4887-a93c-49225c664da7" />
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -657,12 +660,14 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
+<img width="407" height="170" alt="image" src="https://github.com/user-attachments/assets/980e5ff9-48f7-4d97-9ee7-f564f7a4b31c" />
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
+<img width="965" height="108" alt="image" src="https://github.com/user-attachments/assets/3859c209-1425-4fe5-8bf2-794261bae642" />
 3. ผลการสร้าง container พร้อม bind mount
-```
+<img width="951" height="73" alt="image" src="https://github.com/user-attachments/assets/dbfdb8dc-3aa1-4834-99b7-caea5d7e34ba" />
+
 
 ## การตรวจสอบผลงานและ Performance
 
