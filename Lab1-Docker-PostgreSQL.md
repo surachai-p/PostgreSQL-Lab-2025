@@ -909,7 +909,6 @@ GRANT db_admins TO admin_user;
 
 3. ใส่ข้อมูลตัวอย่างดังนี้
    ```
-   
 -- ใส่ข้อมูลใน categories
 INSERT INTO ecommerce.categories (name, description) VALUES
     ('Electronics', 'Electronic devices and gadgets'),
@@ -1028,11 +1027,12 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
     -- Order 15: Lisa Anderson
     (15, 8, 1, 129.99); -- Sneakers
    ```
+```sql
    สร้าง queries เพื่อหาคำตอบ:
    - หาสินค้าที่ขายดีที่สุด 5 อันดับ
    - หายอดขายรวมของแต่ละหมวดหมู่
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
-
+```
 ```sql
 #ขั้นตอนทั้งหมด: Schema Design + Insert Data
 #เข้าสู่ PostgreSQL CLI
