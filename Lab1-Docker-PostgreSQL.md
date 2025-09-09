@@ -932,6 +932,7 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
+
 **1.Schemas + 2. Tables ใน ecommerce + 3. Columns + 4. Top 5 Products**
 <img width="1920" height="815" alt="Screenshot (594)" src="https://github.com/user-attachments/assets/e8bc8013-d25d-427f-9bcc-8bedbce84d1a" />
 **5.ลูกค้าที่ซื้อสินค้ามากที่สุด (Top Customers by Spending)**
@@ -950,9 +951,11 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 4. อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
 
 **คำตอบ Quiz 1:**
-```
-เขียนคำตอบที่นี่
-```
+
+1. Named Volume → Docker เก็บให้ / Bind Mount → เอาโฟลเดอร์เราเข้า container
+2. shared_buffers → ตั้งพอดี ไม่มากไม่น้อย เพราะน้อยอ่าน disk บ่อย มากใช้ RAM เกิน
+3. Schema → แยกตารางตามงาน จัดการสิทธิ์ง่าย ทำ backup ง่าย
+4. Docker → แยก environment ทีมทำงานสะดวก ทดสอบง่าย
 
 
 ## สรุปและการประเมินผล
