@@ -422,8 +422,7 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
-
-
+ตอบ user postgres มีสิทธิ์ทั้งหมด (INSERT, SELECT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER, MATCH) บน object นี้ และสิทธิ์ถูกให้โดย postgres เอง
  ```
 ### Step 9: Schema Management และ Namespace
 
@@ -868,7 +867,6 @@ docker volume create postgres-data
 
 3. ใส่ข้อมูลตัวอย่างดังนี้
    ```
-   
 -- ใส่ข้อมูลใน categories
 INSERT INTO ecommerce.categories (name, description) VALUES
     ('Electronics', 'Electronic devices and gadgets'),
