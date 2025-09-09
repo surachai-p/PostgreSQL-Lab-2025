@@ -80,7 +80,7 @@ docker run hello-world
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
 ```
-ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
+<img width="636" height="357" alt="image" src="https://github.com/user-attachments/assets/1f2a3abd-13f9-4387-a212-3efd523ad1fd" />
 ```
 
 ## ขั้นตอนการทดลอง
@@ -104,7 +104,8 @@ docker inspect postgres
 
 **บันทึกผลการทดลอง - Step 1:**
 ```
-ใส่ Screenshot ของผลการรัน docker images ที่นี่
+<img width="1366" height="669" alt="image" src="https://github.com/user-attachments/assets/34fae7f9-4f4a-47b2-acb9-5119e80d6f6e" />
+
 ```
 
 ### Step 2: Create Docker Volume for Data Persistence
@@ -127,7 +128,8 @@ docker volume create postgres-config
 
 **บันทึกผลการทดลอง - Step 2:**
 ```
-ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
+<img width="575" height="392" alt="image" src="https://github.com/user-attachments/assets/1a0f1eca-f32a-44c3-9223-eca3aa815aa2" />
+
 ```
 
 ### Step 3: Create PostgreSQL Container with Volume
@@ -161,7 +163,7 @@ docker run --name postgres-lab \
 
 **บันทึกผลการทดลอง - Step 3:**
 ```
-ใส่ Screenshot ของผลการรัน docker run ที่นี่
+<img width="1349" height="62" alt="image" src="https://github.com/user-attachments/assets/98febd08-dfa4-4fc2-bbdd-22b6df583bbb" />
 ```
 
 ### Step 4: Verify Container Status and Resource Usage
@@ -182,10 +184,11 @@ docker volume inspect postgres-data
 
 **บันทึกผลการทดลอง - Step 4:**
 ```
-ใส่ Screenshot ของ:
-1. ผลการรัน docker ps
-2. ส่วนหนึ่งของ docker logs postgres-lab
-3. ผลการรัน docker stats
+<img width="1196" height="72" alt="image" src="https://github.com/user-attachments/assets/1aa0b9e7-fc38-4d53-a8f2-a022bf8a6a95" />
+
+<img width="1340" height="590" alt="image" src="https://github.com/user-attachments/assets/a264d584-0f86-47fe-8036-202c8c7cd9b7" />
+
+<img width="856" height="278" alt="image" src="https://github.com/user-attachments/assets/1db9c5ef-06e3-449c-8ff2-6c1bac897016" />
 ```
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
