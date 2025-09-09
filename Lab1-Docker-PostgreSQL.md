@@ -726,17 +726,19 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker volume create multi-postgres-data
+
+docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:5432 --memory="1.5g" --cpus="1.5" -v multi-postgres-data:/var/lib/postgresql/data postgres:16.3
+
+docker ps
 
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
-ใส่ Screenshot ของ:
-1. คำสั่งที่ใช้สร้าง container
-2. docker ps แสดง container ใหม่
-3. docker stats แสดงการใช้ resources
-```
+1. **คำสั่งที่ใช้สร้าง container** + 2.**docker ps**
+   <img width="1920" height="1080" alt="Screenshot (590)" src="https://github.com/user-attachments/assets/c21a72c7-63d0-47e6-83fa-66372a28d07c" />
+
+   
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -752,17 +754,36 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
+
+ALTER ROLE app_developers CREATEDB;
+ALTER ROLE app_developers CREATEROLE;
+
+ALTER ROLE data_analysts CREATEDB;
+
+ALTER ROLE db_admins CREATEDB;
+ALTER ROLE db_admins CREATEROLE;
+ALTER ROLE db_admins BYPASSRLS;
+
+CREATE USER dev_user WITH PASSWORD 'dev123';
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+CREATE USER admin_user WITH PASSWORD 'admin123';
+
+GRANT app_developers TO dev_user;
+GRANT data_analysts TO analyst_user;
+GRANT db_admins TO admin_user;
+
+GRANT CONNECT ON DATABASE lab_db TO app_developers, data_analysts, db_admins;
+GRANT USAGE ON SCHEMA public TO app_developers, data_analysts, db_admins;
 
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
-ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+<img width="1920" height="1080" alt="Screenshot (591)" src="https://github.com/user-attachments/assets/ce6453da-094c-4a30-bbda-44a1c5c5db06" />
+<img width="1920" height="1080" alt="Screenshot (593)" src="https://github.com/user-attachments/assets/7ff92b49-113a-468b-be54-2ada700d70a4" />
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
