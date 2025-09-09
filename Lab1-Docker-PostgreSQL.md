@@ -741,17 +741,20 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker run --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  --memory="1.5g" \
+  --cpus="1.5" \
+  -d postgres
 
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
-ใส่ Screenshot ของ:
-1. คำสั่งที่ใช้สร้าง container
-2. docker ps แสดง container ใหม่
-3. docker stats แสดงการใช้ resources
-```
+<img width="527" height="152" alt="image" src="https://github.com/user-attachments/assets/cef01305-0fe3-4bf4-8058-da2ed51b3a08" />
+<img width="1250" height="105" alt="image" src="https://github.com/user-attachments/assets/684eb158-2c48-400e-885d-829b21f0d9a2" />
+<img width="954" height="86" alt="image" src="https://github.com/user-attachments/assets/0660bef7-e269-49f5-abd9-92a6237cb25d" />
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -767,17 +770,39 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+-- 1
+-- สำหรับนักพัฒนา
+CREATE ROLE app_developers NOLOGIN;
+
+-- สำหรับนักวิเคราะห์ข้อมูล
+CREATE ROLE data_analysts NOLOGIN;
+
+-- สำหรับผู้ดูแลฐานข้อมูล
+CREATE ROLE db_admins NOLOGIN;
+
+-- 2
+-- User dev_user
+CREATE USER dev_user WITH PASSWORD 'dev123';
+-- ให้เป็นสมาชิกของกลุ่ม app_developers
+GRANT app_developers TO dev_user;
+
+-- User analyst_user
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+-- ให้เป็นสมาชิกของกลุ่ม data_analysts
+GRANT data_analysts TO analyst_user;
+
+-- User admin_user
+CREATE USER admin_user WITH PASSWORD 'admin123';
+-- ให้เป็นสมาชิกของกลุ่ม db_admins
+GRANT db_admins TO admin_user;
 
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
-ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+<img width="519" height="366" alt="image" src="https://github.com/user-attachments/assets/154634a4-ea07-4c70-96d0-a2fdcf74d18a" />
+<img width="634" height="193" alt="image" src="https://github.com/user-attachments/assets/cd9e8da7-b160-45fa-896e-823910c6439d" />
+<img width="485" height="38" alt="image" src="https://github.com/user-attachments/assets/7c69d3ec-b552-4eec-9b0e-1a37c140c8a4" />
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
