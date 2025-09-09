@@ -947,18 +947,186 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+-- สร้าง Schemas
+CREATE SCHEMA ecommerce AUTHORIZATION postgres;
+CREATE SCHEMA analytics AUTHORIZATION postgres;
+CREATE SCHEMA audit AUTHORIZATION postgres;
+
+-- ตาราง categories
+CREATE TABLE ecommerce.categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+-- ตาราง products
+CREATE TABLE ecommerce.products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    category_id INTEGER REFERENCES ecommerce.categories(category_id),
+    stock INTEGER DEFAULT 0
+);
+
+-- ตาราง customers
+CREATE TABLE ecommerce.customers (
+    customer_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(20),
+    address TEXT
+);
+
+-- ตาราง orders
+CREATE TABLE ecommerce.orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES ecommerce.customers(customer_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'pending',
+    total DECIMAL(10,2)
+);
+
+-- ตาราง order_items
+CREATE TABLE ecommerce.order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INTEGER REFERENCES ecommerce.orders(order_id),
+    product_id INTEGER REFERENCES ecommerce.products(product_id),
+    quantity INTEGER DEFAULT 1,
+    price DECIMAL(10,2) NOT NULL
+);
+
+-- INSERT ข้อมูลใน categories
+INSERT INTO ecommerce.categories (name, description) VALUES
+('Electronics', 'Electronic devices and gadgets'),
+('Clothing', 'Apparel and fashion items'),
+('Books', 'Books and educational materials'),
+('Home & Garden', 'Home improvement and garden supplies'),
+('Sports', 'Sports equipment and accessories');
+
+-- INSERT ข้อมูลใน products
+INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
+('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
+('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
+('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
+('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
+('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
+('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
+('Jeans', 'Denim blue jeans', 59.99, 2, 150),
+('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
+('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
+('Hat', 'Baseball cap', 24.99, 2, 120),
+('Programming Book', 'Learn Python programming', 39.99, 3, 40),
+('Novel', 'Best-selling fiction novel', 14.99, 3, 90),
+('Textbook', 'University mathematics textbook', 79.99, 3, 25),
+('Garden Tools Set', 'Complete gardening tool kit', 49.99, 4, 35),
+('Plant Pot', 'Ceramic decorative pot', 15.99, 4, 80),
+('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
+('Football', 'Official size football', 29.99, 5, 55);
+
+-- INSERT ข้อมูลใน customers
+INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
+('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
+('Sarah Johnson', 'sarah.j@email.com', '555-0102', '456 Oak Ave, City B'),
+('Mike Brown', 'mike.brown@email.com', '555-0103', '789 Pine Rd, City C'),
+('Emily Davis', 'emily.d@email.com', '555-0104', '321 Elm St, City A'),
+('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
+('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
+('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
+('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
+
+-- INSERT ข้อมูลใน orders
+INSERT INTO ecommerce.orders (customer_id, order_date, status, total) VALUES
+(1, '2024-01-15 10:30:00', 'completed', 1199.98),
+(2, '2024-01-16 14:20:00', 'completed', 219.98),
+(3, '2024-01-17 09:15:00', 'completed', 159.97),
+(1, '2024-01-18 11:45:00', 'completed', 79.99),
+(4, '2024-01-19 16:30:00', 'completed', 89.98),
+(5, '2024-01-20 13:25:00', 'completed', 1329.98),
+(2, '2024-01-21 15:10:00', 'completed', 149.99),
+(6, '2024-01-22 12:40:00', 'completed', 294.97),
+(3, '2024-01-23 08:50:00', 'completed', 199.99),
+(7, '2024-01-24 17:20:00', 'completed', 169.98),
+(1, '2024-01-25 10:15:00', 'completed', 39.99),
+(8, '2024-01-26 14:35:00', 'completed', 599.97),
+(4, '2024-01-27 11:20:00', 'processing', 179.98),
+(5, '2024-01-28 09:45:00', 'shipped', 44.98),
+(6, '2024-01-29 16:55:00', 'completed', 129.99);
+
+-- INSERT ข้อมูลใน order_items
+INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 999.99),
+(1, 4, 1, 199.99),
+(2, 4, 1, 199.99),
+(2, 6, 1, 19.99),
+(3, 7, 1, 59.99),
+(3, 5, 1, 79.99),
+(3, 6, 1, 19.99),
+(4, 5, 1, 79.99),
+(5, 9, 1, 89.99),
+(6, 3, 1, 1299.99),
+(6, 12, 2, 14.99),
+(7, 16, 1, 149.99),
+(8, 8, 2, 129.99),
+(8, 10, 1, 24.99),
+(8, 11, 1, 39.99),
+(9, 4, 1, 199.99),
+(10, 2, 1, 899.99),
+(10, 6, 3, 19.99),
+(10, 14, 1, 49.99),
+(11, 11, 1, 39.99),
+(12, 1, 1, 999.99),
+(13, 17, 6, 29.99),
+(14, 15, 2, 15.99),
+(14, 12, 1, 14.99),
+(15, 8, 1, 129.99);
+
+สินค้าที่ขายดีที่สุด 5 อันดับ
+SELECT 
+    p.product_id,
+    p.name AS product_name,
+    SUM(oi.quantity) AS total_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.product_id, p.name
+ORDER BY total_sold DESC
+LIMIT 5;
+
+ยอดขายรวมของแต่ละหมวดหมู่
+SELECT 
+    c.category_id,
+    c.name AS category_name,
+    SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.category_id, c.name
+ORDER BY total_sales DESC;
+
+ลูกค้าที่ซื้อสินค้ามากที่สุด
+SELECT 
+    cu.customer_id,
+    cu.name AS customer_name,
+    SUM(oi.quantity * oi.price) AS total_spent,
+    COUNT(DISTINCT o.order_id) AS total_orders
+FROM ecommerce.orders o
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+JOIN ecommerce.order_items oi ON o.order_id = oi.order_id
+GROUP BY cu.customer_id, cu.name
+ORDER BY total_spent DESC
+LIMIT 1;
+
 
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
-ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
-```
-
+<img width="784" height="173" alt="image" src="https://github.com/user-attachments/assets/f53def81-f901-420a-bdcb-40cd0782f029" />
+<img width="368" height="179" alt="image" src="https://github.com/user-attachments/assets/8148fb24-29e6-45f5-b4cd-907efb1b97dd" />
+<img width="865" height="637" alt="image" src="https://github.com/user-attachments/assets/c5ca6971-057a-4551-99fd-e512d170223d" />
+<img width="476" height="166" alt="image" src="https://github.com/user-attachments/assets/5cc0ff71-48c2-4e96-8255-a5aaba184df6" />
+<img width="584" height="280" alt="image" src="https://github.com/user-attachments/assets/0b90beac-b1ec-4605-9b02-4db7e82c3cf4" />
+<img width="593" height="258" alt="image" src="https://github.com/user-attachments/assets/f992e990-50bc-4093-8577-7d539d22ff39" />
+<img width="593" height="258" alt="image" src="https://github.com/user-attachments/assets/91c3904b-e4d9-4c6c-9baf-ca73f667ea6f" />
 
 ## การทดสอบความเข้าใจ
 
