@@ -867,27 +867,26 @@ docker volume create postgres-data
 
 3. ใส่ข้อมูลตัวอย่างดังนี้
    ```
--- ใส่ข้อมูลใน categories
-INSERT INTO ecommerce.categories (name, description) VALUES
-    ('Electronics', 'Electronic devices and gadgets'),
-    ('Clothing', 'Apparel and fashion items'),
-    ('Books', 'Books and educational materials'),
-    ('Home & Garden', 'Home improvement and garden supplies'),
-    ('Sports', 'Sports equipment and accessories');
+    -- ใส่ข้อมูลใน categories
+    INSERT INTO ecommerce.categories (name, description) VALUES
+        ('Electronics', 'Electronic devices and gadgets'),
+        ('Clothing', 'Apparel and fashion items'),
+        ('Books', 'Books and educational materials'),
+        ('Home & Garden', 'Home improvement and garden supplies'),
+        ('Sports', 'Sports equipment and accessories');
 
--- ใส่ข้อมูลใน products
-INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
-    ('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
-    ('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
-    ('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
-    ('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
-    ('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
-    
-    ('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
-    ('Jeans', 'Denim blue jeans', 59.99, 2, 150),
-    ('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
-    ('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
-    ('Hat', 'Baseball cap', 24.99, 2, 120),
+    -- ใส่ข้อมูลใน products
+    INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
+        ('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
+        ('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
+        ('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
+        ('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
+        ('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
+        ('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
+        ('Jeans', 'Denim blue jeans', 59.99, 2, 150),
+        ('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
+        ('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
+        ('Hat', 'Baseball cap', 24.99, 2, 120),
     
     ('Programming Book', 'Learn Python programming', 39.99, 3, 40),
     ('Novel', 'Best-selling fiction novel', 14.99, 3, 90),
@@ -899,41 +898,41 @@ INSERT INTO ecommerce.products (name, description, price, category_id, stock) VA
     ('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
     ('Football', 'Official size football', 29.99, 5, 55);
 
--- ใส่ข้อมูลใน customers
-INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
-    ('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
-    ('Sarah Johnson', 'sarah.j@email.com', '555-0102', '456 Oak Ave, City B'),
-    ('Mike Brown', 'mike.brown@email.com', '555-0103', '789 Pine Rd, City C'),
-    ('Emily Davis', 'emily.d@email.com', '555-0104', '321 Elm St, City A'),
-    ('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
-    ('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
-    ('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
-    ('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
-
--- ใส่ข้อมูลใน orders
-INSERT INTO ecommerce.orders (customer_id, order_date, status, total) VALUES
-    (1, '2024-01-15 10:30:00', 'completed', 1199.98),
-    (2, '2024-01-16 14:20:00', 'completed', 219.98),
-    (3, '2024-01-17 09:15:00', 'completed', 159.97),
-    (1, '2024-01-18 11:45:00', 'completed', 79.99),
-    (4, '2024-01-19 16:30:00', 'completed', 89.98),
-    (5, '2024-01-20 13:25:00', 'completed', 1329.98),
-    (2, '2024-01-21 15:10:00', 'completed', 149.99),
-    (6, '2024-01-22 12:40:00', 'completed', 294.97),
-    (3, '2024-01-23 08:50:00', 'completed', 199.99),
-    (7, '2024-01-24 17:20:00', 'completed', 169.98),
-    (1, '2024-01-25 10:15:00', 'completed', 39.99),
-    (8, '2024-01-26 14:35:00', 'completed', 599.97),
-    (4, '2024-01-27 11:20:00', 'processing', 179.98),
-    (5, '2024-01-28 09:45:00', 'shipped', 44.98),
-    (6, '2024-01-29 16:55:00', 'completed', 129.99);
-
--- ใส่ข้อมูลใน order_items
-INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
-    -- Order 1: John Smith
-    (1, 1, 1, 999.99),  -- iPhone 15
-    (1, 4, 1, 199.99),  -- Wireless Headphones
+    -- ใส่ข้อมูลใน customers
+    INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
+        ('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
+        ('Sarah Johnson', 'sarah.j@email.com', '555-0102', '456 Oak Ave, City B'),
+        ('Mike Brown', 'mike.brown@email.com', '555-0103', '789 Pine Rd, City C'),
+        ('Emily Davis', 'emily.d@email.com', '555-0104', '321 Elm St, City A'),
+        ('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
+        ('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
+        ('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
+        ('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
     
+    -- ใส่ข้อมูลใน orders
+    INSERT INTO ecommerce.orders (customer_id, order_date, status, total) VALUES
+        (1, '2024-01-15 10:30:00', 'completed', 1199.98),
+        (2, '2024-01-16 14:20:00', 'completed', 219.98),
+        (3, '2024-01-17 09:15:00', 'completed', 159.97),
+        (1, '2024-01-18 11:45:00', 'completed', 79.99),
+        (4, '2024-01-19 16:30:00', 'completed', 89.98),
+        (5, '2024-01-20 13:25:00', 'completed', 1329.98),
+        (2, '2024-01-21 15:10:00', 'completed', 149.99),
+        (6, '2024-01-22 12:40:00', 'completed', 294.97),
+        (3, '2024-01-23 08:50:00', 'completed', 199.99),
+        (7, '2024-01-24 17:20:00', 'completed', 169.98),
+        (1, '2024-01-25 10:15:00', 'completed', 39.99),
+        (8, '2024-01-26 14:35:00', 'completed', 599.97),
+        (4, '2024-01-27 11:20:00', 'processing', 179.98),
+        (5, '2024-01-28 09:45:00', 'shipped', 44.98),
+        (6, '2024-01-29 16:55:00', 'completed', 129.99);
+    
+    -- ใส่ข้อมูลใน order_items
+    INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
+        -- Order 1: John Smith
+        (1, 1, 1, 999.99),  -- iPhone 15
+        (1, 4, 1, 199.99),  -- Wireless Headphones
+        
     -- Order 2: Sarah Johnson  
     (2, 4, 1, 199.99),  -- Wireless Headphones
     (2, 6, 1, 19.99),   -- T-Shirt
