@@ -888,8 +888,7 @@ docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:54
    - `order_items` (order_item_id, order_id, product_id, quantity, price)
 
 3. ใส่ข้อมูลตัวอย่างดังนี้
-   ```
-   
+```
 -- ใส่ข้อมูลใน categories
 INSERT INTO ecommerce.categories (name, description) VALUES
     ('Electronics', 'Electronic devices and gadgets'),
@@ -897,7 +896,7 @@ INSERT INTO ecommerce.categories (name, description) VALUES
     ('Books', 'Books and educational materials'),
     ('Home & Garden', 'Home improvement and garden supplies'),
     ('Sports', 'Sports equipment and accessories');
-
+    
 -- ใส่ข้อมูลใน products
 INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
     ('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
@@ -921,7 +920,7 @@ INSERT INTO ecommerce.products (name, description, price, category_id, stock) VA
     
     ('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
     ('Football', 'Official size football', 29.99, 5, 55);
-
+    
 -- ใส่ข้อมูลใน customers
 INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
     ('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
@@ -931,8 +930,8 @@ INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
     ('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
     ('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
     ('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
-    ('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
-
+    ('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');'
+    
 -- ใส่ข้อมูลใน orders
 INSERT INTO ecommerce.orders (customer_id, order_date, status, total) VALUES
     (1, '2024-01-15 10:30:00', 'completed', 1199.98),
@@ -1015,6 +1014,53 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+--1
+docker exec -it multi-postgres psql -U postgres
+
+--2
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+--3
+CREATE TABLE ecommerce.categories (
+  category_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT
+);
+
+CREATE TABLE ecommerce.products (
+  product_id    BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT,
+  price         NUMERIC(10,2) NOT NULL,
+  category_id   BIGINT REFERENCES ecommerce.categories(category_id),
+  stock         INT NOT NULL
+);
+
+CREATE TABLE ecommerce.customers (
+  customer_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  email         TEXT NOT NULL,
+  phone         TEXT,
+  address       TEXT
+);
+
+CREATE TABLE ecommerce.orders (
+  order_id      BIGSERIAL PRIMARY KEY,
+  customer_id   BIGINT REFERENCES ecommerce.customers(customer_id),
+  order_date    TIMESTAMP NOT NULL,
+  status        TEXT NOT NULL,
+  total         NUMERIC(12,2) NOT NULL
+);
+
+CREATE TABLE ecommerce.order_items (
+  order_item_id BIGSERIAL PRIMARY KEY,
+  order_id      BIGINT REFERENCES ecommerce.orders(order_id),
+  product_id    BIGINT REFERENCES ecommerce.products(product_id),
+  quantity      INT NOT NULL,
+  price         NUMERIC(10,2) NOT NULL
+);
 
 ```
 
