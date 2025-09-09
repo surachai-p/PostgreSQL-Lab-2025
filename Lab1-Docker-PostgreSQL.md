@@ -79,9 +79,11 @@ docker run hello-world
 ```
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
-```
+
 ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
-```
+<img width="547" height="75" alt="image" src="https://github.com/user-attachments/assets/24a7abe4-7018-42da-b128-296b2a057e3e" />
+<img width="1199" height="638" alt="image" src="https://github.com/user-attachments/assets/95d4fb16-1275-4c10-b751-198f503063b6" />
+
 
 ## ขั้นตอนการทดลอง
 
@@ -103,9 +105,10 @@ docker inspect postgres
 
 
 **บันทึกผลการทดลอง - Step 1:**
-```
+
 ใส่ Screenshot ของผลการรัน docker images ที่นี่
-```
+<img width="961" height="138" alt="image" src="https://github.com/user-attachments/assets/ff1da321-ff38-4254-8157-e32abe52cff7" />
+
 
 ### Step 2: Create Docker Volume for Data Persistence
 
@@ -126,9 +129,11 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
-```
+
 ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
-```
+<img width="1176" height="386" alt="image" src="https://github.com/user-attachments/assets/6e432ba1-cffc-4980-abdf-e00abf842ed6" />
+
+
 
 ### Step 3: Create PostgreSQL Container with Volume
 
@@ -160,9 +165,10 @@ docker run --name postgres-lab \
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
-```
+
 ใส่ Screenshot ของผลการรัน docker run ที่นี่
-```
+<img width="1486" height="136" alt="image" src="https://github.com/user-attachments/assets/7738fbeb-ecaa-4682-a73a-1cb58536e0b7" />
+
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -181,12 +187,17 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการรัน docker ps
+<img width="1460" height="127" alt="image" src="https://github.com/user-attachments/assets/bbb091e2-fc75-4796-9d6d-91960e5fc224" />
+
 2. ส่วนหนึ่งของ docker logs postgres-lab
+<img width="1483" height="374" alt="image" src="https://github.com/user-attachments/assets/7bf0008e-50bf-4c48-a7e5-b9b666fe627c" />
+
 3. ผลการรัน docker stats
-```
+<img width="1481" height="509" alt="image" src="https://github.com/user-attachments/assets/65fc3d95-a87a-4290-b9af-1f8c3d02477b" />
+
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
@@ -226,12 +237,18 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการรัน SELECT version();
+<img width="1478" height="180" alt="image" src="https://github.com/user-attachments/assets/e1591fd0-2418-46ae-9882-db383ee310c1" />
+
 2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
+<img width="475" height="582" alt="image" src="https://github.com/user-attachments/assets/96618c77-8ec0-4b2b-b221-0b1c8304b229" />
+
 3. ผลการรัน \l และ \du
-```
+<img width="1468" height="689" alt="image" src="https://github.com/user-attachments/assets/ffdc7127-347f-4ca0-be7f-6d9f4bac38a6" />
+<img width="1480" height="179" alt="image" src="https://github.com/user-attachments/assets/a95d3212-4ce6-4c72-a629-dad88f19f422" />
+
 
 ### Step 6: Database Management Operations
 
@@ -270,12 +287,17 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง lab_db
+   <img width="1035" height="476" alt="image" src="https://github.com/user-attachments/assets/fed74449-5783-4e97-bac1-f818f5989118" />
+
 2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
+  <img width="1474" height="558" alt="image" src="https://github.com/user-attachments/assets/bfb824d3-5c81-40b8-ab93-a593ca46dd23" />
+
 3. ผลการ query ข้อมูลฐานข้อมูล
-```
+<img width="1156" height="480" alt="image" src="https://github.com/user-attachments/assets/f3bc726c-2157-47c6-b244-2223eb7b344d" />
+
 
 ### Step 7: User และ Role Management
 
@@ -328,12 +350,17 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง users ทั้งหมด
+  <img width="594" height="542" alt="image" src="https://github.com/user-attachments/assets/2ef281c1-1675-4bc1-9968-c8710e92dbda" />
+
 2. ผลการรัน \du+
+   <img width="1142" height="336" alt="image" src="https://github.com/user-attachments/assets/21383bf7-f65b-4b20-bd7b-dabca7095a66" />
+
 3. ผลการ query pg_roles
-```
+<img width="1355" height="468" alt="image" src="https://github.com/user-attachments/assets/1f571951-44c1-4363-9073-7623f2c02aa2" />
+
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -390,16 +417,23 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการ ALTER USER commands
-2. ผลการรัน \dp test_permissions
-3. ผลการ GRANT commands
-```
-**คำถาม
- ```
-Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
+  <img width="898" height="135" alt="image" src="https://github.com/user-attachments/assets/2f1e4fe2-7feb-43ab-8a54-c35ae7bb119d" />
 
+2. ผลการรัน \dp test_permissions
+  <img width="1170" height="244" alt="image" src="https://github.com/user-attachments/assets/d8909064-58ec-4238-9456-d5601e64fc2d" />
+
+3. ผลการ GRANT commands
+<img width="737" height="447" alt="image" src="https://github.com/user-attachments/assets/e800398d-c7b6-4755-b69e-de7c4b882be1" />
+<img width="758" height="98" alt="image" src="https://github.com/user-attachments/assets/377e0edb-ea80-4cfe-8325-3f2cbcc0c59b" />
+<img width="766" height="78" alt="image" src="https://github.com/user-attachments/assets/aaff82b3-d9cc-464d-b5f0-73cf3d844348" />
+
+**คำถาม
+ 
+Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
+postgres=arwdDxtm/postgres มีหมายความว่า role postgres เป็นเจ้าของตารางนี้ และมีสิทธิ์ครบถ้วน (INSERT, SELECT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER, MERGE) กับตารางนี้
 
  ```
 ### Step 9: Schema Management และ Namespace
@@ -501,13 +535,20 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง schemas (\dn+)
+   <img width="1232" height="337" alt="image" src="https://github.com/user-attachments/assets/11afed83-4bb7-41d7-9907-badb1189326f" />
+
 2. ผลการสร้างตารางในแต่ละ schema
+<img width="697" height="486" alt="image" src="https://github.com/user-attachments/assets/ab13384c-a227-486e-8849-d7cb9bf3827f" />
+
 3. ผลการใส่ข้อมูลและ query ข้อมูล
+   <img width="1184" height="643" alt="image" src="https://github.com/user-attachments/assets/45806cba-4441-48a5-943f-e14d0444264b" />
+
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
-```
+<img width="1000" height="217" alt="image" src="https://github.com/user-attachments/assets/673af721-4d29-4a69-8a74-c27913e816b7" />
+
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
@@ -568,13 +609,21 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการแสดง search_path
+<img width="573" height="145" alt="image" src="https://github.com/user-attachments/assets/a8468859-859a-43d6-91f7-d29704ceafd2" />
+<img width="930" height="169" alt="image" src="https://github.com/user-attachments/assets/0c45b7da-c105-4330-8562-bcb36d62f982" />
+
 2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
+  <img width="885" height="365" alt="image" src="https://github.com/user-attachments/assets/9c8cdf75-6461-4814-8730-0f59568fa3da" />
+
 3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
+   <img width="1056" height="409" alt="image" src="https://github.com/user-attachments/assets/b5bb2be0-4750-4198-9857-2f9669393641" />
+
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-```
+<img width="1116" height="549" alt="image" src="https://github.com/user-attachments/assets/bec1759a-4565-45a7-b976-6ba8accb7cec" />
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -600,12 +649,17 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการเชื่อมต่อด้วย lab_user
+   <img width="1255" height="126" alt="image" src="https://github.com/user-attachments/assets/9490d92b-8011-4ce3-85f4-d51220e31622" />
+
 2. ผลการทดสอบสิทธิ์ต่างๆ
+   <img width="1239" height="278" alt="image" src="https://github.com/user-attachments/assets/16d513ea-73c2-4f77-9296-822885b99998" />
+
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+<img width="512" height="53" alt="image" src="https://github.com/user-attachments/assets/28c16014-8321-433c-857a-9e390f9669ef" />
+
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -635,12 +689,19 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
+<img width="575" height="77" alt="image" src="https://github.com/user-attachments/assets/8c588c7e-1484-4823-9f96-5a50f91b1bc4" />
+<img width="1480" height="298" alt="image" src="https://github.com/user-attachments/assets/fb5ae9ac-6658-4a70-ad1a-8e28a258889d" />
+
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-3. ผลการสร้าง container พร้อม bind mount
-```
+   <img width="1382" height="169" alt="image" src="https://github.com/user-attachments/assets/6d44688f-30d0-4610-aa25-120b4c57d322" />
+
+4. ผลการสร้าง container พร้อม bind mount
+<img width="1477" height="88" alt="image" src="https://github.com/user-attachments/assets/d9282288-2783-49b2-8698-f6854f9c3be9" />
+<img width="1469" height="192" alt="image" src="https://github.com/user-attachments/assets/a2dcd93e-72cb-4e35-966c-51e322e892c2" />
+
 
 ## การตรวจสอบผลงานและ Performance
 
@@ -660,9 +721,11 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
+
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-```
+<img width="1462" height="116" alt="image" src="https://github.com/user-attachments/assets/df84b842-0078-4942-8559-082083cfcc10" />
+<img width="1476" height="532" alt="image" src="https://github.com/user-attachments/assets/e2b975f9-2fb3-4497-95e1-e60bc7cb7280" />
+
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
@@ -708,12 +771,17 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
+
 ใส่ Screenshot ของ:
 1. Database statistics
+   <img width="1307" height="405" alt="image" src="https://github.com/user-attachments/assets/f4bbc203-3dc2-47ce-a956-3c5093774d39" />
+
 2. Memory configuration
+   <img width="801" height="435" alt="image" src="https://github.com/user-attachments/assets/aa0f6c71-43cb-4c9f-a514-9a48dcf54b6e" />
+
 3. Active connections
-```
+<img width="958" height="268" alt="image" src="https://github.com/user-attachments/assets/20cbc735-e4a6-4983-a8a1-a113e72683ae" />
+
 
 ## การแก้ไขปัญหาเบื้องต้น
 
@@ -769,16 +837,29 @@ docker volume create postgres-data
 
 ```bash
 # พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker run --name multi-postgres ^
+ -e POSTGRES_PASSWORD=multipass123 ^
+ -v multi-postgres-data:/var/lib/postgresql/data ^
+ -p 5434:5432 ^
+ --memory="1.5g" ^
+ --cpus="1.5" ^
+ -d postgres
 
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
+
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
+<img width="1523" height="104" alt="image" src="https://github.com/user-attachments/assets/c6b5899c-dfcf-42a4-8f73-8139219cfe32" />
+
 2. docker ps แสดง container ใหม่
+<img width="1465" height="232" alt="image" src="https://github.com/user-attachments/assets/cc5519a6-8956-4a0e-b4f3-bd839e4e7253" />
+
 3. docker stats แสดงการใช้ resources
-```
+<img width="1471" height="270" alt="image" src="https://github.com/user-attachments/assets/455211af-0ab4-4d11-8b32-050310650462" />
+
+
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -795,16 +876,40 @@ docker volume create postgres-data
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+-- สร้าง Role Groups
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
+
+-- สร้าง Users พร้อมรหัสผ่าน และกำหนดให้เป็นสมาชิก Role Groups
+CREATE USER dev_user WITH PASSWORD 'dev123' LOGIN;
+GRANT app_developers TO dev_user;
+
+CREATE USER analyst_user WITH PASSWORD 'analyst123' LOGIN;
+GRANT data_analysts TO analyst_user;
+
+CREATE USER admin_user WITH PASSWORD 'admin123' LOGIN;
+GRANT db_admins TO admin_user;
+
+-- ตรวจสอบรายชื่อผู้ใช้และกลุ่ม
+\du
 
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
+
 ใส่ Screenshot ของ:
 1. การสร้าง roles และ users
+<img width="581" height="168" alt="image" src="https://github.com/user-attachments/assets/aa19b639-64f3-430d-b46c-130049e6530d" />
+<img width="831" height="372" alt="image" src="https://github.com/user-attachments/assets/be854018-9069-439b-993e-fee4100bafa3" />
+
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
+<img width="1144" height="321" alt="image" src="https://github.com/user-attachments/assets/8e59378e-ae67-455f-afba-2e0eed2bd709" />
+
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+<img width="942" height="119" alt="image" src="https://github.com/user-attachments/assets/f10d98d0-787c-49ab-a57c-20b8e5e65b5f" />
+
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -953,13 +1058,26 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+
 ใส่ Screenshot ของ:
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
+<img width="1220" height="243" alt="image" src="https://github.com/user-attachments/assets/05b8007d-1b22-4b44-a35d-64a257e196a4" />
+<img width="765" height="272" alt="image" src="https://github.com/user-attachments/assets/9d09b4d6-2226-4cb4-b983-5ca90bcf5523" />
+
 2. ข้อมูลตัวอย่างในตารางต่างๆ
+<img width="1374" height="465" alt="image" src="https://github.com/user-attachments/assets/e6a96873-7c1a-4a31-ae67-5c8b598a27f1" />
+<img width="1300" height="442" alt="image" src="https://github.com/user-attachments/assets/a488ce4e-8b63-4fbf-a194-14376d344a17" />
+<img width="957" height="274" alt="image" src="https://github.com/user-attachments/assets/4ab3be1f-e4e2-4227-9b72-ea0aba008228" />
+
 3. ผลการรัน queries ที่สร้าง
+<img width="841" height="429" alt="image" src="https://github.com/user-attachments/assets/de20ff1a-c25c-4adf-a661-ac4c419c53d5" />
+<img width="1141" height="433" alt="image" src="https://github.com/user-attachments/assets/a48277ce-b4a9-496b-bd0f-9e53c8e09f2f" />
+<img width="1127" height="365" alt="image" src="https://github.com/user-attachments/assets/24549c05-594c-46e5-bba0-544ec9c9f999" />
+
 4. การวิเคราะห์ข้อมูลที่ได้
-```
+สินค้าขายดี 5 อันดับแสดงว่ามีความต้องการสูง และควรจัดสต็อกเพิ่ม
+ลูกค้าที่ซื้อสินค้ามากที่สุด อาจเป็นลูกค้าที่ร้านควรทำโปรโมชั่นหรือดูแลเป็นพิเศษ
+
 
 
 ## การทดสอบความเข้าใจ
@@ -973,9 +1091,14 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 4. อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
 
 **คำตอบ Quiz 1:**
-```
-เขียนคำตอบที่นี่
-```
+
+1.Named Volume คือพื้นที่เก็บข้อมูลที่ Docker จัดการให้เอง อยู่ในที่ที่ Docker กำหนดและแยกออกจากไฟล์ระบบของเรา ช่วยให้การเก็บข้อมูลปลอดภัยและง่ายต่อการย้ายหรือแบ็คอัพ
+Bind Mount คือการเอาโฟลเดอร์หรือไฟล์จริงๆ บนเครื่องเรา (host) มาเชื่อมกับ Container ทำให้เราสามารถแก้ไขไฟล์ในเครื่องเราและเห็นผลใน Container ได้ทันที เหมาะกับการพัฒนาและดีบัก แต่ถ้าใช้ผิดวิธีก็อาจเสี่ยงเรื่องสิทธิ์การเข้าถึงไฟล์ได้
+2.shared_buffers คือพื้นที่หน่วยความจำที่ PostgreSQL ใช้เก็บข้อมูลที่อ่านจากดิสก์เอาไว้ชั่วคราว เพื่อให้การอ่านข้อมูลเร็วขึ้นถ้าตั้งไว้เยอะเกินก็อาจทำให้ระบบปฏิบัติการเหลือ RAM น้อยเกินไป จนทำงานช้าลง ถ้าน้อยเกินไปก็เสียประสิทธิภาพของฐานข้อมูล
+3.Schema เปรียบเหมือนโฟลเดอร์แยกกลุ่มข้อมูลในฐานข้อมูลเดียวกันช่วยจัดระเบียบข้อมูลให้ง่ายต่อการจัดการ เช่น แยกข้อมูลของแต่ละโมดูลหรือทีมออกจากกัน แล้วยังช่วยป้องกันชื่อซ้ำ และกำหนดสิทธิ์เข้าถึงข้อมูลได้ละเอียดมากขึ้น ทำให้ฐานข้อมูลใหญ่ๆ ดูแลได้ง่ายขึ้น
+4.Docker ทำให้เราสามารถสร้างฐานข้อมูลขึ้นมาใช้งานได้เร็วมาก โดยไม่ต้องติดตั้งซับซ้อน มีความยืดหยุ่น สามารถสร้างหลายๆ รุ่นหรือหลายๆ ระบบพร้อมกันโดยไม่ชนกัน ช่วยให้ทีมพัฒนาทำงานเหมือนกัน เพราะทุกคนใช้ Container ตัวเดียวกัน
+นอกจากนี้ยังง่ายต่อการทดลอง และย้อนกลับไปใช้สถานะเก่าๆ ได้สบายๆ
+
 
 
 ## สรุปและการประเมินผล
