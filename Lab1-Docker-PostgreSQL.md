@@ -648,8 +648,7 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-![Uploading image.png…]()
-
+<img width="1234" height="826" alt="image" src="https://github.com/user-attachments/assets/32d1480a-86cc-49fa-a960-b90def49518d" />
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
