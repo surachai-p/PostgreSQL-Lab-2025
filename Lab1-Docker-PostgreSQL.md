@@ -171,6 +171,9 @@ docker run --name postgres-lab \
 ```
 ใส่ Screenshot ของผลการรัน docker run ที่นี่
 ```
+<img width="471" height="303" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 09 51 33" src="https://github.com/user-attachments/assets/34917aa6-dccd-4429-a0c0-7ab2efd1b3b0" />
+
+
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -195,6 +198,8 @@ docker volume inspect postgres-data
 2. ส่วนหนึ่งของ docker logs postgres-lab
 3. ผลการรัน docker stats
 ```
+<img width="845" height="304" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 09 55 40" src="https://github.com/user-attachments/assets/f5ca51e9-5df7-4482-862d-40cdd1b8f36d" />
+
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
@@ -240,6 +245,10 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
 3. ผลการรัน \l และ \du
 ```
+<img width="807" height="541" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 09 59 41" src="https://github.com/user-attachments/assets/7d1d825c-a07b-4adb-8458-0f5ce3e2f758" />
+<img width="577" height="83" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 09 59 20" src="https://github.com/user-attachments/assets/9011264e-feed-469d-8c79-89233a1e5e4b" />
+<img width="850" height="281" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 09 59 08" src="https://github.com/user-attachments/assets/90969165-98a4-4212-b313-1958f4e19a68" />
+
 
 ### Step 6: Database Management Operations
 
