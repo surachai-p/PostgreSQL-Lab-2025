@@ -293,6 +293,8 @@ WHERE datname = 'lab_db';
 2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
 3. ผลการ query ข้อมูลฐานข้อมูล
 ```
+<img width="585" height="398" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 07 32" src="https://github.com/user-attachments/assets/c91d248c-ce60-46d1-972a-1277601f17f8" />
+<img width="851" height="279" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 06 34" src="https://github.com/user-attachments/assets/42c48bba-a618-47a4-aa36-c4128bc0210e" />
 
 ### Step 7: User และ Role Management
 
