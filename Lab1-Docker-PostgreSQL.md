@@ -1,3 +1,4 @@
+# 67030011 นายกฤตนัย บุญน้อย
 # Lab 01: PostgreSQL Docker Setup and Basic Operations
 
 ## วัตถุประสงค์
@@ -79,9 +80,7 @@ docker run hello-world
 ```
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
-```
-ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
-```
+![Screenshot%202568-09-09%20at%2009.38.09.png](Screenshot%202568-09-09%20at%2009.38.09.png)
 
 ## ขั้นตอนการทดลอง
 
@@ -103,9 +102,10 @@ docker inspect postgres
 
 
 **บันทึกผลการทดลอง - Step 1:**
-```
-ใส่ Screenshot ของผลการรัน docker images ที่นี่
-```
+
+![Screenshot 1](Screenshot%202568-09-09%20at%2009.41.48.png)
+
+![Screenshot 2](Screenshot%202568-09-09%20at%2009.42.07.png)
 
 ### Step 2: Create Docker Volume for Data Persistence
 
@@ -126,9 +126,8 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
-```
-ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
-```
+
+![Screenshot - Docker Volume Commands](Screenshot%202568-09-09%20at%2009.44.17.png)
 
 ### Step 3: Create PostgreSQL Container with Volume
 
@@ -160,9 +159,8 @@ docker run --name postgres-lab \
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
-```
-ใส่ Screenshot ของผลการรัน docker run ที่นี่
-```
+
+![Screenshot - Docker Run Command](Screenshot%202568-09-09%20at%2009.45.48.png)
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -181,12 +179,17 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการรัน docker ps
-2. ส่วนหนึ่งของ docker logs postgres-lab
-3. ผลการรัน docker stats
-```
+
+1. **ผลการรัน docker ps**
+   ![Screenshot - Docker PS](Screenshot%202568-09-09%20at%2009.47.25.png)
+
+2. **ส่วนหนึ่งของ docker logs postgres-lab**
+   ![Screenshot - Docker Logs](Screenshot%202568-09-09%20at%2009.47.57.png)
+
+3. **ผลการรัน docker stats**
+   ![Screenshot - Docker Stats](Screenshot%202568-09-09%20at%2009.49.21.png)
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
@@ -226,12 +229,18 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการรัน SELECT version();
-2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
-3. ผลการรัน \l และ \du
-```
+
+1. **ผลการรัน SELECT version();**
+   ![Screenshot - PostgreSQL Version](Screenshot%202568-09-09%20at%2009.51.26.png)
+
+2. **ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem; SHOW effective_cache_size;**
+   ![Screenshot - PostgreSQL Configuration](Screenshot%202568-09-09%20at%2009.52.08.png)
+
+3. **ผลการรัน \l และ \du**
+   ![Screenshot - PostgreSQL Databases](Screenshot%202568-09-09%20at%2009.52.40.png)
+   ![Screenshot - PostgreSQL Users](Screenshot%202568-09-09%20at%2009.53.00.png)
 
 ### Step 6: Database Management Operations
 
@@ -270,12 +279,17 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการสร้าง lab_db
-2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
-3. ผลการ query ข้อมูลฐานข้อมูล
-```
+
+1. **ผลการสร้าง lab_db**
+   ![Screenshot - Create Database](Screenshot%202568-09-09%20at%2010.02.34.png)
+
+2. **ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด**
+   ![Screenshot - List All Databases](Screenshot%202568-09-09%20at%2010.00.28.png)
+
+3. **ผลการ query ข้อมูลฐานข้อมูล**
+   ![Screenshot - Database Query](Screenshot%202568-09-09%20at%2010.01.53.png)
 
 ### Step 7: User และ Role Management
 
@@ -328,12 +342,11 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการสร้าง users ทั้งหมด
-2. ผลการรัน \du+
-3. ผลการ query pg_roles
-```
+
+1. **ผลการสร้าง users ทั้งหมด + ผลการรัน \du+ + ผลการ query pg_roles**
+   ![Screenshot - User Management](Screenshot%202568-09-09%20at%2010.04.38.png)
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -390,16 +403,15 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการ ALTER USER commands
-2. ผลการรัน \dp test_permissions
-3. ผลการ GRANT commands
-```
+
+1. **ผลการ ALTER USER commands + ผลการรัน \dp test_permissions + ผลการ GRANT commands**
+   ![Screenshot - User Permissions](Screenshot%202568-09-09%20at%2010.06.36.png)
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
-
+การบอกว่า Role postgres สามารถทำ a r w d D x t m ได้ ก็คือทำได้ทุกอย่างที่ให้ไปจาก superuser
 
  ```
 ### Step 9: Schema Management และ Namespace
@@ -501,13 +513,12 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการสร้าง schemas (\dn+)
-2. ผลการสร้างตารางในแต่ละ schema
-3. ผลการใส่ข้อมูลและ query ข้อมูล
-4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
-```
+
+1. **ผลการสร้าง schemas (\dn+) + ผลการสร้างตารางในแต่ละ schema + ผลการใส่ข้อมูลและ query ข้อมูล + ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema**
+   ![Screenshot - Performance Monitoring 1](Screenshot%202568-09-09%20at%2010.12.18.png)
+   ![Screenshot - Performance Monitoring 2](Screenshot%202568-09-09%20at%2010.12.28.png)
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
@@ -568,13 +579,12 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการแสดง search_path
-2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
-3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
-4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-```
+
+1. **ผลการแสดง search_path + ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders) + ผลการ JOIN ข้าม schemas (sales + hr + inventory) + ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas**
+   ![Screenshot - Backup Process 1](Screenshot%202568-09-09%20at%2010.15.07.png)
+   ![Screenshot - Backup Process 2](Screenshot%202568-09-09%20at%2010.15.14.png)
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -600,12 +610,11 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการเชื่อมต่อด้วย lab_user
-2. ผลการทดสอบสิทธิ์ต่างๆ
-3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+
+1. **ผลการเชื่อมต่อด้วย lab_user + ผลการทดสอบสิทธิ์ต่างๆ + ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์**
+   ![Screenshot - Restore Process](Screenshot%202568-09-09%20at%2010.17.09.png)
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -635,12 +644,11 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการหยุดและเริ่ม Container
-2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-3. ผลการสร้าง container พร้อม bind mount
-```
+
+1. **ผลการหยุดและเริ่ม Container+ ยืนยันว่าข้อมูลยังอยู่หลังจาก restart + ผลการสร้าง container พร้อม bind mount**
+   ![Screenshot - Data Verification](Screenshot%202568-09-09%20at%2010.18.06.png)
 
 ## การตรวจสอบผลงานและ Performance
 
@@ -660,9 +668,10 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
+
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-```
+
+![Screenshot - Container Management](Screenshot%202568-09-09%20at%2010.20.39.png)
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
@@ -708,12 +717,11 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
+
 ใส่ Screenshot ของ:
-1. Database statistics
-2. Memory configuration
-3. Active connections
-```
+
+1. **Database statistics + Memory configuration + Active connections**
+   ![Screenshot - Final Verification](Screenshot%202568-09-09%20at%2010.22.01.png)
 
 ## การแก้ไขปัญหาเบื้องต้น
 
@@ -768,17 +776,31 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker volume create multi-postgres-data
+
+docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1.5g" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres:16.3
 
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
+
 ใส่ Screenshot ของ:
-1. คำสั่งที่ใช้สร้าง container
-2. docker ps แสดง container ใหม่
-3. docker stats แสดงการใช้ resources
-```
+
+1. **คำสั่งที่ใช้สร้าง container**
+   ![Screenshot - Create Container Command](Screenshot%202568-09-09%20at%2010.28.40.png)
+
+2. **docker ps แสดง container ใหม่**
+   ![Screenshot - Docker PS New Container](Screenshot%202568-09-09%20at%2010.29.44.png)
+
+3. **docker stats แสดงการใช้ resources**
+   ![Screenshot - Docker Stats Resources](Screenshot%202568-09-09%20at%2010.30.13.png)
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -794,17 +816,40 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
 
+ALTER ROLE app_developers CREATEDB;
+ALTER ROLE app_developers CREATEROLE;
+
+ALTER ROLE data_analysts CREATEDB;
+
+ALTER ROLE db_admins CREATEDB;
+ALTER ROLE db_admins CREATEROLE;
+ALTER ROLE db_admins BYPASSRLS;
+
+CREATE USER dev_user WITH PASSWORD 'dev123';
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+CREATE USER admin_user WITH PASSWORD 'admin123';
+
+GRANT app_developers TO dev_user;
+GRANT data_analysts TO analyst_user;
+GRANT db_admins TO admin_user;
+
+GRANT CONNECT ON DATABASE lab_db TO app_developers, data_analysts, db_admins;
+GRANT USAGE ON SCHEMA public TO app_developers, data_analysts, db_admins;
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
+
 ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+
+1. **การสร้าง roles และ users** + **ผลการรัน \du แสดงผู้ใช้ทั้งหมด**
+   ![Screenshot - User Management Setup](Screenshot%202568-09-09%20at%2010.42.00.png)
+
+2. **ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ**
+   ![Screenshot - User Connection Test](Screenshot%202568-09-09%20at%2010.44.37.png)
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -955,18 +1000,148 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+
+CREATE TABLE ecommerce.categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+
+CREATE TABLE ecommerce.products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    category_id INTEGER REFERENCES ecommerce.categories(category_id),
+    stock INTEGER DEFAULT 0
+);
+
+
+CREATE TABLE ecommerce.customers (
+    customer_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    address TEXT
+);
+
+
+CREATE TABLE ecommerce.orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INTEGER REFERENCES ecommerce.customers(customer_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'pending',
+    total DECIMAL(10,2) DEFAULT 0
+);
+
+
+CREATE TABLE ecommerce.order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INTEGER REFERENCES ecommerce.orders(order_id),
+    product_id INTEGER REFERENCES ecommerce.products(product_id),
+    quantity INTEGER NOT NULL,
+    price DECIMAL(10,2) NOT NULL
+);
+
+
+INSERT INTO ecommerce.categories (name, description) VALUES
+('Electronics', 'Electronic devices and gadgets'),
+('Clothing', 'Apparel and fashion items'),
+('Books', 'Books and educational materials'),
+('Home & Garden', 'Home improvement and garden supplies'),
+('Sports', 'Sports equipment and accessories');
+
+
+INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
+('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
+('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
+('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
+('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
+('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
+('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
+('Jeans', 'Denim blue jeans', 59.99, 2, 150),
+('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
+('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
+('Hat', 'Baseball cap', 24.99, 2, 120),
+('Programming Book', 'Learn Python programming', 39.99, 3, 40),
+('Novel', 'Best-selling fiction novel', 14.99, 3, 90),
+('Textbook', 'University mathematics textbook', 79.99, 3, 25),
+('Garden Tools Set', 'Complete gardening tool kit', 49.99, 4, 35),
+('Plant Pot', 'Ceramic decorative pot', 15.99, 4, 80),
+('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
+('Football', 'Official size football', 29.99, 5, 55);
+
+
+INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
+('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
+('Sarah Johnson', 'sarah.j@email.com', '555-0102', '456 Oak Ave, City B'),
+('Mike Brown', 'mike.brown@email.com', '555-0103', '789 Pine Rd, City C'),
+('Emily Davis', 'emily.d@email.com', '555-0104', '321 Elm St, City A'),
+('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
+('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
+('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
+('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
+
+
+INSERT INTO ecommerce.orders (customer_id, order_date, status, total) VALUES
+(1, '2024-01-15 10:30:00', 'completed', 1199.98),
+(2, '2024-01-16 14:20:00', 'completed', 219.98),
+(3, '2024-01-17 09:15:00', 'completed', 159.97),
+(1, '2024-01-18 11:45:00', 'completed', 79.99),
+(4, '2024-01-19 16:30:00', 'completed', 89.98),
+(5, '2024-01-20 13:25:00', 'completed', 1329.98),
+(2, '2024-01-21 15:10:00', 'completed', 149.99),
+(6, '2024-01-22 12:40:00', 'completed', 294.97),
+(3, '2024-01-23 08:50:00', 'completed', 199.99),
+(7, '2024-01-24 17:20:00', 'completed', 169.98),
+(1, '2024-01-25 10:15:00', 'completed', 39.99),
+(8, '2024-01-26 14:35:00', 'completed', 599.97),
+(4, '2024-01-27 11:20:00', 'processing', 179.98),
+(5, '2024-01-28 09:45:00', 'shipped', 44.98),
+(6, '2024-01-29 16:55:00', 'completed', 129.99);
+
+
+INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 999.99), (1, 4, 1, 199.99),
+(2, 4, 1, 199.99), (2, 6, 1, 19.99),
+(3, 7, 1, 59.99), (3, 5, 1, 79.99), (3, 6, 1, 19.99),
+(4, 5, 1, 79.99),
+(5, 9, 1, 89.99),
+(6, 3, 1, 1299.99), (6, 12, 2, 14.99),
+(7, 16, 1, 149.99),
+(8, 8, 2, 129.99), (8, 10, 1, 24.99), (8, 11, 1, 39.99),
+(9, 4, 1, 199.99),
+(10, 2, 1, 899.99), (10, 6, 3, 19.99), (10, 14, 1, 49.99),
+(11, 11, 1, 39.99),
+(12, 1, 1, 999.99),
+(13, 17, 6, 29.99),
+(14, 15, 2, 15.99), (14, 12, 1, 14.99),
+(15, 8, 1, 129.99);
+
 
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+
 ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
-```
+
+1. **โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)**
+   ![Screenshot - Schema Structure 1](Screenshot%202568-09-09%20at%2010.50.32.png)
+   ![Screenshot - Schema Structure 2](Screenshot%202568-09-09%20at%2010.50.53.png)
+
+2. **ข้อมูลตัวอย่างในตารางต่างๆ**
+   ![Screenshot - Sample Data](Screenshot%202568-09-09%20at%2010.51.45.png)
+
+3. **ผลการรัน queries ที่สร้าง**
+   ![Screenshot - Query Results](Screenshot%202568-09-09%20at%2010.52.09.png)
+
+4. **การวิเคราะห์ข้อมูลที่ได้**
+   ![Screenshot - Data Analysis](Screenshot%202568-09-09%20at%2010.52.47.png)
 
 
 ## การทดสอบความเข้าใจ
@@ -980,9 +1155,10 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 4. อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
 
 **คำตอบ Quiz 1:**
-```
-เขียนคำตอบที่นี่
-```
+1 Named Volume Dockerเป็นคนจัดการให้ แต่ Bind Mountคือการเชื่อมต่อโฟลเดอร์ในเครื่องโดยตรง
+2  ค่าที่พอดี ไม่มากไม่น้อย น้อยเกินไปต้องอ่าน disk บ่อย จะช้า มากเกินไประบบขาด RAM ต้อง swap ทำให้ ช้ากว่าเดิม
+3 แยกข้อมูลตามงานได้ จัดการสิทธิ์ได้ละเอียด ทำbackupได้
+4 แยกenv ทำเป็นทีมสะดวก ทดสอบง่าย
 
 
 ## สรุปและการประเมินผล
