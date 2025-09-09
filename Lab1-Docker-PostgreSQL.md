@@ -79,9 +79,10 @@ docker run hello-world
 ```
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
-```
+
 ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
-```
+<img width="685" height="769" alt="image" src="https://github.com/user-attachments/assets/1fef44c6-7f2d-4d5c-bb22-f91ab1ceb567" />
+
 
 ## ขั้นตอนการทดลอง
 
@@ -103,9 +104,10 @@ docker inspect postgres
 
 
 **บันทึกผลการทดลอง - Step 1:**
-```
+
 ใส่ Screenshot ของผลการรัน docker images ที่นี่
-```
+<img width="747" height="429" alt="image" src="https://github.com/user-attachments/assets/734260c7-2f6c-4191-8bfc-5a41f4047da9" />
+
 
 ### Step 2: Create Docker Volume for Data Persistence
 
@@ -126,9 +128,10 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
-```
+
 ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
-```
+<img width="679" height="584" alt="image" src="https://github.com/user-attachments/assets/2a2aa170-cee8-4f0f-9a80-233cddcc31b4" />
+
 
 ### Step 3: Create PostgreSQL Container with Volume
 
@@ -160,9 +163,10 @@ docker run --name postgres-lab \
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
-```
+
 ใส่ Screenshot ของผลการรัน docker run ที่นี่
-```
+<img width="1398" height="172" alt="image" src="https://github.com/user-attachments/assets/3275146b-987d-4265-9822-a20b1d27321a" />
+
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -181,12 +185,13 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการรัน docker ps
 2. ส่วนหนึ่งของ docker logs postgres-lab
 3. ผลการรัน docker stats
-```
+<img width="1267" height="770" alt="image" src="https://github.com/user-attachments/assets/ab91b69a-1972-4a04-b6ec-b6277acd60e5" />
+
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
@@ -226,12 +231,13 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการรัน SELECT version();
 2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
 3. ผลการรัน \l และ \du
-```
+<img width="904" height="787" alt="image" src="https://github.com/user-attachments/assets/43ad281c-41c4-4fbd-91cb-112ff7251248" />
+
 
 ### Step 6: Database Management Operations
 
@@ -270,12 +276,13 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง lab_db
 2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
 3. ผลการ query ข้อมูลฐานข้อมูล
-```
+<img width="819" height="775" alt="image" src="https://github.com/user-attachments/assets/9b378279-646f-4b10-afbf-2af71746f327" />
+
 
 ### Step 7: User และ Role Management
 
@@ -328,12 +335,13 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง users ทั้งหมด
 2. ผลการรัน \du+
 3. ผลการ query pg_roles
-```
+<img width="914" height="762" alt="image" src="https://github.com/user-attachments/assets/dbe09596-137f-409f-9127-c277cb5bc646" />
+
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -390,18 +398,38 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการ ALTER USER commands
 2. ผลการรัน \dp test_permissions
 3. ผลการ GRANT commands
-```
+<img width="848" height="784" alt="image" src="https://github.com/user-attachments/assets/bfeb6fe2-bf38-4e06-b471-c46f63b5278d" />
+
 **คำถาม
- ```
+ 
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
+Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
+1. postgres=arwdDxtm/postgres
 
+postgres= → คือ role (user หรือ group role) ที่ได้รับสิทธิ์ (ในที่นี้คือ user postgres)
 
- ```
+/postgres → คือ grantor (ใครเป็นคนให้สิทธิ์)
+
+2. อักษรย่อสิทธิ์ (arwdDxtm)
+
+นี่คือ privileges ที่ PostgreSQL ใช้ตัวย่อแทน:
+
+ตัวอักษร	ความหมาย
+a	INSERT (append)
+r	SELECT (read)
+w	UPDATE (write)
+d	DELETE
+D	TRUNCATE
+x	REFERENCES (ใช้เป็น foreign key ได้)
+t	TRIGGER
+m	UPDATE rules (rule-based rewrite) หรือบางเวอร์ชันหมายถึง MERGE
+arwdDxtm = ได้ครบทุกสิทธิ์ (INSERT, SELECT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER, RULE/MERGE)
+
 ### Step 9: Schema Management และ Namespace
 
 ```sql
@@ -501,13 +529,14 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง schemas (\dn+)
 2. ผลการสร้างตารางในแต่ละ schema
 3. ผลการใส่ข้อมูลและ query ข้อมูล
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
-```
+<img width="734" height="779" alt="image" src="https://github.com/user-attachments/assets/78df1c07-8193-459c-bdca-086341091c5f" />
+
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
@@ -568,13 +597,14 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการแสดง search_path
 2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
 3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-```
+<img width="701" height="784" alt="image" src="https://github.com/user-attachments/assets/0ca7d4d9-b9e3-481a-a8fc-d885ba28c1f4" />
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -600,12 +630,13 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการเชื่อมต่อด้วย lab_user
 2. ผลการทดสอบสิทธิ์ต่างๆ
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+<img width="835" height="781" alt="image" src="https://github.com/user-attachments/assets/ff2c0b42-911c-48ae-b6f5-9c0793f387c3" />
+
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -635,12 +666,13 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
 3. ผลการสร้าง container พร้อม bind mount
-```
+<img width="1399" height="634" alt="image" src="https://github.com/user-attachments/assets/89608ba7-6caa-47a2-8e6d-26ba0f9beea8" />
+
 
 ## การตรวจสอบผลงานและ Performance
 
@@ -660,9 +692,10 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
+
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-```
+<img width="1256" height="784" alt="image" src="https://github.com/user-attachments/assets/7efbb889-983a-4a74-85ab-968fc996878d" />
+
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
@@ -708,12 +741,13 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
+
 ใส่ Screenshot ของ:
 1. Database statistics
 2. Memory configuration
 3. Active connections
-```
+<img width="827" height="796" alt="image" src="https://github.com/user-attachments/assets/ee75c7a5-347d-45b2-a77f-2d20788a8c80" />
+
 
 ## การแก้ไขปัญหาเบื้องต้น
 
@@ -767,17 +801,29 @@ docker volume create postgres-data
 - CPU limit: 1.5 cores
 - Volume: `multi-postgres-data`
 
-```bash
+bash
 # พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
-```
+docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1536m" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres
+
+oneliner:
+docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:5432 --memory="1536m" --cpus="1.5" -v multi-postgres-data:/var/lib/postgresql/data postgres
+
 
 **ผลการทำแบบฝึกหัด 1:**
-```
+
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
 2. docker ps แสดง container ใหม่
 3. docker stats แสดงการใช้ resources
-```
+<img width="1328" height="703" alt="image" src="https://github.com/user-attachments/assets/92180a0f-aee7-419d-8fe8-d92b8ab3f488" />
+
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -792,18 +838,34 @@ docker volume create postgres-data
    - `analyst_user` (รหัสผ่าน: `analyst123`) - เป็นสมาชิกของ data_analysts
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
-```sql
+sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+--สร้าง Role Groups
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
 
-```
+-- สร้าง Users และกำหนดรหัสผ่าน
+CREATE ROLE dev_user LOGIN PASSWORD 'dev123';
+CREATE ROLE analyst_user LOGIN PASSWORD 'analyst123';
+CREATE ROLE admin_user LOGIN PASSWORD 'admin123';
+
+-- จัด Users เข้ากลุ่ม
+GRANT app_developers TO dev_user;
+GRANT data_analysts TO analyst_user;
+GRANT db_admins TO admin_user;
+
+\du
+
 
 **ผลการทำแบบฝึกหัด 2:**
-```
+
 ใส่ Screenshot ของ:
 1. การสร้าง roles และ users
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+<img width="1142" height="460" alt="image" src="https://github.com/user-attachments/assets/2f02fe32-79c9-4b60-8dc4-420700cbd7f5" />
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -947,18 +1009,51 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
 ```sql
+-- 1. สินค้าขายดีที่สุด 5 อันดับ
+SELECT 
+    p.name AS product_name,
+    SUM(oi.quantity) AS total_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.name
+ORDER BY total_sold DESC
+LIMIT 5;
+
+-- 2. ยอดขายรวมของแต่ละหมวดหมู่
+SELECT 
+    c.name AS category_name,
+    SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.name
+ORDER BY total_sales DESC;
+
+-- 3. ลูกค้าที่ซื้อสินค้ามากที่สุด (top 5)
+SELECT 
+    cu.name AS customer_name,
+    SUM(oi.quantity * oi.price) AS total_spent
+FROM ecommerce.orders o
+JOIN ecommerce.order_items oi ON o.order_id = oi.order_id
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+GROUP BY cu.name
+ORDER BY total_spent DESC
+LIMIT 5;
+
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+
 
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+
 ใส่ Screenshot ของ:
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
 2. ข้อมูลตัวอย่างในตารางต่างๆ
 3. ผลการรัน queries ที่สร้าง
 4. การวิเคราะห์ข้อมูลที่ได้
-```
+<img width="853" height="781" alt="image" src="https://github.com/user-attachments/assets/7955a0a8-4b06-436c-bc2c-727afaead480" />
+
 
 
 ## การทดสอบความเข้าใจ
@@ -972,9 +1067,37 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 4. อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
 
 **คำตอบ Quiz 1:**
-```
+
+1.ความแตกต่างระหว่าง Named Volume และ Bind Mount ใน PostgreSQL
+Feature	ที่เก็บข้อมูล ,ความสะดวกในการย้าย/backup ,การควบคุม
+Named Volume	Docker จัดการเก็บใน internal Docker storage (/var/lib/docker/volumes/...) ,ง่ายต่อการ backup, migrate, และ reuse กับ container อื่น ๆ ,Docker จัดการ permission, location, lifecycle
+Bind Mount  ใช้โฟลเดอร์บน host machine ที่กำหนดเอง ,ต้องจัดการไฟล์เอง, ไม่สะดวกในการย้าย ,ผู้ใช้ต้องควบคุม permission และ path ด้วยตัวเอง
+สรุป Named Volume → ดีสำหรับ Persistent Data ของ PostgreSQL
+    Bind Mount → ดีสำหรับ Development & Debugging
+
+2. เหตุใด shared_buffers จึงควรตั้งเป็น 25% ของ RAM
+shared_buffers คือ memory ที่ PostgreSQL ใช้เก็บ cache ของ data pages เพื่อลดการอ่านจาก disk
+     ถ้า set สูงเกิน → อาจทำให้ OS และ process อื่นขาด memory
+    ถ้า set ต่ำเกิน → PostgreSQL ต้องอ่าน disk บ่อย → ช้า
+
+
+3. การใช้ Schema ช่วยในการจัดการฐานข้อมูลขนาดใหญ่
+Schema คือ container ภายในฐานข้อมูล สำหรับจัดกลุ่ม tables, views, functions ฯลฯ
+
+ประโยชน
+1.แบ่ง logical modules → เช่น ecommerce, analytics, audit
+2.ลดความซับซ้อน → ชื่อ table ซ้ำกันได้แต่ใน schema ต่างกัน
+3.ควบคุมสิทธิ์ → Grant/revoke สิทธิ์ per schema
+4.ง่ายต่อการจัดการขนาดใหญ่ → Backup, restore, migrate per schema
+
+4. ประโยชน์ของการใช้ Docker สำหรับ Database Development
+1.Isolation: ไม่กระทบ DB อื่น ๆ บนเครื่องเดียวกัน
+2.Consistency: same environment ทุกเครื่อง → ลดปัญหา "works on my machine"
+3.Portability: ย้าย container ไปเครื่องอื่นง่าย
+4.Rapid setup: สร้าง PostgreSQL container พร้อม config & user ได้ในไม่กี่คำสั่ง
+5.Easy cleanup: ลบ container → environment กลับสู่สถานะเริ่มต้นง่าย
 เขียนคำตอบที่นี่
-```
+
 
 
 ## สรุปและการประเมินผล
