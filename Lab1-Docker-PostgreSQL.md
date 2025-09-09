@@ -571,12 +571,8 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
-ใส่ Screenshot ของ:
-1. ผลการเชื่อมต่อด้วย lab_user
-2. ผลการทดสอบสิทธิ์ต่างๆ
-3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+<img width="1920" height="392" alt="Screenshot (586)" src="https://github.com/user-attachments/assets/fc9dc016-1e2a-4f05-847f-c46db839fd71" />
+
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -606,12 +602,8 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
-ใส่ Screenshot ของ:
-1. ผลการหยุดและเริ่ม Container
-2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-3. ผลการสร้าง container พร้อม bind mount
-```
+<img width="1920" height="809" alt="Screenshot (587)" src="https://github.com/user-attachments/assets/0a9b5d60-e768-4b19-a5a8-acb7fb667e19" />
+
 
 ## การตรวจสอบผลงานและ Performance
 
@@ -631,9 +623,8 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
-ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-```
+<img width="1920" height="539" alt="Screenshot (588)" src="https://github.com/user-attachments/assets/40b29077-0b04-4192-8b16-e5dd2514f61a" />
+
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
@@ -679,12 +670,8 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
-ใส่ Screenshot ของ:
-1. Database statistics
-2. Memory configuration
-3. Active connections
-```
+<img width="1920" height="1080" alt="Screenshot (589)" src="https://github.com/user-attachments/assets/958c9440-256c-4b15-a60b-1644c5ad42cd" />
+
 
 ## การแก้ไขปัญหาเบื้องต้น
 
