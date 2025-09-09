@@ -601,6 +601,9 @@ SET search_path TO public;
 3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
 ```
+<img width="682" height="802" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 48 04" src="https://github.com/user-attachments/assets/ac760507-086a-41e2-9128-8744c419eaf6" />
+<img width="669" height="408" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 48 12" src="https://github.com/user-attachments/assets/a9ec18fc-d456-4254-a918-b20e6de8df86" />
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -632,6 +635,8 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 2. ผลการทดสอบสิทธิ์ต่างๆ
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
 ```
+<img width="843" height="308" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 52 01" src="https://github.com/user-attachments/assets/3fd3f5c3-685d-4cdd-97d7-b78091f9efaa" />
+
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -667,6 +672,9 @@ docker run --name postgres-backup-test \
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
 3. ผลการสร้าง container พร้อม bind mount
 ```
+<img width="846" height="453" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 10 53 47" src="https://github.com/user-attachments/assets/b292d259-3c50-4c4f-8b5a-86f493a5c2de" />
+
+
 
 ## การตรวจสอบผลงานและ Performance
 
@@ -689,6 +697,9 @@ docker volume inspect postgres-data
 ```
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
 ```
+<img width="851" height="452" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 11 02 08" src="https://github.com/user-attachments/assets/4ddf441b-44a4-418d-9845-0ebe4a04ecbc" />
+
+
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
@@ -740,6 +751,8 @@ WHERE state = 'active';
 2. Memory configuration
 3. Active connections
 ```
+<img width="736" height="789" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 11 03 33" src="https://github.com/user-attachments/assets/49ccf52f-0654-40f9-886c-c05f64229889" />
+
 
 ## การแก้ไขปัญหาเบื้องต้น
 
