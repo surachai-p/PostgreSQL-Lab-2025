@@ -798,17 +798,29 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
-
+docker run --name multi-postgres
+  -e POSTGRES_PASSWORD=multipass123
+  -e POSTGRES_DB=testdb 
+  -e POSTGRES_USER=postgres 
+  -v multi-postgres-data:/var/lib/postgresql/data
+  -v postgres-config:/etc/postgresql 
+  -p 5434:5434
+  --memory="1.5g" 
+  --cpus="1.5" 
+  -d postgres 
+  -c shared_buffers=256MB 
+  -c work_mem=16MB 
+  -c maintenance_work_mem=128MB
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
+<img width="963" height="84" alt="image" src="https://github.com/user-attachments/assets/e56fd2bf-b98b-43a1-9e44-30bcf9ad49f3" />
 2. docker ps แสดง container ใหม่
+<img width="961" height="82" alt="image" src="https://github.com/user-attachments/assets/aa1b4f12-97f0-467a-8f31-d95e408b327d" />
 3. docker stats แสดงการใช้ resources
-```
+<img width="950" height="59" alt="image" src="https://github.com/user-attachments/assets/3a0793d1-accb-4eb3-952b-6d9269a08ed6" />
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -824,15 +836,43 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
 
+
+CREATE USER data_analysts WITH 
+    PASSWORD 'analyst123'
+    LOGIN
+    NOSUPERUSER
+    NOCREATEDB
+    NOCREATEROLE
+    NOINHERIT
+    NOREPLICATION
+    CONNECTION LIMIT 10;
+#ดูข้อมูลได้อย่างเดียว
+
+CREATE USER app_developers WITH 
+    PASSWORD 'dev123' 
+    SUPERUSER 
+    CREATEDB 
+    CREATEROLE
+    LOGIN;
+#ให้dev เป็นเเค่  SUPERUSER 
+
+CREATE USER db_admins WITH
+    PASSWORD 'admin123'
+    CREATEDB
+    CREATEROLE
+    LOGIN
+    NOSUPERUSER;
+#admin ทำได้ทุกอย่าง
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
 ```
 ใส่ Screenshot ของ:
 1. การสร้าง roles และ users
+<img width="445" height="454" alt="image" src="https://github.com/user-attachments/assets/b1bec5ad-5a88-4d10-ab35-de3696cbfe21" />
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
+<img width="642" height="159" alt="image" src="https://github.com/user-attachments/assets/1ffbacb9-326e-4b14-9455-8fe23a05bdb9" />
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
 ```
 
