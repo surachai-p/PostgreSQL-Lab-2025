@@ -82,7 +82,7 @@ docker run hello-world
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
 ```
-ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
+<img width="1920" height="464" alt="Screenshot (569)" src="https://github.com/user-attachments/assets/e491889b-77dc-4487-ac1c-8f7795170ec0" />
 ```
 
 ## ขั้นตอนการทดลอง
@@ -106,7 +106,9 @@ docker inspect postgres
 
 **บันทึกผลการทดลอง - Step 1:**
 ```
-ใส่ Screenshot ของผลการรัน docker images ที่นี่
+<img width="1920" height="1080" alt="Screenshot (570)" src="https://github.com/user-attachments/assets/464e3ce1-a8fb-448b-b5e3-a1f0fcff2bde" />
+<img width="1920" height="783" alt="Screenshot (571)" src="https://github.com/user-attachments/assets/339336a8-cb33-435a-86c2-b15927d67639" />
+
 ```
 
 ### Step 2: Create Docker Volume for Data Persistence
@@ -129,7 +131,8 @@ docker volume create postgres-config
 
 **บันทึกผลการทดลอง - Step 2:**
 ```
-ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
+<img width="1920" height="400" alt="Screenshot (572)" src="https://github.com/user-attachments/assets/15bd871d-bdeb-441d-877f-576adb5d3d5d" />
+
 ```
 
 ### Step 3: Create PostgreSQL Container with Volume
@@ -163,7 +166,8 @@ docker run --name postgres-lab \
 
 **บันทึกผลการทดลอง - Step 3:**
 ```
-ใส่ Screenshot ของผลการรัน docker run ที่นี่
+<img width="1920" height="319" alt="Screenshot (573)" src="https://github.com/user-attachments/assets/163729b0-6625-43c1-b583-e43c2735eef3" />
+
 ```
 
 ### Step 4: Verify Container Status and Resource Usage
@@ -185,9 +189,9 @@ docker volume inspect postgres-data
 **บันทึกผลการทดลอง - Step 4:**
 ```
 ใส่ Screenshot ของ:
-1. ผลการรัน docker ps
-2. ส่วนหนึ่งของ docker logs postgres-lab
-3. ผลการรัน docker stats
+1. **ผลการรัน SELECT version();** + 2. **ส่วนหนึ่งของ docker logs postgres-lab**
+<img width="1920" height="981" alt="Screenshot (574)" src="https://github.com/user-attachments/assets/3a8756a9-d073-4705-ba33-1fb9bfa4039c" />
+
 ```
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
