@@ -79,6 +79,7 @@ docker run hello-world
 ```
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
+
 <img width="636" height="357" alt="image" src="https://github.com/user-attachments/assets/1f2a3abd-13f9-4387-a212-3efd523ad1fd" />
 
 ## ขั้นตอนการทดลอง
@@ -101,6 +102,7 @@ docker inspect postgres
 
 
 **บันทึกผลการทดลอง - Step 1:**
+
 <img width="1366" height="669" alt="image" src="https://github.com/user-attachments/assets/34fae7f9-4f4a-47b2-acb9-5119e80d6f6e" />
 
 ### Step 2: Create Docker Volume for Data Persistence
@@ -122,6 +124,7 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
+
 <img width="575" height="392" alt="image" src="https://github.com/user-attachments/assets/1a0f1eca-f32a-44c3-9223-eca3aa815aa2" />
 
 
@@ -155,6 +158,7 @@ docker run --name postgres-lab \
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
+
 <img width="1349" height="62" alt="image" src="https://github.com/user-attachments/assets/98febd08-dfa4-4fc2-bbdd-22b6df583bbb" />
 
 ### Step 4: Verify Container Status and Resource Usage
@@ -174,6 +178,7 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
+
 <img width="1196" height="72" alt="image" src="https://github.com/user-attachments/assets/1aa0b9e7-fc38-4d53-a8f2-a022bf8a6a95" />
 
 <img width="1340" height="590" alt="image" src="https://github.com/user-attachments/assets/a264d584-0f86-47fe-8036-202c8c7cd9b7" />
@@ -218,6 +223,7 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
+
 <img width="973" height="103" alt="image" src="https://github.com/user-attachments/assets/37555594-7747-405c-ae2d-6d621b768418" />
 <img width="936" height="562" alt="image" src="https://github.com/user-attachments/assets/86654218-6a2e-4890-89f1-e44e1ffb6f74" />
 <img width="991" height="292" alt="image" src="https://github.com/user-attachments/assets/6140f153-baa0-43e6-9624-f01d7a490726" />
@@ -260,6 +266,7 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
+
 <img width="995" height="321" alt="image" src="https://github.com/user-attachments/assets/8865814b-4a74-42cd-91a2-73882d0c782f" />
 <img width="990" height="206" alt="image" src="https://github.com/user-attachments/assets/9dea7e41-e71d-4517-9ab5-3c0fb889a822" />
 <img width="663" height="315" alt="image" src="https://github.com/user-attachments/assets/7a6e0378-2fc7-43c6-82f2-0c03209fc86d" />
@@ -315,6 +322,7 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
+
 <img width="341" height="418" alt="image" src="https://github.com/user-attachments/assets/85d2cc08-4b2f-4830-8c55-a5df60d2fab6" />
 <img width="709" height="178" alt="image" src="https://github.com/user-attachments/assets/09c36d72-9009-4d7f-aa14-68aa9b3911fc" />
 <img width="919" height="323" alt="image" src="https://github.com/user-attachments/assets/b6d2918a-8f32-459e-9e17-b0017512b93d" />
@@ -375,6 +383,7 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
+
 <img width="400" height="73" alt="image" src="https://github.com/user-attachments/assets/57f23ad9-d012-48d3-8990-a7873225bcc7" />
 <img width="791" height="138" alt="image" src="https://github.com/user-attachments/assets/896aa137-ec0d-4c2b-8a65-9e5c81b65244" />
 <img width="540" height="316" alt="image" src="https://github.com/user-attachments/assets/00c7ced0-01f3-47cf-bfb9-f31f90d8b94f" />
@@ -484,6 +493,7 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
+
 <img width="805" height="221" alt="image" src="https://github.com/user-attachments/assets/b9aaa16e-0816-4675-82e6-295a3099424c" />
 <img width="597" height="668" alt="image" src="https://github.com/user-attachments/assets/51cf52e5-886c-4f8d-bded-3db0366700d6" />
 <img width="777" height="385" alt="image" src="https://github.com/user-attachments/assets/efeaf9c3-8ee6-4b6a-97cc-fa0286ed29fc" />
@@ -548,6 +558,7 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
+
 <img width="252" height="92" alt="image" src="https://github.com/user-attachments/assets/f500cd4a-b999-476a-8bd2-c5a33ce05238" />
 <img width="440" height="139" alt="image" src="https://github.com/user-attachments/assets/c35bbbe9-f114-4ba5-87dc-29ab37a5467a" />
 <img width="663" height="294" alt="image" src="https://github.com/user-attachments/assets/0adbc80c-cfc9-4d83-8046-5a73e0de29bf" />
@@ -578,6 +589,7 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
+
 <img width="556" height="73" alt="image" src="https://github.com/user-attachments/assets/2ca31917-059c-4c2c-965d-7ad6fe96f881" />
 <img width="896" height="268" alt="image" src="https://github.com/user-attachments/assets/19441960-aeed-4291-8e62-8ce50452f3f8" />
 <img width="347" height="21" alt="image" src="https://github.com/user-attachments/assets/92934b9d-0257-4e8d-9576-35371cf4a7c0" />
@@ -612,6 +624,7 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
+
 <img width="422" height="50" alt="image" src="https://github.com/user-attachments/assets/b0f61ac5-ff1f-448a-bfab-37126c04e644" />
 <img width="316" height="43" alt="image" src="https://github.com/user-attachments/assets/e4dc1130-4225-430f-b791-0dc7ccb86443" />
 <img width="897" height="101" alt="image" src="https://github.com/user-attachments/assets/d439ae70-15e3-4308-999e-a9ae3b4d649f" />
@@ -636,6 +649,7 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
+
 <img width="881" height="385" alt="image" src="https://github.com/user-attachments/assets/51be717f-1e8f-44eb-8d0a-73eea360f09d" />
 
 
@@ -683,6 +697,7 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
+
 <img width="849" height="314" alt="image" src="https://github.com/user-attachments/assets/e2a12788-db2c-4822-9936-4012fae4e9f0" />
 <img width="372" height="349" alt="image" src="https://github.com/user-attachments/assets/2e1733b2-0998-4f8c-94f5-a309339e2955" />
 <img width="682" height="211" alt="image" src="https://github.com/user-attachments/assets/79ed174f-690b-4f7d-a465-af55a5fbc442" />
@@ -752,6 +767,7 @@ docker run --name multi-postgres \
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
+
 <img width="527" height="152" alt="image" src="https://github.com/user-attachments/assets/cef01305-0fe3-4bf4-8058-da2ed51b3a08" />
 <img width="1250" height="105" alt="image" src="https://github.com/user-attachments/assets/684eb158-2c48-400e-885d-829b21f0d9a2" />
 <img width="954" height="86" alt="image" src="https://github.com/user-attachments/assets/0660bef7-e269-49f5-abd9-92a6237cb25d" />
@@ -799,6 +815,7 @@ GRANT db_admins TO admin_user;
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
+
 <img width="519" height="366" alt="image" src="https://github.com/user-attachments/assets/154634a4-ea07-4c70-96d0-a2fdcf74d18a" />
 <img width="634" height="193" alt="image" src="https://github.com/user-attachments/assets/cd9e8da7-b160-45fa-896e-823910c6439d" />
 <img width="485" height="38" alt="image" src="https://github.com/user-attachments/assets/7c69d3ec-b552-4eec-9b0e-1a37c140c8a4" />
@@ -1120,6 +1137,7 @@ LIMIT 1;
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
+
 <img width="784" height="173" alt="image" src="https://github.com/user-attachments/assets/f53def81-f901-420a-bdcb-40cd0782f029" />
 <img width="368" height="179" alt="image" src="https://github.com/user-attachments/assets/8148fb24-29e6-45f5-b4cd-907efb1b97dd" />
 <img width="865" height="637" alt="image" src="https://github.com/user-attachments/assets/c5ca6971-057a-4551-99fd-e512d170223d" />
