@@ -1027,8 +1027,24 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
-
+-- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด:
+SELECT
+    p.product_id,
+    p.name,
+    SUM(oi.quantity) AS total_sold
+FROM
+    ecommerce.products p
+JOIN
+    ecommerce.order_items oi ON p.product_id = oi.product_id
+JOIN
+    ecommerce.orders o ON oi.order_id = o.order_id
+WHERE
+    o.status = 'completed'
+GROUP BY
+    p.product_id, p.name
+ORDER BY
+    total_sold DESC
+LIMIT 5;
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
@@ -1039,7 +1055,11 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 3. ผลการรัน queries ที่สร้าง
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
-
+<img width="933" height="357" alt="image" src="https://github.com/user-attachments/assets/97bdb435-2dae-4c80-851a-ee49eded54fe" />
+<img width="481" height="258" alt="image" src="https://github.com/user-attachments/assets/37d72e13-835b-4f98-b26d-4d34ff96d34b" />
+<img width="492" height="210" alt="image" src="https://github.com/user-attachments/assets/a8fbeb09-2def-406f-869c-857457ca8d52" />
+<img width="457" height="132" alt="image" src="https://github.com/user-attachments/assets/77007fe1-7bea-4ba2-91de-5e0fe01f288d" />
+<img width="465" height="133" alt="image" src="https://github.com/user-attachments/assets/2fa06986-a93c-4c75-901b-fd4da66a6094" />
 
 ## การทดสอบความเข้าใจ
 
@@ -1053,7 +1073,27 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 **คำตอบ Quiz 1:**
 ```
-เขียนคำตอบที่นี่
+เขียนคำตอบที่นี่:
+อธิบายความแตกต่างระหว่าง Named Volume และ Bind Mount ในบริบทของ PostgreSQL
+คำตอบ: Named Volume เป็น volume ที่ Docker จัดการเองโดยอัตโนมัติ เก็บข้อมูลในพื้นที่ของ Docker (เช่น /var/lib/docker/volumes/...)
+ปลอดภัยกว่า, ใช้งานง่าย, และเหมาะกับข้อมูลฐานข้อมูลสำคัญ เพราะไม่ขึ้นกับไฟล์ระบบภายนอก
+Bind Mount ใช้ directory หรือไฟล์จาก host machine โดยตรง Docker จะ map ไฟล์/โฟลเดอร์ host → container
+มีประโยชน์เมื่อต้องการ แก้ไขไฟล์โดยตรงจาก host แต่ความปลอดภัยอาจน้อยกว่าและขึ้นกับ path ของ host
+
+เหตุใด shared_buffers จึงควรตั้งเป็น 25% ของ RAM?
+คำตอบ: shared_buffers คือ memory pool ของ PostgreSQL สำหรับ เก็บข้อมูลตารางและ index ที่ใช้งานบ่อย
+การตั้งค่าเป็นประมาณ 25% ของ RAM ช่วยให้: ลดการอ่านจาก disk บ่อย ๆ → เพิ่ม performance ป้องกันการใช้ memory มากเกินไปจนระบบ OS และโปรเซสอื่น ๆ ขาด memory
+ค่ามาตรฐานแนะนำสำหรับระบบ production คือ 20–25% ของ RAM
+
+การใช้ Schema ช่วยในการจัดการฐานข้อมูลขนาดใหญ่อย่างไร?
+คำตอบ: Schema คือ namespace ภายใน database ช่วยจัดกลุ่มตาราง, view, function ให้เป็นระบบ เช่น: ecommerce → ข้อมูลร้านค้า analytics → ข้อมูลสรุป, report
+audit → ข้อมูล log, history
+ประโยชน์: ลดความซับซ้อนใน database ขนาดใหญ่ ป้องกันการชนชื่อ table หรือ object สามารถกำหนด สิทธิ์การเข้าถึง แยกตาม schema ช่วยให้ backup, restore และ deployment มีระบบมากขึ้น
+
+อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
+คำตอบ: สามารถสร้าง database environment ที่เหมือน production ได้ง่ายและรวดเร็ว แยก environment ของแต่ละโปรเจกต์ → ป้องกัน conflict
+ทำให้ setup database เป็นแบบ repeatable และ portable สามารถกำหนด version ของ PostgreSQL, memory, port, volume ได้ชัดเจน
+เหมาะสำหรับ ทีมพัฒนา เพราะทุกคนใช้ environment เดียวกัน → ลดปัญหา “works on my machine” ง่ายต่อการ backup/restore และการรีเซ็ต database
 ```
 
 
