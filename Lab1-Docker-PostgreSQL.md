@@ -932,13 +932,11 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
-ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
-```
+**1.Schemas + 2. Tables ใน ecommerce + 3. Columns + 4. Top 5 Products**
+<img width="1920" height="815" alt="Screenshot (594)" src="https://github.com/user-attachments/assets/e8bc8013-d25d-427f-9bcc-8bedbce84d1a" />
+**5.ลูกค้าที่ซื้อสินค้ามากที่สุด (Top Customers by Spending)**
+<img width="1920" height="544" alt="Screenshot (595)" src="https://github.com/user-attachments/assets/b2a19ea5-f3c6-4eb2-8055-926302e7cf86" />
+
 
 
 ## การทดสอบความเข้าใจ
