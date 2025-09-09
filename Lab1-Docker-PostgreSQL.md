@@ -954,18 +954,236 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+-- STEP 1: Create Schemas
+CREATE SCHEMA IF NOT EXISTS ecommerce;
+CREATE SCHEMA IF NOT EXISTS analytics;
+CREATE SCHEMA IF NOT EXISTS audit;
+
+-- STEP 2: Create Tables in ecommerce schema
+
+-- categories
+DROP TABLE IF EXISTS ecommerce.categories CASCADE;
+CREATE TABLE ecommerce.categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    description TEXT
+);
+
+-- products
+DROP TABLE IF EXISTS ecommerce.products CASCADE;
+CREATE TABLE ecommerce.products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    description TEXT,
+    price DECIMAL(10,2),
+    category_id INT REFERENCES ecommerce.categories(category_id),
+    stock INT
+);
+
+-- customers
+DROP TABLE IF EXISTS ecommerce.customers CASCADE;
+CREATE TABLE ecommerce.customers (
+    customer_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    address TEXT
+);
+
+-- orders
+DROP TABLE IF EXISTS ecommerce.orders CASCADE;
+CREATE TABLE ecommerce.orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES ecommerce.customers(customer_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50),
+    total DECIMAL(10,2)
+);
+
+-- order_items
+DROP TABLE IF EXISTS ecommerce.order_items CASCADE;
+CREATE TABLE ecommerce.order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES ecommerce.orders(order_id),
+    product_id INT REFERENCES ecommerce.products(product_id),
+    quantity INT,
+    price DECIMAL(10,2)
+);
+
+-- STEP 3: Insert Data
+
+-- categories
+INSERT INTO ecommerce.categories (name, description) VALUES
+('Electronics', 'Electronic devices and gadgets'),
+('Clothing', 'Apparel and fashion items'),
+('Books', 'Books and educational materials'),
+('Home & Garden', 'Home improvement and garden supplies'),
+('Sports', 'Sports equipment and accessories');
+
+-- products
+INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
+('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
+('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
+('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
+('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
+('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
+
+('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
+('Jeans', 'Denim blue jeans', 59.99, 2, 150),
+('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
+('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
+('Hat', 'Baseball cap', 24.99, 2, 120),
+
+('Programming Book', 'Learn Python programming', 39.99, 3, 40),
+('Novel', 'Best-selling fiction novel', 14.99, 3, 90),
+('Textbook', 'University mathematics textbook', 79.99, 3, 25),
+
+('Garden Tools Set', 'Complete gardening tool kit', 49.99, 4, 35),
+('Plant Pot', 'Ceramic decorative pot', 15.99, 4, 80),
+
+('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
+('Football', 'Official size football', 29.99, 5, 55);
+
+-- customers
+INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
+('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
+('Sarah Johnson', 'sarah.j@email.com', '555-0102', '456 Oak Ave, City B'),
+('Mike Brown', 'mike.brown@email.com', '555-0103', '789 Pine Rd, City C'),
+('Emily Davis', 'emily.d@email.com', '555-0104', '321 Elm St, City A'),
+('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
+('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
+('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
+('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
+
+-- orders
+INSERT INTO ecommerce.orders (customer_id, order_date, status, total) VALUES
+(1, '2024-01-15 10:30:00', 'completed', 1199.98),
+(2, '2024-01-16 14:20:00', 'completed', 219.98),
+(3, '2024-01-17 09:15:00', 'completed', 159.97),
+(1, '2024-01-18 11:45:00', 'completed', 79.99),
+(4, '2024-01-19 16:30:00', 'completed', 89.98),
+(5, '2024-01-20 13:25:00', 'completed', 1329.98),
+(2, '2024-01-21 15:10:00', 'completed', 149.99),
+(6, '2024-01-22 12:40:00', 'completed', 294.97),
+(3, '2024-01-23 08:50:00', 'completed', 199.99),
+(7, '2024-01-24 17:20:00', 'completed', 169.98),
+(1, '2024-01-25 10:15:00', 'completed', 39.99),
+(8, '2024-01-26 14:35:00', 'completed', 599.97),
+(4, '2024-01-27 11:20:00', 'processing', 179.98),
+(5, '2024-01-28 09:45:00', 'shipped', 44.98),
+(6, '2024-01-29 16:55:00', 'completed', 129.99);
+
+-- order_items
+INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
+-- Order 1: John Smith
+(1, 1, 1, 999.99),
+(1, 4, 1, 199.99),
+
+-- Order 2: Sarah Johnson
+(2, 4, 1, 199.99),
+(2, 6, 1, 19.99),
+
+-- Order 3: Mike Brown
+(3, 7, 1, 59.99),
+(3, 5, 1, 79.99),
+(3, 6, 1, 19.99),
+
+-- Order 4: John Smith
+(4, 5, 1, 79.99),
+
+-- Order 5: Emily Davis
+(5, 9, 1, 89.99),
+
+-- Order 6: David Wilson
+(6, 3, 1, 1299.99),
+(6, 12, 2, 14.99),
+
+-- Order 7: Sarah Johnson
+(7, 16, 1, 149.99),
+
+-- Order 8: Lisa Anderson
+(8, 8, 2, 129.99),
+(8, 10, 1, 24.99),
+(8, 11, 1, 39.99),
+
+-- Order 9: Mike Brown
+(9, 4, 1, 199.99),
+
+-- Order 10: Tom Miller
+(10, 2, 1, 899.99),
+(10, 6, 3, 19.99),
+(10, 14, 1, 49.99),
+
+-- Order 11: John Smith
+(11, 11, 1, 39.99),
+
+-- Order 12: Amy Taylor
+(12, 1, 1, 999.99),
+
+-- Order 13: Emily Davis
+(13, 17, 6, 29.99),
+
+-- Order 14: David Wilson
+(14, 15, 2, 15.99),
+(14, 12, 1, 14.99),
+
+-- Order 15: Lisa Anderson
+(15, 8, 1, 129.99);
+
+-- STEP 4: Queries
+
+-- 1. Top 5 Best-Selling Products
+SELECT p.name, SUM(oi.quantity) AS total_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.name
+ORDER BY total_sold DESC
+LIMIT 5;
+
+-- 2. Total Sales by Category
+SELECT c.name AS category, SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.name
+ORDER BY total_sales DESC;
+
+-- 3. Top Customer by Spending
+SELECT cu.name, SUM(oi.quantity * oi.price) AS total_spent
+FROM ecommerce.order_items oi
+JOIN ecommerce.orders o ON oi.order_id = o.order_id
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+GROUP BY cu.name
+ORDER BY total_spent DESC
+LIMIT 1;
+
 
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
-ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
+
+<img width="893" height="238" alt="image" src="https://github.com/user-attachments/assets/caf5f467-465e-4fd3-9946-9fcb309ab051" />
+<img width="419" height="231" alt="image" src="https://github.com/user-attachments/assets/a6b96d64-88a4-42e8-8d1f-64f343c9cfe0" />
+
+<img width="616" height="209" alt="image" src="https://github.com/user-attachments/assets/cf874f70-fdd5-4841-a520-afac82e5fa1e" />
+<img width="956" height="212" alt="image" src="https://github.com/user-attachments/assets/c544e3a0-8413-405d-850a-4edc3eb9a5d5" />
+
+<img width="527" height="319" alt="image" src="https://github.com/user-attachments/assets/56bb49af-f727-4cd3-913d-a354e414167d" />
+<img width="731" height="313" alt="image" src="https://github.com/user-attachments/assets/0c46cda1-6459-4f9a-8479-d9a25f1e2436" />
+<img width="800" height="339" alt="image" src="https://github.com/user-attachments/assets/e2431e64-d20f-41cc-9ca0-53f5f02ac354" />
+
 4. การวิเคราะห์ข้อมูลที่ได้
-```
+สินค้าที่ขายดีที่สุด:
+T-Shirt ขายดีที่สุด 7 ชิ้น รองลงมาคือ Wireless Headphones
+สินค้าประเภท Electronics มียอดขายสูงสุดรวม
+
+ยอดขายรวมตามหมวดหมู่:
+Electronics ทำรายได้สูงสุด 2829.94
+Home & Garden และ Books ทำรายได้น้อยที่สุด
+
+ลูกค้าที่ซื้อสินค้ามากที่สุด:
+David Wilson เป็นลูกค้าที่มียอดซื้อสูงสุด รองลงมาคือ John Smith
+ข้อมูลนี้ช่วยวิเคราะห์ customer loyalty และจัดแคมเปญการตลาด
 
 
 ## การทดสอบความเข้าใจ
