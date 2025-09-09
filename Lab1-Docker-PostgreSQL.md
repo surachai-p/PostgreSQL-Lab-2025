@@ -82,10 +82,8 @@ docker run hello-world
 ```
 ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
 ```
-```
 <img width="1710" height="663" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 09 39 34" src="https://github.com/user-attachments/assets/0b92fabb-bc8c-46bf-a41c-ee4e56944a93" />
 <img width="1707" height="989" alt="ภาพถ่ายหน้าจอ 2568-09-09 เวลา 09 40 42" src="https://github.com/user-attachments/assets/8dd859a2-fa17-4961-9ad2-3ab1bcf60499" />
-```
 
 
 
