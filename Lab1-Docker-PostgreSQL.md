@@ -389,11 +389,13 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 
 
 **คำถาม
- ```
+ 
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
+postgres=arwdDxtm/postgres เป็นการแสดง Access Privileges ของ PostgreSQL โดยแบ่งเป็น 3 ส่วน
+Role: postgres ผู้ใช้ที่ได้รับสิทธิ์
+Privileges: arwdDxtm สิทธิ์ที่ผู้ใช้นั้นมี
+Grantor: /postgres สิทธิ์นี้ถูกให้โดย user postgres
 
-
- ```
 ### Step 9: Schema Management และ Namespace
 
 ```sql
