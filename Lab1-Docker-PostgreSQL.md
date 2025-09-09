@@ -1124,7 +1124,20 @@ CREATE TABLE ecommerce.order_items (
 
 **คำตอบ Quiz 1:**
 ```
-เขียนคำตอบที่นี่
+1.Named Volume vs Bind Mount
+  - Named Volume: จัดการโดย Docker, เหมาะเก็บ data ของ Postgres
+  - Bind Mount: map path host เอง, ใช้กับ backup/config
+
+2.shared_buffers ~25% RAM
+  - ให้ PostgreSQL มี cache พอสมดุล
+  - ไม่แย่ง RAM OS มากเกินไป
+3.Schema
+  - แยกกลุ่มตาราง/ฟังก์ชัน
+  - คุมสิทธิ์ง่าย, ป้องกันชื่อซ้ำ
+4.Docker + Database
+  - แยก environment
+  - reproducible, portable
+  - ลบ/สร้างใหม่ง่าย, เหมาะทำ test/dev
 ```
 
 
