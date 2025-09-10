@@ -978,12 +978,12 @@ LIMIT 5;
 4. อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
 
 **คำตอบ Quiz 1:**
-
+```
 1. Named Volume → Docker เก็บให้ / Bind Mount → เอาโฟลเดอร์เราเข้า container
 2. shared_buffers → ตั้งพอดี ไม่มากไม่น้อย เพราะน้อยอ่าน disk บ่อย มากใช้ RAM เกิน
 3. Schema → แยกตารางตามงาน จัดการสิทธิ์ง่าย ทำ backup ง่าย
 4. Docker → แยก environment ทีมทำงานสะดวก ทดสอบง่าย
-
+```
 
 ## สรุปและการประเมินผล
 
