@@ -606,14 +606,17 @@ SET search_path TO public;
 
 ใส่ Screenshot ของ:
 1. ผลการแสดง search_path
-<img width="340" height="173" alt="image" src="https://github.com/user-attachments/assets/9410dfa3-d308-42cb-b5c6-fcc2c47a613f" />
-<img width="409" height="170" alt="image" src="https://github.com/user-attachments/assets/1ccad243-bee9-496f-927a-b166ab28d264" />
+<img width="534" height="222" alt="Screenshot 2025-09-12 235327" src="https://github.com/user-attachments/assets/daea1e74-b7dd-48bf-946e-f0ca497fb504" />
+
 2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
-<img width="862" height="362" alt="image" src="https://github.com/user-attachments/assets/881f09d9-1f5d-4a9c-a994-f7147a6b45bf" />
+<img width="851" height="380" alt="Screenshot 2025-09-13 002257" src="https://github.com/user-attachments/assets/355df522-c985-4f37-b303-c13b5b1bc404" />
+
 3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
-<img width="507" height="320" alt="image" src="https://github.com/user-attachments/assets/af8b5d44-15e3-4497-ad78-c9d060550812" />
+<img width="557" height="359" alt="Screenshot 2025-09-13 002350" src="https://github.com/user-attachments/assets/cc16cd55-8abe-4c5d-ba71-ef029e6397c9" />
+
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-<img width="963" height="911" alt="image" src="https://github.com/user-attachments/assets/b01ee8b2-167a-42a5-848b-26ad10ff8db4" />
+<img width="821" height="488" alt="image" src="https://github.com/user-attachments/assets/3c61ed65-2bba-40d0-ae02-c755ca24458e" />
+
 
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
@@ -640,12 +643,19 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการเชื่อมต่อด้วย lab_user
+<img width="671" height="143" alt="image" src="https://github.com/user-attachments/assets/2a49e8d3-8ec6-4c89-9779-32009f08b409" />
+
 2. ผลการทดสอบสิทธิ์ต่างๆ
+<img width="1003" height="106" alt="image" src="https://github.com/user-attachments/assets/fe5b48ff-9656-4f5a-9feb-daff10433b0d" />
+
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+<img width="885" height="271" alt="image" src="https://github.com/user-attachments/assets/fc8798c9-5bae-457b-9160-758d9002ef2e" />
+<img width="800" height="89" alt="image" src="https://github.com/user-attachments/assets/dcdab16c-f77c-44eb-b39b-47818864683f" />
+
+
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -675,12 +685,17 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
+<img width="830" height="62" alt="image" src="https://github.com/user-attachments/assets/11138ba0-2b1e-45d2-9872-640a8e7fa056" />
+
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
+<img width="1316" height="148" alt="image" src="https://github.com/user-attachments/assets/6b9308cc-3a08-4ebd-a5d9-59c72207f950" />
+
 3. ผลการสร้าง container พร้อม bind mount
-```
+<img width="1349" height="87" alt="image" src="https://github.com/user-attachments/assets/69f2edcb-52b8-4d5e-be75-9f49dcd03d14" />
+
 
 ## การตรวจสอบผลงานและ Performance
 
