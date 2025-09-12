@@ -688,13 +688,13 @@ docker run --name postgres-backup-test \
 
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
-<img width="830" height="62" alt="image" src="https://github.com/user-attachments/assets/11138ba0-2b1e-45d2-9872-640a8e7fa056" />
+<img width="573" height="58" alt="image" src="https://github.com/user-attachments/assets/d5a33acb-76bd-4c68-a4e6-0560efbf7594" />
 
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-<img width="1316" height="148" alt="image" src="https://github.com/user-attachments/assets/6b9308cc-3a08-4ebd-a5d9-59c72207f950" />
+<img width="1071" height="146" alt="image" src="https://github.com/user-attachments/assets/124858cb-527f-477f-90d8-77d41eddb657" />
 
 3. ผลการสร้าง container พร้อม bind mount
-<img width="1349" height="87" alt="image" src="https://github.com/user-attachments/assets/69f2edcb-52b8-4d5e-be75-9f49dcd03d14" />
+<img width="1556" height="88" alt="image" src="https://github.com/user-attachments/assets/6838914d-a115-4885-9ee3-7d4cc5825654" />
 
 
 ## การตรวจสอบผลงานและ Performance
@@ -715,9 +715,10 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
+
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-```
+<img width="978" height="516" alt="image" src="https://github.com/user-attachments/assets/9ddb7d1c-ab1e-449b-9039-ac887b6add5e" />
+
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
