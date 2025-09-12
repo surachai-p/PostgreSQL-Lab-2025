@@ -717,7 +717,7 @@ docker volume inspect postgres-data
 **บันทึกผล Checkpoint 1:**
 
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-<img width="978" height="516" alt="image" src="https://github.com/user-attachments/assets/9ddb7d1c-ab1e-449b-9039-ac887b6add5e" />
+<img width="1099" height="499" alt="image" src="https://github.com/user-attachments/assets/90e66bfe-c02f-4d4a-9594-2cb23cf2b2d2" />
 
 
 ### Checkpoint 2: Database Performance และ Configuration
@@ -764,12 +764,18 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
+
 ใส่ Screenshot ของ:
 1. Database statistics
+<img width="976" height="423" alt="image" src="https://github.com/user-attachments/assets/46dadb61-f6ff-42a6-9141-83a786cddcb2" />
+
 2. Memory configuration
+<img width="550" height="489" alt="image" src="https://github.com/user-attachments/assets/5025a25a-a92c-451a-b637-a06578c7d3b2" />
+
 3. Active connections
-```
+<img width="737" height="301" alt="image" src="https://github.com/user-attachments/assets/7e73cf37-6b5a-4736-b24f-8e13eabe5f54" />
+
+
 
 ## การแก้ไขปัญหาเบื้องต้น
 
@@ -825,16 +831,22 @@ docker volume create postgres-data
 
 ```bash
 # พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:5432 --memory="1536m" --cpus="1.5" -v multi-postgres-data:/var/lib/postgresql/data postgres
 
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
+
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
+<img width="1539" height="90" alt="image" src="https://github.com/user-attachments/assets/ba118b4f-f7e2-44e1-a739-0160f7e7162d" />
+
 2. docker ps แสดง container ใหม่
+<img width="1450" height="177" alt="image" src="https://github.com/user-attachments/assets/45cd844c-69db-40e5-9ddd-1f2f4ba4c7ec" />
+
 3. docker stats แสดงการใช้ resources
-```
+<img width="1200" height="143" alt="image" src="https://github.com/user-attachments/assets/58833158-510c-42a2-ac38-dae14ebddeb0" />
+
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -851,16 +863,46 @@ docker volume create postgres-data
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+--1
+docker exec -it multi-postgres psql -U postgres
+
+--2
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
+
+CREATE ROLE dev_user     LOGIN PASSWORD 'dev123'     IN ROLE app_developers;
+CREATE ROLE analyst_user LOGIN PASSWORD 'analyst123' IN ROLE data_analysts;
+CREATE ROLE admin_user   LOGIN PASSWORD 'admin123'   IN ROLE db_admins;
+
+--3
+# 1) ทดสอบ dev_user
+docker exec -e PGPASSWORD=dev123 -it multi-postgres psql -U dev_user -d postgres -c "SELECT current_user, session_user;"
+
+# 2) ทดสอบ analyst_user
+docker exec -e PGPASSWORD=analyst123 -it multi-postgres psql -U analyst_user -d postgres -c "SELECT current_user, session_user;"
+
+# 3) ทดสอบ admin_user
+docker exec -e PGPASSWORD=admin123 -it multi-postgres psql -U admin_user -d postgres -c "SELECT current_user, session_user;"
 
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
+
 ใส่ Screenshot ของ:
 1. การสร้าง roles และ users
+<img width="728" height="317" alt="image" src="https://github.com/user-attachments/assets/de0910f7-98b5-43ad-b764-7aba08e2b807" />
+
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
+<img width="724" height="322" alt="image" src="https://github.com/user-attachments/assets/e9ac0bb2-5579-499e-bb52-8ca562de3b07" />
+
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+<img width="1236" height="129" alt="image" src="https://github.com/user-attachments/assets/0628fb3d-2ddd-4762-b0fc-67d3db252861" />
+
+<img width="1314" height="151" alt="image" src="https://github.com/user-attachments/assets/27b07741-26f5-4b8c-afa5-75139baa1b93" />
+
+<img width="1282" height="134" alt="image" src="https://github.com/user-attachments/assets/61d9fae3-f205-4c97-83c6-626319f3f9ae" />
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -1005,17 +1047,89 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+--1
+docker exec -it multi-postgres psql -U postgres
 
+--2
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+--3
+CREATE TABLE ecommerce.categories (
+  category_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT
+);
+
+CREATE TABLE ecommerce.products (
+  product_id    BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT,
+  price         NUMERIC(10,2) NOT NULL,
+  category_id   BIGINT REFERENCES ecommerce.categories(category_id),
+  stock         INT NOT NULL
+);
+
+CREATE TABLE ecommerce.customers (
+  customer_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  email         TEXT NOT NULL,
+  phone         TEXT,
+  address       TEXT
+);
+
+CREATE TABLE ecommerce.orders (
+  order_id      BIGSERIAL PRIMARY KEY,
+  customer_id   BIGINT REFERENCES ecommerce.customers(customer_id),
+  order_date    TIMESTAMP NOT NULL,
+  status        TEXT NOT NULL,
+  total         NUMERIC(12,2) NOT NULL
+);
+
+CREATE TABLE ecommerce.order_items (
+  order_item_id BIGSERIAL PRIMARY KEY,
+  order_id      BIGINT REFERENCES ecommerce.orders(order_id),
+  product_id    BIGINT REFERENCES ecommerce.products(product_id),
+  quantity      INT NOT NULL,
+  price         NUMERIC(10,2) NOT NULL
+);
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+
 ใส่ Screenshot ของ:
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
+<img width="918" height="263" alt="image" src="https://github.com/user-attachments/assets/be73bea9-4c25-4919-bf74-c18f3ad78016" />
+
+<img width="435" height="256" alt="image" src="https://github.com/user-attachments/assets/ec7b0af6-e549-48a6-a2ed-7b13e9b82f80" />
+
 2. ข้อมูลตัวอย่างในตารางต่างๆ
+<img width="965" height="231" alt="image" src="https://github.com/user-attachments/assets/6c44c539-23ef-4d09-ad68-9ab9f79d32c9" />
+
+<img width="964" height="342" alt="image" src="https://github.com/user-attachments/assets/2c41b09b-339c-4802-a035-96964b9844a2" />
+
+<img width="955" height="283" alt="image" src="https://github.com/user-attachments/assets/b9b39a45-5e03-4c08-b8c8-2c0fb7de793e" />
+
+
 3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
+<img width="578" height="494" alt="image" src="https://github.com/user-attachments/assets/384c9474-64b9-4eeb-ad5a-0a0e890556de" />
+
+<img width="654" height="498" alt="image" src="https://github.com/user-attachments/assets/0492d20e-c024-43db-9101-b98dfc05228e" />
+
+
+4. การวิเคราะห์ขอมูลที่ได้
 ```
+  Query 7.1 → สินค้าที่ขายดีที่สุด
+  T-Shirt (ขายหลายครั้ง รวมจำนวนเยอะที่สุด)
+
+  Query 7.2 → หมวดหมู่ที่ทำรายได้มากที่สุด
+  Electronics (เพราะ iPhone, MacBook, Galaxy S24 ราคาแพง)
+
+  Query 7.3 → ลูกค้าที่ใช้จ่ายมากที่สุด
+  David Wilson (ซื้อ MacBook + ของอื่น ยอดรวมสูงสุด)
+```
+
 
 
 ## การทดสอบความเข้าใจ
@@ -1030,7 +1144,11 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 **คำตอบ Quiz 1:**
 ```
-เขียนคำตอบที่นี่
+1.Named Volume เหมาะกับการเก็บข้อมูลฐานข้อมูล
+  Bind Mount เหมาะกับการเชื่อมโยงไฟล์จากเครื่อง เช่น backup หรือ custom config
+2.ค่าประมาณ 25% เป็นจุดสมดุลระหว่าง performance และ stability
+3.Schema ทำให้ฐานข้อมูลใหญ่ ๆ มีโครงสร้างที่ชัดเจนและจัดการง่ายขึ้น
+4.Docker ทำให้การพัฒนาและทดสอบฐานข้อมูลมีความยืดหยุ่น ปลอดภัย และควบคุมได้ง่าย
 ```
 
 
