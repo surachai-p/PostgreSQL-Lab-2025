@@ -1106,10 +1106,14 @@ CREATE TABLE ecommerce.order_items (
 
 <img width="680" height="320" alt="image" src="https://github.com/user-attachments/assets/624b983d-59ad-4ce3-81d7-e1bb55be8f0c" />
 
+<img width="1236" height="349" alt="image" src="https://github.com/user-attachments/assets/094ffeb7-0ac7-43d8-ae92-36698fbf58e8" />
+
+
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
 จาก Query 7.1 → สินค้าอะไรขายดีสุด (มักเป็น Football หรือ T-Shirt)
 จาก Query 7.2 → หมวดหมู่ไหนทำรายได้มากที่สุด (เช่น Electronics)
+จาก Query 7.3 → ลูกค้าคนไหนซื้อของมากที่สุด (เช่น John Smith หรือ Lisa Anderson)
 ```
 ## การทดสอบความเข้าใจ
 
