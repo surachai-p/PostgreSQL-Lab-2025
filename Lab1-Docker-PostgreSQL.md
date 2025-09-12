@@ -831,9 +831,8 @@ docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:54
 **ผลการทำแบบฝึกหัด 1:**
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
-```
-docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:5432 --memory="1536m" --cpus="1.5" -v multi-postgres-data:/var/lib/postgresql/data postgres
-```
+<img width="1457" height="76" alt="image" src="https://github.com/user-attachments/assets/5ee2ec27-a02d-47c7-a6c3-d41402b36dcc" />
+
 2. docker ps แสดง container ใหม่
 <img width="1380" height="105" alt="image" src="https://github.com/user-attachments/assets/362c069e-1f88-4e1e-a57b-41c5cfb28903" />
 
