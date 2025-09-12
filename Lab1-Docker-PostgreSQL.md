@@ -289,7 +289,8 @@ WHERE datname = 'lab_db';
 <img width="1374" height="506" alt="image" src="https://github.com/user-attachments/assets/4bfbcb15-fb81-4f94-af48-ca3a3aaa8f8b" />
 
 3. ผลการ query ข้อมูลฐานข้อมูล
-<img width="715" height="363" alt="image" src="https://github.com/user-attachments/assets/632d310b-53a9-4e46-bd4c-1c16be1b682a" />
+<img width="737" height="362" alt="image" src="https://github.com/user-attachments/assets/eb8c0053-db3b-4566-838f-a85f57e37ab9" />
+
 
 ### Step 7: User และ Role Management
 
@@ -342,12 +343,18 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง users ทั้งหมด
+<img width="495" height="461" alt="image" src="https://github.com/user-attachments/assets/de5af1d7-8d61-488f-9913-2b07eb08e943" />
+<img width="402" height="195" alt="image" src="https://github.com/user-attachments/assets/75391dff-cfc6-4ea1-9303-3bc7ec8d0e7e" />
+
 2. ผลการรัน \du+
+<img width="797" height="258" alt="image" src="https://github.com/user-attachments/assets/c20f4971-9b73-488c-bb04-79ea9639c9b8" />
+
 3. ผลการ query pg_roles
-```
+<img width="1051" height="477" alt="image" src="https://github.com/user-attachments/assets/b8a8d8f4-ac0e-4b35-b76a-dd354bedac24" />
+
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -404,16 +411,23 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการ ALTER USER commands
+<img width="594" height="134" alt="image" src="https://github.com/user-attachments/assets/147bde75-f0e7-45a3-8285-742b16dfccbe" />
+
 2. ผลการรัน \dp test_permissions
+<img width="901" height="249" alt="image" src="https://github.com/user-attachments/assets/ed0bf318-d96e-4d61-8ade-211bf283f4a5" />
+
 3. ผลการ GRANT commands
-```
+<img width="649" height="60" alt="image" src="https://github.com/user-attachments/assets/dd357c74-fd60-487e-a238-43b069bc996b" />
+
+
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
-
+- postgres=arwdDxtm/postgres คือการแสดงข้อมูลว่า ผู้ใช้ postgres ได้ให้สิทธิ์ตัวเอง ในการ เพิ่ม, อ่าน, แก้ไข, ลบ, ล้างข้อมูลทั้งหมด
+, สร้าง Foreign Key และสร้าง Trigger บนตารางนั้นๆ 
 
  ```
 ### Step 9: Schema Management และ Namespace
@@ -515,13 +529,19 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง schemas (\dn+)
+<img width="893" height="308" alt="image" src="https://github.com/user-attachments/assets/1b041156-7c0a-4f11-8a7c-880d3dc3efd6" />
+
 2. ผลการสร้างตารางในแต่ละ schema
+
 3. ผลการใส่ข้อมูลและ query ข้อมูล
+<img width="891" height="773" alt="image" src="https://github.com/user-attachments/assets/2793c572-6952-4b7a-a574-5e8754381bd5" />
+
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
-```
+<img width="485" height="60" alt="image" src="https://github.com/user-attachments/assets/4c3bd484-22b9-4502-9c5e-f0d21e197617" />
+
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
