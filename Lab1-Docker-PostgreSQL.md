@@ -889,7 +889,7 @@ docker exec -e PGPASSWORD=admin123 -it multi-postgres \
 <img width="792" height="296" alt="image" src="https://github.com/user-attachments/assets/12346256-4044-4714-8760-1b56712f9a0a" />
 
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-<img width="792" height="296" alt="image" src="https://github.com/user-attachments/assets/6b55a9b3-d86b-40f2-9366-ab0e790643ca" />
+<img width="950" height="265" alt="image" src="https://github.com/user-attachments/assets/7f82e7f2-6cac-4e09-81e5-35d0dbb48bc2" />
 
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
 <img width="1354" height="169" alt="image" src="https://github.com/user-attachments/assets/0d7e11d9-9811-42d4-865d-53d1ad524d0c" />
