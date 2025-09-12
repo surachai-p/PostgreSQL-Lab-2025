@@ -1111,9 +1111,15 @@ CREATE TABLE ecommerce.order_items (
 
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
-จาก Query 7.1 → สินค้าอะไรขายดีสุด (มักเป็น Football หรือ T-Shirt)
-จาก Query 7.2 → หมวดหมู่ไหนทำรายได้มากที่สุด (เช่น Electronics)
-จาก Query 7.3 → ลูกค้าคนไหนซื้อของมากที่สุด (เช่น Emily Davis หรือ Lisa Anderson)
+Query 7.1 – สินค้าขายดีที่สุด
+นับจาก order_items → ตัวที่ขายเยอะสุดคือ Football (6 ชิ้น)
+รองลงมา: T-Shirt (5 ชิ้น), Wireless Headphones (3 ชิ้น), Sneakers (3 ชิ้น), Novel (3 เล่ม)
+
+Query 7.2 – หมวดหมู่ทำรายได้มากที่สุด
+รวม revenue ต่อ category → Electronics ได้สูงสุด
+
+Query 7.3 – ลูกค้าที่ซื้อสินค้ามากที่สุด
+รวมจำนวนชิ้นที่ลูกค้าซื้อ → Emily Davis 
 ```
 ## การทดสอบความเข้าใจ
 
