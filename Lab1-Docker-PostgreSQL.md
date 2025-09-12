@@ -988,7 +988,53 @@ docker exec -e PGPASSWORD=admin123 -it multi-postgres psql -U admin_user -d post
 ```
 ```sql
   -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+--1
+docker exec -it multi-postgres psql -U postgres
 
+--2
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+--3
+CREATE TABLE ecommerce.categories (
+  category_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT
+);
+
+CREATE TABLE ecommerce.products (
+  product_id    BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT,
+  price         NUMERIC(10,2) NOT NULL,
+  category_id   BIGINT REFERENCES ecommerce.categories(category_id),
+  stock         INT NOT NULL
+);
+
+CREATE TABLE ecommerce.customers (
+  customer_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  email         TEXT NOT NULL,
+  phone         TEXT,
+  address       TEXT
+);
+
+CREATE TABLE ecommerce.orders (
+  order_id      BIGSERIAL PRIMARY KEY,
+  customer_id   BIGINT REFERENCES ecommerce.customers(customer_id),
+  order_date    TIMESTAMP NOT NULL,
+  status        TEXT NOT NULL,
+  total         NUMERIC(12,2) NOT NULL
+);
+
+CREATE TABLE ecommerce.order_items (
+  order_item_id BIGSERIAL PRIMARY KEY,
+  order_id      BIGINT REFERENCES ecommerce.orders(order_id),
+  product_id    BIGINT REFERENCES ecommerce.products(product_id),
+  quantity      INT NOT NULL,
+  price         NUMERIC(10,2) NOT NULL
+);
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
@@ -1001,12 +1047,25 @@ docker exec -e PGPASSWORD=admin123 -it multi-postgres psql -U admin_user -d post
 2. ข้อมูลตัวอย่างในตารางต่างๆ
    <img width="1699" height="687" alt="image" src="https://github.com/user-attachments/assets/0a68dfa8-7d09-4f0a-b5ef-5bf90ef8a13a" />
    <img width="1379" height="437" alt="image" src="https://github.com/user-attachments/assets/bf2c1dc3-2ea2-45e1-aaa8-8fcbfced22d1" />
+<img width="1366" height="911" alt="image" src="https://github.com/user-attachments/assets/6ee2ad22-9b9f-481c-b0b3-1f7494ec2862" />
 
 
 4. ผลการรัน queries ที่สร้าง
-5. การวิเคราะห์ข้อมูลที่ได้
+  <img width="1132" height="328" alt="image" src="https://github.com/user-attachments/assets/3953cda4-d7d1-4601-bd75-defa7bc498ad" />
+  <img width="908" height="330" alt="image" src="https://github.com/user-attachments/assets/2c8b33bc-5c3a-4a66-8960-d57771cdf79d" />
 
 
+6. การวิเคราะห์ข้อมูลที่ได้
+```
+Query 7.1 → สินค้าที่ขายดีที่สุด
+T-Shirt (ขายหลายครั้ง รวมจำนวนเยอะที่สุด)
+
+Query 7.2 → หมวดหมู่ที่ทำรายได้มากที่สุด
+ Electronics (เพราะ iPhone, MacBook, Galaxy S24 ราคาแพง)
+
+Query 7.3 → ลูกค้าที่ใช้จ่ายมากที่สุด
+ David Wilson (ซื้อ MacBook + ของอื่น ยอดรวมสูงสุด)
+```
 
 ## การทดสอบความเข้าใจ
 
@@ -1020,7 +1079,10 @@ docker exec -e PGPASSWORD=admin123 -it multi-postgres psql -U admin_user -d post
 
 **คำตอบ Quiz 1:**
 ```
-เขียนคำตอบที่นี่
+1.Named Volume → Docker จัดการเอง, Bind Mount → ผูกกับโฟลเดอร์เรา
+2.shared_buffers = 25% RAM → cache พอดี ไม่หนักเครื่อง
+3.Schema → แยกตาราง ลดชื่อชน คุมสิทธิ์ง่าย
+4.Docker → สร้าง DB ไว แยก env ชัด แชร์ทีมง่าย
 ```
 
 
