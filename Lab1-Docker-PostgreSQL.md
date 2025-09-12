@@ -280,12 +280,16 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง lab_db
+<img width="596" height="184" alt="Screenshot 2025-09-09 125317" src="https://github.com/user-attachments/assets/24c1fd93-79c6-4495-a9de-6f068fa4b4b5" />
+
 2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
+<img width="1374" height="506" alt="image" src="https://github.com/user-attachments/assets/4bfbcb15-fb81-4f94-af48-ca3a3aaa8f8b" />
+
 3. ผลการ query ข้อมูลฐานข้อมูล
-```
+<img width="715" height="363" alt="image" src="https://github.com/user-attachments/assets/632d310b-53a9-4e46-bd4c-1c16be1b682a" />
 
 ### Step 7: User และ Role Management
 
