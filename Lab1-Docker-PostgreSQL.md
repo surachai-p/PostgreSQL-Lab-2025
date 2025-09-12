@@ -535,12 +535,13 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 <img width="893" height="308" alt="image" src="https://github.com/user-attachments/assets/1b041156-7c0a-4f11-8a7c-880d3dc3efd6" />
 
 2. ผลการสร้างตารางในแต่ละ schema
+<img width="664" height="509" alt="image" src="https://github.com/user-attachments/assets/0b9130c3-7a59-468d-8f51-57ddb1bb72b4" />
 
 3. ผลการใส่ข้อมูลและ query ข้อมูล
-<img width="891" height="773" alt="image" src="https://github.com/user-attachments/assets/2793c572-6952-4b7a-a574-5e8754381bd5" />
+<img width="916" height="504" alt="image" src="https://github.com/user-attachments/assets/7d7f15f9-2383-4054-a9db-46cd853a3634" />
 
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
-<img width="485" height="60" alt="image" src="https://github.com/user-attachments/assets/4c3bd484-22b9-4502-9c5e-f0d21e197617" />
+<img width="934" height="149" alt="image" src="https://github.com/user-attachments/assets/b7e9a0b2-5f5f-40d2-ba40-8872e3cde222" />
 
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
@@ -602,13 +603,18 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการแสดง search_path
+<img width="340" height="173" alt="image" src="https://github.com/user-attachments/assets/9410dfa3-d308-42cb-b5c6-fcc2c47a613f" />
+<img width="409" height="170" alt="image" src="https://github.com/user-attachments/assets/1ccad243-bee9-496f-927a-b166ab28d264" />
 2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
+<img width="862" height="362" alt="image" src="https://github.com/user-attachments/assets/881f09d9-1f5d-4a9c-a994-f7147a6b45bf" />
 3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
+<img width="507" height="320" alt="image" src="https://github.com/user-attachments/assets/af8b5d44-15e3-4497-ad78-c9d060550812" />
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-```
+<img width="963" height="911" alt="image" src="https://github.com/user-attachments/assets/b01ee8b2-167a-42a5-848b-26ad10ff8db4" />
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
