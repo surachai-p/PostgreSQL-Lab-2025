@@ -1058,11 +1058,208 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    ```
    สร้าง queries เพื่อหาคำตอบ:
    - หาสินค้าที่ขายดีที่สุด 5 อันดับ
+```sql
+SELECT 
+    p.product_id,
+    p.name AS product_name,
+    SUM(oi.quantity) AS total_quantity_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.product_id, p.name
+ORDER BY total_quantity_sold DESC
+LIMIT 5;
+```
    - หายอดขายรวมของแต่ละหมวดหมู่
+```sql
+SELECT 
+    c.category_id,
+    c.name AS category_name,
+    SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.category_id, c.name
+ORDER BY total_sales DESC;
+
+```
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
+```sql
+SELECT 
+    cu.customer_id,
+    cu.name AS customer_name,
+    SUM(oi.quantity * oi.price) AS total_spent
+FROM ecommerce.orders o
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+JOIN ecommerce.order_items oi ON o.order_id = oi.order_id
+GROUP BY cu.customer_id, cu.name
+ORDER BY total_spent DESC
+LIMIT 1;
+```
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+CREATE TABLE ecommerce.categories (
+  category_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT
+);
+
+CREATE TABLE ecommerce.products (
+  product_id    BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT,
+  price         NUMERIC(10,2) NOT NULL,
+  category_id   BIGINT REFERENCES ecommerce.categories(category_id),
+  stock         INT NOT NULL
+);
+
+CREATE TABLE ecommerce.customers (
+  customer_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  email         TEXT NOT NULL,
+  phone         TEXT,
+  address       TEXT
+);
+
+CREATE TABLE ecommerce.orders (
+  order_id      BIGSERIAL PRIMARY KEY,
+  customer_id   BIGINT REFERENCES ecommerce.customers(customer_id),
+  order_date    TIMESTAMP NOT NULL,
+  status        TEXT NOT NULL,
+  total         NUMERIC(12,2) NOT NULL
+);
+
+CREATE TABLE ecommerce.order_items (
+  order_item_id BIGSERIAL PRIMARY KEY,
+  order_id      BIGINT REFERENCES ecommerce.orders(order_id),
+  product_id    BIGINT REFERENCES ecommerce.products(product_id),
+  quantity      INT NOT NULL,
+  price         NUMERIC(10,2) NOT NULL
+);
+
+INSERT INTO ecommerce.categories (name, description)
+VALUES 
+  ('Electronics', 'Electronic devices and gadgets'),
+  ('Clothing', 'Apparel and fashion items'),
+  ('Books', 'Books and educational materials'),
+  ('Home & Garden', 'Home improvement and garden supplies'),
+  ('Sports', 'Sports equipment and accessories');
+
+INSERT INTO ecommerce.products (name, description, price, category_id, stock) 
+VALUES 
+  ('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
+  ('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
+  ('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
+  ('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
+  ('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
+
+  ('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
+  ('Jeans', 'Denim blue jeans', 59.99, 2, 150),
+  ('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
+  ('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
+  ('Hat', 'Baseball cap', 24.99, 2, 120),
+
+  ('Programming Book', 'Learn Python programming', 39.99, 3, 40),
+  ('Novel', 'Best-selling fiction novel', 14.99, 3, 90),
+  ('Textbook', 'University mathematics textbook', 79.99, 3, 25),
+
+  ('Garden Tools Set', 'Complete gardening tool kit', 49.99, 4, 35),
+  ('Plant Pot', 'Ceramic decorative pot', 15.99, 4, 80),
+
+  ('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
+  ('Football', 'Official size football', 29.99, 5, 55);
+
+INSERT INTO ecommerce.customers (name, email, phone, address) 
+VALUES 
+  ('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
+  ('Sarah Johnson', 'sarah.j@email.com', '555-0102', '456 Oak Ave, City B'),
+  ('Mike Brown', 'mike.brown@email.com', '555-0103', '789 Pine Rd, City C'),
+  ('Emily Davis', 'emily.d@email.com', '555-0104', '321 Elm St, City A'),
+  ('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
+  ('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
+  ('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
+  ('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
+
+INSERT INTO ecommerce.orders (customer_id, order_date, status, total) 
+VALUES 
+  (1, '2024-01-15 10:30:00', 'completed', 1199.98),
+  (2, '2024-01-16 14:20:00', 'completed', 219.98),
+  (3, '2024-01-17 09:15:00', 'completed', 159.97),
+  (1, '2024-01-18 11:45:00', 'completed', 79.99),
+  (4, '2024-01-19 16:30:00', 'completed', 89.98),
+  (5, '2024-01-20 13:25:00', 'completed', 1329.98),
+  (2, '2024-01-21 15:10:00', 'completed', 149.99),
+  (6, '2024-01-22 12:40:00', 'completed', 294.97),
+  (3, '2024-01-23 08:50:00', 'completed', 199.99),
+  (7, '2024-01-24 17:20:00', 'completed', 169.98),
+  (1, '2024-01-25 10:15:00', 'completed', 39.99),
+  (8, '2024-01-26 14:35:00', 'completed', 599.97),
+  (4, '2024-01-27 11:20:00', 'processing', 179.98),
+  (5, '2024-01-28 09:45:00', 'shipped', 44.98),
+  (6, '2024-01-29 16:55:00', 'completed', 129.99);
+
+INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) 
+VALUES 
+  -- Order 1: John Smith
+  (1, 1, 1, 999.99),  -- iPhone 15
+  (1, 4, 1, 199.99),  -- Wireless Headphones
+
+  -- Order 2: Sarah Johnson
+  (2, 4, 1, 199.99),  -- Wireless Headphones
+  (2, 6, 1, 19.99),   -- T-Shirt
+
+  -- Order 3: Mike Brown
+  (3, 7, 1, 59.99),   -- Jeans
+  (3, 5, 1, 79.99),   -- Gaming Mouse
+  (3, 6, 1, 19.99),   -- T-Shirt
+
+  -- Order 4: John Smith
+  (4, 5, 1, 79.99),   -- Gaming Mouse
+
+  -- Order 5: Emily Davis
+  (5, 9, 1, 89.99),   -- Jacket
+
+  -- Order 6: David Wilson
+  (6, 3, 1, 1299.99), -- MacBook Air
+  (6, 12, 2, 14.99),  -- Novel x2
+
+  -- Order 7: Sarah Johnson
+  (7, 16, 1, 149.99), -- Tennis Racket
+
+  -- Order 8: Lisa Anderson
+  (8, 8, 2, 129.99),  -- Sneakers x2
+  (8, 10, 1, 24.99),  -- Hat
+  (8, 11, 1, 39.99),  -- Programming Book
+
+  -- Order 9: Mike Brown
+  (9, 4, 1, 199.99),  -- Wireless Headphones
+
+  -- Order 10: Tom Miller
+  (10, 2, 1, 899.99), -- Samsung Galaxy S24
+  (10, 6, 3, 19.99),  -- T-Shirt x3
+  (10, 14, 1, 49.99), -- Garden Tools Set
+
+  -- Order 11: John Smith
+  (11, 11, 1, 39.99), -- Programming Book
+
+  -- Order 12: Amy Taylor
+  (12, 1, 1, 999.99), -- iPhone 15 (ลดราคาเหลือ 599.97)
+
+  -- Order 13: Emily Davis (processing)
+  (13, 17, 6, 29.99), -- Football x6
+
+  -- Order 14: David Wilson (shipped)
+  (14, 15, 2, 15.99), -- Plant Pot x2
+  (14, 12, 1, 14.99), -- Novel
+
+  -- Order 15: Lisa Anderson
+  (15, 8, 1, 129.99); -- Sneakers
+
+
 
 ```
 
