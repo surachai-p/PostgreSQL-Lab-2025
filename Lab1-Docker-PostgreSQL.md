@@ -920,6 +920,7 @@ docker exec -e PGPASSWORD=admin123 -it multi-postgres psql -U admin_user -d post
    - `order_items` (order_item_id, order_id, product_id, quantity, price)
 
 3. ใส่ข้อมูลตัวอย่างดังนี้
+
 ```sql
    
 -- ใส่ข้อมูลใน categories
@@ -1039,6 +1040,7 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
     
     -- Order 15: Lisa Anderson
     (15, 8, 1, 129.99); -- Sneakers
+```
 ```
    สร้าง queries เพื่อหาคำตอบ:
    - หาสินค้าที่ขายดีที่สุด 5 อันดับ
