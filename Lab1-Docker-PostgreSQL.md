@@ -1113,7 +1113,7 @@ CREATE TABLE ecommerce.order_items (
 ```
 จาก Query 7.1 → สินค้าอะไรขายดีสุด (มักเป็น Football หรือ T-Shirt)
 จาก Query 7.2 → หมวดหมู่ไหนทำรายได้มากที่สุด (เช่น Electronics)
-จาก Query 7.3 → ลูกค้าคนไหนซื้อของมากที่สุด (เช่น John Smith หรือ Lisa Anderson)
+จาก Query 7.3 → ลูกค้าคนไหนซื้อของมากที่สุด (เช่น Emily Davis หรือ Lisa Anderson)
 ```
 ## การทดสอบความเข้าใจ
 
