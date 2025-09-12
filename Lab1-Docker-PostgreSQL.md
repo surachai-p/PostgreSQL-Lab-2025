@@ -778,7 +778,11 @@ docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:54
 <img width="1719" height="138" alt="image" src="https://github.com/user-attachments/assets/4d143ba7-6931-45bb-a51a-e1e5accf9c41" />
 
 2. docker ps แสดง container ใหม่
-3. docker stats แสดงการใช้ resources
+<img width="1715" height="223" alt="image" src="https://github.com/user-attachments/assets/d3950781-1476-4359-b00d-67510e3c5715" />
+
+4. docker stats แสดงการใช้ resources
+   <img width="1572" height="134" alt="image" src="https://github.com/user-attachments/assets/038f7b21-3ba6-4ceb-b98d-9ab25a2ed0d6" />
+
 ```
 
 ### แบบฝึกหัด 2: User Management และ Security
@@ -796,15 +800,42 @@ docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:54
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+--1
+docker exec -it multi-postgres psql -U postgres
 
+--2
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
+
+CREATE ROLE dev_user     LOGIN PASSWORD 'dev123'     IN ROLE app_developers;
+CREATE ROLE analyst_user LOGIN PASSWORD 'analyst123' IN ROLE data_analysts;
+CREATE ROLE admin_user   LOGIN PASSWORD 'admin123'   IN ROLE db_admins;
+
+--3
+# 1) ทดสอบ dev_user
+docker exec -e PGPASSWORD=dev123 -it multi-postgres psql -U dev_user -d postgres -c "SELECT current_user, session_user;"
+
+# 2) ทดสอบ analyst_user
+docker exec -e PGPASSWORD=analyst123 -it multi-postgres psql -U analyst_user -d postgres -c "SELECT current_user, session_user;"
+
+# 3) ทดสอบ admin_user
+docker exec -e PGPASSWORD=admin123 -it multi-postgres psql -U admin_user -d postgres -c "SELECT current_user, session_user;"
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
-ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
+
+<img width="1113" height="580" alt="image" src="https://github.com/user-attachments/assets/9629dbae-4b3b-46e7-a6d8-77c2fafda19e" />
+
+<img width="1246" height="329" alt="image" src="https://github.com/user-attachments/assets/6857d7f2-8398-4a3e-8c86-453fd368160b" />
+
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
+    <img width="1711" height="190" alt="image" src="https://github.com/user-attachments/assets/51b7c9f9-1a99-4814-be1e-e9286696ca19" />
+
+    <img width="1702" height="159" alt="image" src="https://github.com/user-attachments/assets/4185b0b8-f516-4070-82eb-1f8fbb5917df" />
+   
+<img width="1690" height="199" alt="image" src="https://github.com/user-attachments/assets/3a927e6f-561b-464a-ae58-6212887f1366" />
+
 ```
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
@@ -961,13 +992,20 @@ docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:54
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
-ใส่ Screenshot ของ:
+
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
+<img width="1469" height="290" alt="image" src="https://github.com/user-attachments/assets/c0ed614a-b6a3-4938-bf18-c96e8cf69923" />
+
+<img width="736" height="295" alt="image" src="https://github.com/user-attachments/assets/37b733d6-db22-4179-81e0-6551753fee12" />
+
 2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
-```
+   <img width="1699" height="687" alt="image" src="https://github.com/user-attachments/assets/0a68dfa8-7d09-4f0a-b5ef-5bf90ef8a13a" />
+   <img width="1379" height="437" alt="image" src="https://github.com/user-attachments/assets/bf2c1dc3-2ea2-45e1-aaa8-8fcbfced22d1" />
+
+
+4. ผลการรัน queries ที่สร้าง
+5. การวิเคราะห์ข้อมูลที่ได้
+
 
 
 ## การทดสอบความเข้าใจ
