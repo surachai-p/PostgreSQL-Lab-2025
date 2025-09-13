@@ -659,13 +659,13 @@ docker run --name postgres-backup-test \
 ใส่ Screenshot ของ:
 - **1. ผลการหยุดและเริ่ม Container**
 
-![alt text](image-38.png)
+![alt text](image-36.png)
 - **2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart**
 
 ![alt text](image-37.png)
 - **3. ผลการสร้าง container พร้อม bind mount**
 
-![alt text](image-36.png)
+![alt text](image-38.png)
 
 ## การตรวจสอบผลงานและ Performance
 
