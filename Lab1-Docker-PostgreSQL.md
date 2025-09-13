@@ -834,17 +834,34 @@ docker run -d \
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+-- สร้าง Role Groups
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
+
+-- สร้าง Users และกำหนดรหัสผ่าน พร้อมกับ assign ให้แต่ละกลุ่ม
+CREATE USER dev_user WITH PASSWORD 'dev123';
+GRANT app_developers TO dev_user;
+
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+GRANT data_analysts TO analyst_user;
+
+CREATE USER admin_user WITH PASSWORD 'admin123';
+GRANT db_admins TO admin_user;
 
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
 ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+- **1. การสร้าง roles และ users**
+
+![alt text](image-48.png)
+- **2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด**
+
+![alt text](image-49.png)
+- **3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ**
+
+![alt text](image-50.png)
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
