@@ -1012,18 +1012,57 @@ GRANT db_admins TO admin_user;
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 ```
 ```sql
-  -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+-- สินค้าขายดีที่สุด 5 อันดับ
+SELECT p.name, SUM(oi.quantity) AS total_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.name
+ORDER BY total_sold DESC
+LIMIT 5;
+
+-- ยอดขายรวมของแต่ละหมวดหมู่
+SELECT c.name AS category_name, SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.name
+ORDER BY total_sales DESC;
+
+-- ลูกค้าที่ซื้อสินค้ามากที่สุด
+SELECT cu.name AS customer_name, SUM(oi.quantity * oi.price) AS total_spent
+FROM ecommerce.orders o
+JOIN ecommerce.order_items oi ON o.order_id = oi.order_id
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+GROUP BY cu.name
+ORDER BY total_spent DESC
+LIMIT 1;
 
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
 ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
+- **1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)**
+
+![alt text](image-51.png)
+- **2. ข้อมูลตัวอย่างในตารางต่างๆ**
+
+![alt text](image-55.png)
+![alt text](image-56.png)
+- **3. ผลการรัน queries ที่สร้าง**
+
+![alt text](image-52.png)
+![alt text](image-53.png)
+![alt text](image-54.png)
+- **4. การวิเคราะห์ข้อมูลที่ได้**
 ```
+- total_sold = จำนวนสินค้าที่ขายได้ทั้งหมด
+เเละสินค้าที่ขายดีคือ T-Shirt
+- total_sales = จำนวนเงินรวมจากการขายสินค้าในหมวดนั้นๆ
+เเละ Electronics มียอดขายรวมสูงสุด
+- total_spent = จำนวนเงินที่ลูกค้าคนนั้นซื้อทั้งหมด
+เเละลูกค้า David Wilson เป็นลูกค้ารายใหญ่
+```
+
 
 
 ## การทดสอบความเข้าใจ
