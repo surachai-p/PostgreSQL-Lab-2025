@@ -620,13 +620,13 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ใส่ Screenshot ของ:
 - **1. ผลการเชื่อมต่อด้วย lab_user**
 
-
+![alt text](image-33.png)
 - **2. ผลการทดสอบสิทธิ์ต่างๆ**
 
-
+![alt text](image-35.png)
 - **3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์**
 
-
+![alt text](image-34.png)
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
