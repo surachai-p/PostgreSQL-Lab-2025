@@ -818,6 +818,7 @@ docker run -d \
 
 ![alt text](image-47.png)
 - **3. docker stats แสดงการใช้ resources**
+
 ![alt text](image-45.png)
 
 ### แบบฝึกหัด 2: User Management และ Security
