@@ -813,7 +813,8 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+docker run -d --name multi-postgres -e POSTGRES_PASSWORD=multipass123 -p 5434:5432 --memory="1.5g" --cpus="1.5" -v multi-postgres-data:/var/lib/postgresql/data postgres
+
 
 ```
 
@@ -824,6 +825,14 @@ docker volume create postgres-data
 2. docker ps แสดง container ใหม่
 3. docker stats แสดงการใช้ resources
 ```
+คำสั่งที่ใช้สร้าง container
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 00 50 06" src="https://github.com/user-attachments/assets/06747195-937d-409f-84f0-0f83b6410857" />
+docker ps แสดง container ใหม่
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 00 50 06" src="https://github.com/user-attachments/assets/b815d847-febd-4104-af69-7a7d3de06573" />
+docker stats แสดงการใช้ resources
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 00 51 42" src="https://github.com/user-attachments/assets/2d1cb131-6b5d-4c4d-8f3a-fd38a1d95ef0" />
+
+
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -839,7 +848,23 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+สร้าง Role Groups
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
+สร้าง Users และกำหนดให้เป็นสมาชิกกลุ่ม
+-- User นักพัฒนา
+CREATE USER dev_user WITH PASSWORD 'dev123';
+GRANT app_developers TO dev_user;
+
+-- User นักวิเคราะห์ข้อมูล
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+GRANT data_analysts TO analyst_user;
+
+-- User ผู้ดูแลฐานข้อมูล
+CREATE USER admin_user WITH PASSWORD 'admin123';
+GRANT db_admins TO admin_user;
+
 
 ```
 
@@ -850,6 +875,13 @@ docker volume create postgres-data
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
 ```
+การสร้าง roles และ users
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 00 00" src="https://github.com/user-attachments/assets/6a7d0443-25e3-4732-9b04-4118693627e5" />
+\du
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 02 06" src="https://github.com/user-attachments/assets/7dfbd39b-5904-49c4-bfc2-9728e583477a" />
+ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 05 25" src="https://github.com/user-attachments/assets/de48eaf7-dab7-4912-8c34-1ed40c5b3362" />
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -993,9 +1025,89 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+CREATE TABLE ecommerce.categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+
+CREATE TABLE ecommerce.products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT,
+    price NUMERIC(10,2) NOT NULL,
+    category_id INT REFERENCES ecommerce.categories(category_id),
+    stock INT NOT NULL
+);
+
+
+CREATE TABLE ecommerce.customers (
+    customer_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(50),
+    address TEXT
+);
+
+
+CREATE TABLE ecommerce.orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES ecommerce.customers(customer_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50),
+    total NUMERIC(12,2)
+);
+
+
+CREATE TABLE ecommerce.order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES ecommerce.orders(order_id) ON DELETE CASCADE,
+    product_id INT REFERENCES ecommerce.products(product_id),
+    quantity INT NOT NULL,
+    price NUMERIC(10,2) NOT NULL
+);
+
+-- Categories
+INSERT INTO ecommerce.categories (name, description) VALUES
+('Electronics', 'Electronic devices and gadgets'),
+('Clothing', 'Apparel and fashion items'),
+('Books', 'Books and educational materials'),
+('Home & Garden', 'Home improvement and garden supplies'),
+('Sports', 'Sports equipment and accessories');
+
+-- Products
+INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
+('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
+('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
+('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
+('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
+('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
+('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
+('Jeans', 'Denim blue jeans', 59.99, 2, 150),
+('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
+('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
+('Hat', 'Baseball cap', 24.99, 2, 120),
+('Programming Book', 'Learn Python programming', 39.99, 3, 40),
+('Novel', 'Best-selling fiction novel', 14.99, 3, 90),
+('Textbook', 'University mathematics textbook', 79.99, 3, 25),
+('Garden Tools Set', 'Complete gardening tool kit', 49.99, 4, 35),
+('Plant Pot', 'Ceramic decorative pot', 15.99, 4, 80),
+('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
+('Football', 'Official size football', 29.99, 5, 55);
 
 ```
+หาสินค้าที่ขายดีที่สุด 5 อันดับ
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 21 08" src="https://github.com/user-attachments/assets/56fa20fe-3a1c-4c95-836f-f2789f65f331" />
+หายอดขายรวมของแต่ละหมวดหมู่
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 21 57" src="https://github.com/user-attachments/assets/248a926d-a61a-45a1-8ab4-1d16a5f0d659" />
+
+หาลูกค้าที่ซื้อสินค้ามากที่สุด
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 22 25" src="https://github.com/user-attachments/assets/250e3b03-4cc7-4660-9173-263136d741f7" />
 
 **ผลการทำแบบฝึกหัด 3:**
 ```
@@ -1005,7 +1117,13 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 3. ผลการรัน queries ที่สร้าง
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
+โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 23 17" src="https://github.com/user-attachments/assets/041945b5-7057-4e72-895b-879c1f9ce30c" />
+ข้อมูลตัวอย่างในตารางต่างๆ
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 26 10" src="https://github.com/user-attachments/assets/18b71267-9a7f-47f2-8037-306cca48ce88" />
 
+ผลการรัน queries ที่สร้าง การวิเคราะห์ข้อมูลที่ได้
+<img width="1470" height="956" alt="ภาพถ่ายหน้าจอ 2568-09-14 เวลา 01 32 28" src="https://github.com/user-attachments/assets/1da78813-b1ec-4c1e-a706-020db66d50ce" />
 
 ## การทดสอบความเข้าใจ
 
@@ -1019,7 +1137,19 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 **คำตอบ Quiz 1:**
 ```
-เขียนคำตอบที่นี่
+อธิบายความแตกต่างระหว่าง Named Volume และ Bind Mount ในบริบทของ PostgreSQL
+-Named Volume ปลอดภัยและจัดการง่ายสำหรับ production, Bind Mount สะดวกสำหรับการพัฒนาและ debugging
+เหตุใด shared_buffers จึงควรตั้งเป็น 25% ของ RAM?
+-ลดการอ่านดิสก์ซ้ำ
+-เพิ่ม performance ในการ query
+-ไม่กิน memory ของ OS เกินไป
+การใช้ Schema ช่วยในการจัดการฐานข้อมูลขนาดใหญ่อย่างไร?
+-จัดกลุ่มข้อมูลตามโมดูลหรือฟังก์ชัน (เช่น ecommerce, analytics, audit)
+-ลดความซ้ำซ้อนของชื่อ table
+-ง่ายต่อการกำหนดสิทธิ์และการ backup
+อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
+-สร้าง environment ใหม่ได้ง่าย
+-ง่ายต่อการทำ version control และ rollback
 ```
 
 
