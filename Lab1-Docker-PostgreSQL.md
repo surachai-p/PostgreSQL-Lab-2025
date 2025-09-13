@@ -389,17 +389,22 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
 ใส่ Screenshot ของ:
-1. ผลการ ALTER USER commands
-2. ผลการรัน \dp test_permissions
-3. ผลการ GRANT commands
-```
-**คำถาม
+- **1. ผลการ ALTER USER commands**
+
+![alt text](image-22.png)
+- **2. ผลการรัน \dp test_permissions**
+
+![alt text](image-21.png)
+- **3. ผลการ GRANT commands**
+
+![alt text](image-23.png)
+
+--- 
+**คำถาม**
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
-
-
+    = ความหมายคือการกำหนดสิทธิ์ใน PostgreSQL ที่ระบุว่าผู้ใช้ 'postgres' มีสิทธิ์ 'arwdDxtm'
  ```
 ### Step 9: Schema Management และ Namespace
 
@@ -500,13 +505,19 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
 ใส่ Screenshot ของ:
-1. ผลการสร้าง schemas (\dn+)
-2. ผลการสร้างตารางในแต่ละ schema
-3. ผลการใส่ข้อมูลและ query ข้อมูล
-4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
-```
+- **1. ผลการสร้าง schemas (\dn+)**
+
+
+- **2. ผลการสร้างตารางในแต่ละ schema**
+
+
+- **3. ผลการใส่ข้อมูลและ query ข้อมูล**
+
+
+- **4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema**
+
+
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
@@ -567,13 +578,19 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
 ใส่ Screenshot ของ:
-1. ผลการแสดง search_path
-2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
-3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
-4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-```
+- **1. ผลการแสดง search_path**
+
+
+- **2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)**
+
+
+- **3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)**
+
+
+- **4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas**
+
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -599,12 +616,16 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
 ใส่ Screenshot ของ:
-1. ผลการเชื่อมต่อด้วย lab_user
-2. ผลการทดสอบสิทธิ์ต่างๆ
-3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+- **1. ผลการเชื่อมต่อด้วย lab_user**
+
+
+- **2. ผลการทดสอบสิทธิ์ต่างๆ**
+
+
+- **3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์**
+
+
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -634,12 +655,16 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
 ใส่ Screenshot ของ:
-1. ผลการหยุดและเริ่ม Container
-2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-3. ผลการสร้าง container พร้อม bind mount
-```
+- **1. ผลการหยุดและเริ่ม Container**
+
+
+- **2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart**
+
+
+- **3. ผลการสร้าง container พร้อม bind mount**
+
+
 
 ## การตรวจสอบผลงานและ Performance
 
