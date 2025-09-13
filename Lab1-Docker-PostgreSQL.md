@@ -582,16 +582,16 @@ SET search_path TO public;
 ใส่ Screenshot ของ:
 - **1. ผลการแสดง search_path**
 
-
+![alt text](image-29.png)
 - **2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)**
 
-
+![alt text](image-30.png)
 - **3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)**
 
-
+![alt text](image-31.png)
 - **4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas**
 
-
+![alt text](image-32.png)
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
