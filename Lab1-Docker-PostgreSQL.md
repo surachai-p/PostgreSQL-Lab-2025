@@ -79,7 +79,7 @@ docker run hello-world
 ```
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
-```
+
 ![alt text](image.png)
 ```
 
@@ -103,7 +103,7 @@ docker inspect postgres
 
 
 **บันทึกผลการทดลอง - Step 1:**
-```
+
 ![alt text](image-1.png)
 ```
 
@@ -126,7 +126,7 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
-```
+
 ![alt text](image-2.png)
 ```
 
@@ -160,7 +160,7 @@ docker run --name postgres-lab \
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
-```
+
 ![alt text](image-3.png)
 ```
 
@@ -181,7 +181,7 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
-```
+
 ใส่ Screenshot ของ:
 1. ![alt text](image-4.png)
 2. ![alt text](image-5.png)
@@ -226,7 +226,7 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
+
 ใส่ Screenshot ของ:
 1. ![alt text](image-7.png)
 2. ![alt text](image-8.png)
@@ -274,7 +274,7 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
+
 ใส่ Screenshot ของ:
 1. ![alt text](image-14.png)
 2. ![alt text](image-15.png)
@@ -332,7 +332,7 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
+
 ใส่ Screenshot ของ:
 1. ![alt text](image-17.png)
 2. ![alt text](image-18.png)
@@ -394,15 +394,16 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการ ALTER USER commands
-2. ผลการรัน \dp test_permissions
-3. ผลการ GRANT commands
+1. ![alt text](image-20.png)
+2. ![alt text](image-21.png)
+3. ![alt text](image-22.png)
 ```
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
+postgres=arwdDxtm/postgres หมายความว่า ผู้ใช้ postgres ได้รับสิทธิ์การเข้าถึงตารางแบบเต็มรูปแบบ โดยสิทธิ์ที่กำหนดประกอบด้วย INSERT (a) เพื่อเพิ่มข้อมูล, SELECT (r) เพื่ออ่านข้อมูล, UPDATE (w) เพื่อแก้ไขข้อมูล, DELETE (d) เพื่อลบข้อมูล, TRUNCATE (D) เพื่อล้างข้อมูลทั้งหมดในตาราง, REFERENCES (x) เพื่อสร้างความสัมพันธ์แบบ Foreign Key, TRIGGER (t) เพื่อสร้างทริกเกอร์ และ RULE (m) เพื่อจัดการกฎการเขียนใหม่ (rewrite rules) ทั้งหมดนี้ได้รับการมอบสิทธิ์โดยผู้ใช้ postgres เอง ซึ่งเป็นเจ้าของตารางหรือผู้ดูแลระบบฐานข้อมูล จึงสรุปได้ว่า postgres=arwdDxtm/postgres แสดงถึงสิทธิ์เต็มที่ผู้ใช้ postgres มีต่อวัตถุในฐานข้อมูล โดยสิทธิ์ทั้งหมดถูกกำหนดโดยผู้ใช้ postgres อีกทีหนึ่ง
 
 
  ```
@@ -505,12 +506,12 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการสร้าง schemas (\dn+)
-2. ผลการสร้างตารางในแต่ละ schema
-3. ผลการใส่ข้อมูลและ query ข้อมูล
-4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
+1. ![alt text](image-23.png)
+2. ![alt text](image-24.png)
+3. ![alt text](image-25.png)
+4. ![alt text](image-26.png)
 ```
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
@@ -572,12 +573,12 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการแสดง search_path
-2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
-3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
-4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
+1. ![alt text](image-27.png)
+2. ![alt text](image-28.png)
+3. ![alt text](image-29.png)
+4. ![alt text](image-30.png)
 ```
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
@@ -604,11 +605,11 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการเชื่อมต่อด้วย lab_user
-2. ผลการทดสอบสิทธิ์ต่างๆ
-3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
+1. ![alt text](image-31.png)
+2. ![alt text](image-32.png)
+3. ![alt text](image-33.png)
 ```
 
 ### Step 12: การจัดการ Volume และ Data Persistence
@@ -639,11 +640,11 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
+
 ใส่ Screenshot ของ:
-1. ผลการหยุดและเริ่ม Container
-2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-3. ผลการสร้าง container พร้อม bind mount
+1. ![alt text](image-34.png)
+2. ![alt text](image-36.png)
+3. ![alt text](image-35.png)
 ```
 
 ## การตรวจสอบผลงานและ Performance
@@ -664,8 +665,9 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
-ใส่ Screenshot ของ resource usage และ volume information ที่นี่
+
+![alt text](image-37.png)
+![alt text](image-38.png)
 ```
 
 ### Checkpoint 2: Database Performance และ Configuration
@@ -712,11 +714,11 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
+
 ใส่ Screenshot ของ:
-1. Database statistics
-2. Memory configuration
-3. Active connections
+1. ![alt text](image-39.png)
+2. ![alt text](image-40.png)
+3. ![alt text](image-41.png)
 ```
 
 ## การแก้ไขปัญหาเบื้องต้น
@@ -777,11 +779,11 @@ docker volume create postgres-data
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
+
 ใส่ Screenshot ของ:
-1. คำสั่งที่ใช้สร้าง container
-2. docker ps แสดง container ใหม่
-3. docker stats แสดงการใช้ resources
+1. ![alt text](image-42.png)
+2. ![alt text](image-43.png)
+3. ![alt text](image-44.png)
 ```
 
 ### แบบฝึกหัด 2: User Management และ Security
@@ -803,11 +805,13 @@ docker volume create postgres-data
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
+ 
 ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
+1. ![alt text](image-45.png)
+2. ![alt text](image-46.png)
+3. ![alt text](image-47.png)
+    ![alt text](image-48.png)
+    ![alt text](image-49.png)
 ```
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
