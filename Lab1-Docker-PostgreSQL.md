@@ -798,17 +798,27 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
-
+docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1.5g" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres:latest
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
 ใส่ Screenshot ของ:
-1. คำสั่งที่ใช้สร้าง container
-2. docker ps แสดง container ใหม่
-3. docker stats แสดงการใช้ resources
-```
+- **1. คำสั่งที่ใช้สร้าง container**
+
+![alt text](image-44.png)
+![alt text](image-46.png)
+- **2. docker ps แสดง container ใหม่**
+
+![alt text](image-47.png)
+- **3. docker stats แสดงการใช้ resources**
+![alt text](image-45.png)
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
