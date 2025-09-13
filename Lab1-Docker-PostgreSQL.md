@@ -323,12 +323,16 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
 ใส่ Screenshot ของ:
-1. ผลการสร้าง users ทั้งหมด
-2. ผลการรัน \du+
-3. ผลการ query pg_roles
-```
+- **1. ผลการสร้าง users ทั้งหมด**
+
+![alt text](image-19.png)
+- **2. ผลการรัน \du+**
+
+![alt text](image-18.png)
+- **3. ผลการ query pg_roles**
+
+![alt text](image-20.png)
 
 ### Step 8: การจัดการสิทธิ์ User
 
