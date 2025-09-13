@@ -685,9 +685,10 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
-ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-```
+- **ใส่ Screenshot ของ resource usage และ volume information ที่นี่**
+
+![alt text](image-39.png)
+![alt text](image-40.png)
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
