@@ -79,10 +79,10 @@ docker run hello-world
 ```
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
-```
+
 ![alt text](image.png)
 
-```
+
 
 ## ขั้นตอนการทดลอง
 
@@ -104,10 +104,10 @@ docker inspect postgres
 
 
 **บันทึกผลการทดลอง - Step 1:**
-```
+
 ![alt text](image-1.png)
 
-```
+
 
 ### Step 2: Create Docker Volume for Data Persistence
 
@@ -128,10 +128,10 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
-```
+
 ![alt text](image-2.png)
 
-```
+
 
 ### Step 3: Create PostgreSQL Container with Volume
 
@@ -163,10 +163,10 @@ docker run --name postgres-lab \
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
-```
+
 ![alt text](image-3.png)
 
-```
+
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -185,12 +185,12 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
-```
+
 ![alt text](image-4.png)
 ![alt text](image-5.png)
 ![alt text](image-6.png)
 ![alt text](image-7.png)
-```
+
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
@@ -230,13 +230,13 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
+
 ใส่ Screenshot ของ:
 ![alt text](image-8.png)
 ![alt text](image-9.png)
 ![alt text](image-10.png)
 ![alt text](image-11.png)
-```
+
 
 ### Step 6: Database Management Operations
 
@@ -275,12 +275,12 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
+
 ![alt text](image-12.png)
 ![alt text](image-13.png)
 ![alt text](image-14.png)
 
-```
+
 
 ### Step 7: User และ Role Management
 
@@ -333,7 +333,7 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง users ทั้งหมด
 ![alt text](image-15.png)
@@ -342,7 +342,7 @@ WHERE r.rolname NOT LIKE 'pg_%';
 3. ผลการ query pg_roles
 ![alt text](image-17.png)
 
-```
+
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -399,7 +399,7 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการ ALTER USER commands
 ![alt text](image-18.png)
@@ -408,7 +408,7 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 3. ผลการ GRANT commands
 ![alt text](image-20.png)
 
-```
+
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
@@ -515,7 +515,7 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง schemas (\dn+)
 ![alt text](image-21.png)
@@ -526,7 +526,7 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ![alt text](image-24.png)
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
 ![alt text](image-25.png)
-```
+
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
@@ -587,7 +587,7 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการแสดง search_path
 ![alt text](image-26.png)
@@ -597,7 +597,7 @@ SET search_path TO public;
 ![alt text](image-28.png)
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
 ![alt text](image-29.png)
-```
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -623,7 +623,7 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการเชื่อมต่อด้วย lab_user
 ![alt text](image-30.png)
@@ -632,7 +632,7 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
 - ERROR:  permission denied for schema sales
 - ERROR:  permission denied for table test_permissions
-```
+
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -662,7 +662,7 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
+
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
 ![alt text](image-32.png)
@@ -670,7 +670,7 @@ docker run --name postgres-backup-test \
 ![alt text](image-33.png)
 3. ผลการสร้าง container พร้อม bind mount
 ![alt text](image-34.png)
-```
+
 
 ## การตรวจสอบผลงานและ Performance
 
@@ -690,9 +690,9 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
+
 ![alt text](image-35.png)
-```
+
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
@@ -738,7 +738,7 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
+
 ใส่ Screenshot ของ:
 1. Database statistics
 ![alt text](image-36.png)
@@ -746,7 +746,7 @@ WHERE state = 'active';
 ![alt text](image-37.png)
 3. Active connections
 ![alt text](image-38.png)
-```
+
 
 ## การแก้ไขปัญหาเบื้องต้น
 
@@ -812,7 +812,7 @@ docker run --name multi-postgres \
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
+
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
 docker run --name multi-postgres \
@@ -828,7 +828,7 @@ docker run --name multi-postgres \
 ![alt text](image-40.png)
 3. docker stats แสดงการใช้ resources
 ![alt text](image-41.png)
-```
+
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -866,7 +866,7 @@ GRANT db_admins TO admin_user;
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
+
 ใส่ Screenshot ของ:
 1. การสร้าง roles และ users
 ![alt text](image-42.png)
@@ -877,7 +877,7 @@ GRANT db_admins TO admin_user;
 ![alt text](image-45.png)
 ![alt text](image-46.png)
 
-```
+
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -1152,7 +1152,7 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+
 ใส่ Screenshot ของ:
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
 ![alt text](image-51.png)
@@ -1197,7 +1197,7 @@ Home & Garden: 81.97 (≈ 1.42%)
 สิน้าคา Clothing/Sports มียอด “จำนวนชิ้น” ดี แต่สัดส่วนรายได้ยังตามหลัง Electronics ชัดเจน
 ถ้าจะวิเคราะห์ “รายได้จริงต่อออเดอร์” ให้ใช้ข้อมูลจาก order_items เป็นหลัก (เพราะ orders.total ในบางออเดอร์ต่างจากผลรวมรายการ—อาจมีส่วนลด/ปรับราคา)
 
-```
+
 
 
 ## การทดสอบความเข้าใจ
