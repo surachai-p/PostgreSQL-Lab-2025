@@ -734,12 +734,16 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
 ใส่ Screenshot ของ:
-1. Database statistics
-2. Memory configuration
-3. Active connections
-```
+- **1. Database statistics**
+
+![alt text](image-41.png)
+- **2. Memory configuration**
+
+![alt text](image-42.png)
+- **3. Active connections**
+
+![alt text](image-43.png)
 
 ## การแก้ไขปัญหาเบื้องต้น
 
