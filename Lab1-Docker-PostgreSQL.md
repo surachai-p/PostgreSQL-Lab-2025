@@ -774,7 +774,14 @@ docker volume create postgres-data
 - Volume: `multi-postgres-data`
 
 ```bash
-# พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
+   docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1.5g" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres
 
 ```
 
@@ -800,7 +807,23 @@ docker volume create postgres-data
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+สร้าง Role Groups
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
+
+สร้าง Users และกำหนดรหัสผ่าน + ให้เป็นสมาชิกของ Role Groups
+CREATE USER dev_user WITH PASSWORD 'dev123';
+GRANT app_developers TO dev_user;
+
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+GRANT data_analysts TO analyst_user;
+
+CREATE USER admin_user WITH PASSWORD 'admin123';
+GRANT db_admins TO admin_user;
+
+ตรวจสอบ Users และ Roles ทั้งหมด
+\du
 
 ```
 
@@ -956,17 +979,115 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
 ```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+สร้าง Schemas
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+สร้าง Tables ใน ecommerce
+CREATE TABLE ecommerce.categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE ecommerce.products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price NUMERIC(10,2) NOT NULL,
+    category_id INT REFERENCES ecommerce.categories(category_id),
+    stock INT NOT NULL
+);
+
+CREATE TABLE ecommerce.customers (
+    customer_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(50),
+    address TEXT
+);
+
+CREATE TABLE ecommerce.orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES ecommerce.customers(customer_id),
+    order_date TIMESTAMP NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    total NUMERIC(10,2)
+);
+
+CREATE TABLE ecommerce.order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES ecommerce.orders(order_id),
+    product_id INT REFERENCES ecommerce.products(product_id),
+    quantity INT NOT NULL,
+    price NUMERIC(10,2) NOT NULL
+);
+
+INSERT ข้อมูลตัวอย่าง
+
+(คัดลอก INSERT INTO ทั้งหมดที่โจทย์ให้มา เช่น categories, products, customers, orders, order_items)
+
+ตัวอย่าง
+INSERT INTO ecommerce.categories (name, description) VALUES
+('Electronics', 'Electronic devices and gadgets'),
+('Clothing', 'Apparel and fashion items'),
+('Books', 'Books and educational materials'),
+('Home & Garden', 'Home improvement and garden supplies'),
+('Sports', 'Sports equipment and accessories');
+
+(ใส่ INSERT ทั้งหมดสำหรับ products, customers, orders, order_items ตามโจทย์)
+
+4ตรวจสอบข้อมูลตัวอย่าง (ถ้าต้องการแสดงในรายงาน)
+SELECT * FROM ecommerce.categories;
+SELECT * FROM ecommerce.products;
+SELECT * FROM ecommerce.customers;
+SELECT * FROM ecommerce.orders;
+SELECT * FROM ecommerce.order_items;
+
+5 อันดับสินค้าขายดีที่สุด
+SELECT p.name AS product_name,
+       SUM(oi.quantity) AS total_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.name
+ORDER BY total_sold DESC
+LIMIT 5;
+
+ยอดขายรวมของแต่ละหมวดหมู่
+SELECT c.name AS category_name,
+       SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.name
+ORDER BY total_sales DESC;
+
+ลูกค้าที่ซื้อสินค้ามากที่สุด
+SELECT cu.name AS customer_name,
+       SUM(oi.quantity) AS total_items
+FROM ecommerce.orders o
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+JOIN ecommerce.order_items oi ON o.order_id = oi.order_id
+GROUP BY cu.name
+ORDER BY total_items DESC
+LIMIT 1;
 
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+
 ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
+1. ![alt text](image-50.png)
+2. ![alt text](image-51.png)
+3. ![alt text](image-52.png)
+    ![alt text](image-53.png)
+    ![alt text](image-54.png)
+4. สินค้าขายดี – อันดับสูงสุดคือ Wireless Headphones, รองลงมาคือ T-Shirt, Sneakers, iPhone 15 และ Football
+
+หมวดหมู่ยอดขายรวมสูงสุด – Electronics ทำรายได้มากที่สุด ตามด้วย Clothing, ส่วน Books, Sports, และ Home & Garden มียอดขายรองลงมา
+
+ลูกค้าที่ซื้อสินค้ามากที่สุด – John Smith มียอดซื้อรวมสูงสุด
 ```
 
 
@@ -983,7 +1104,24 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 **คำตอบ Quiz 1:**
 ```
 เขียนคำตอบที่นี่
-```
+```1.ความแตกต่างระหว่างNamedVolumeและBindMountในPostgreSQL
+NamedVolumeเป็นพื้นที่จัดเก็บที่Dockerสร้างและบริหารให้โดยอัตโนมัติข้อมูลจะถูกเก็บในโฟลเดอร์ของDockerEngineทำให้เสถียรและเคลื่อนย้ายง่ายเมื่อย้ายคอนเทนเนอร์หรือโฮสต์คุณสามารถใช้ชื่อ
+volumeเดิมเพื่อดึงข้อมูลกลับมาได้โดยไม่ต้องสนใจpathภายในเครื่องเหมาะสำหรับเก็บข้อมูลสำคัญเช่นเพราะปลอดภัยกว่าและไม่ขึ้นกับโครงสร้างไฟล์ของโฮสต์
+BindMountเป็นการผูกdirectoryหรือไฟล์ในเครื่องโฮสต์โดยตรงเข้าไปในคอนเทนเนอร์ข้อดีคือสามารถแก้ไขไฟล์หรือดูข้อมูลได้ทันทีผ่านโฟลเดอร์ในเครื่องเช่นใช้ดูไฟล์logหรือแก้configชั่วคราวแต่มี
+ความเสี่ยงเรื่องสิทธิ์การเข้าถึงไฟล์และประสิทธิภาพอาจลดลงโดยเฉพาะในMacWindowsที่ใช้VMสำหรับDockerทำให้IOช้ากว่า
+    2ค่าsharedbuffersเป็นหน่วยความจำที่PostgreSQLใช้สำหรับแคชข้อมูลในหน่วยความจำหากตั้งค่าน้อยเกินไปจะทำให้PostgreSQLต้องอ่านข้อมูลจากดิสก์บ่อยขึ้นส่งผลให้IOสูงและประสิทธิภาพลดลงแต่ถ้า
+ตั้งค่ามากเกินไปจะไปแย่งRAMจากระบบปฏิบัติการทำให้OSไม่สามารถใช้PageCacheได้เต็มที่และอาจเกิดdoublecachingข้อมูลถูกแคชทั้งในPostgresและOSค่าประมาณจึงถือเป็นจุดสมดุลทั่วไปที่ให้
+Postgresมีแคชเพียงพอในขณะที่เหลือRAMให้ระบบและกระบวนการอื่นทำงานได้คล่องตัวอย่างไรก็ตามอาจต้องปรับเพิ่มหรือลดตามลักษณะงานจริงและโหลดของระบบ
+    3.การใช้Schemaช่วยแบ่งnamespaceภายในฐานข้อมูลเดียวกันลดปัญหาชื่อตารางหรือวัตถุซ้ำกันเมื่อต้องรองรับหลายโมดูลหรือหลายทีมพัฒนาคุณสามารถมอบสิทธิ์การเข้าถึงที่ระดับschemaแทนการกำหนด
+สิทธิ์เป็นรายตารางทำให้การบริหารสิทธิ์ง่ายขึ้นSchemaยังช่วยให้สามารถจัดระเบียบข้อมูลตามโดเมนธุรกิจหรือทีมงานเช่นecommerceanalyticsauditและอำนวยความสะดวกในการdeploybackupหรือdump
+เฉพาะส่วนนอกจากนี้ยังสามารถตั้งค่าsearchpathเพื่อเรียกใช้งานตารางได้สั้นลงและลดความซับซ้อนของคำสั่งSQL
+    4.การใช้Dockerทำให้การพัฒนาฐานข้อมูลมีสภาพแวดล้อมที่เหมือนกันทุกเครื่องreproducibleซึ่งช่วยลดปัญหาทำไมเครื่องฉันรันได้แต่ของคุณไม่ได้การทำงานภายในคอนเทนเนอร์ยังแยกสภาพแวดล้อมออกจาก
+ระบบหลักทำให้สามารถทดลองปรับแต่งหรือทดสอบเวอร์ชันต่างของPostgreSQLโดยไม่กระทบกับฐานข้อมูลโปรดักชันการสร้างและลบคอนเทนเนอร์ทำได้รวดเร็วจึงเหมาะสำหรับการทดลองหรือการทดสอบอัตโนมัติ
+CICDอีกทั้งสามารถจำกัดทรัพยากรเช่นCPUและRAMได้ง่ายเพื่อจำลองสภาพแวดล้อมการทำงานจริงการจัดการข้อมูลถาวรสามารถทำได้ผ่านvolumesหรือbindmountsทำให้ข้อมูลไม่สูญหายแม้จะลบคอนเทนเนอร์การ
+ใช้Dockerยังช่วยให้เชื่อมต่อกับบริการอื่นๆเช่นwebservercacheหรือmessagebrokerได้สะดวกผ่านDockerComposeทำให้workflowของนักพัฒนาราบรื่นและใกล้เคียงกับโครงสร้างโปรดักชันมากขึ้น
+
+
+
 
 
 ## สรุปและการประเมินผล
