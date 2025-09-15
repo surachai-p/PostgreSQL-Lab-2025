@@ -1,4 +1,4 @@
-# Lab 01: PostgreSQL Docker Setup and Basic Operations
+<img width="579" height="515" alt="image" src="https://github.com/user-attachments/assets/7c71882a-3bac-4f50-85d2-7a892214fb26" /><img width="939" height="374" alt="image" src="https://github.com/user-attachments/assets/5be870ba-6539-4749-b1d4-09e90ae92b67" /># Lab 01: PostgreSQL Docker Setup and Basic Operations
 
 ## วัตถุประสงค์
 1. ติดตั้งและใช้งาน PostgreSQL ผ่าน Docker
@@ -627,6 +627,8 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 1.<img width="586" height="68" alt="image" src="https://github.com/user-attachments/assets/a925f804-7287-4250-b5ff-624fe09007bd" />
 2. <img width="884" height="55" alt="image" src="https://github.com/user-attachments/assets/b273dcdf-6c94-43e2-8e5d-c2cf318c64ac" />
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
+<img width="584" height="134" alt="image" src="https://github.com/user-attachments/assets/12351ea1-c566-4735-af47-66cd2be5d516" />
+
 ```
 
 ### Step 12: การจัดการ Volume และ Data Persistence
@@ -660,8 +662,14 @@ docker run --name postgres-backup-test \
 ```
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
+<img width="292" height="45" alt="image" src="https://github.com/user-attachments/assets/cf7e4809-1327-4c3b-bf77-f24305f97fab" />
+
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
+<img width="763" height="104" alt="image" src="https://github.com/user-attachments/assets/042e9cb7-fcb6-4b4d-8350-f03f1ba62955" />
+
 3. ผลการสร้าง container พร้อม bind mount
+<img width="286" height="37" alt="image" src="https://github.com/user-attachments/assets/1a187be2-b144-4dc5-93a7-933ffe09135c" />
+<img width="622" height="161" alt="image" src="https://github.com/user-attachments/assets/3699d98d-00be-4657-8370-f3c1249bb0e9" />
 ```
 
 ## การตรวจสอบผลงานและ Performance
@@ -684,6 +692,10 @@ docker volume inspect postgres-data
 **บันทึกผล Checkpoint 1:**
 ```
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
+<img width="591" height="46" alt="image" src="https://github.com/user-attachments/assets/d28bfc40-bb0e-468a-9b65-263eaf6e6456" />
+<img width="356" height="85" alt="image" src="https://github.com/user-attachments/assets/36869644-d904-4eef-bfda-34d0349aad18" />
+<img width="387" height="156" alt="image" src="https://github.com/user-attachments/assets/5859ae5b-5ce7-43a5-ad25-c06bc9423546" />
+
 ```
 
 ### Checkpoint 2: Database Performance และ Configuration
@@ -733,8 +745,11 @@ WHERE state = 'active';
 ```
 ใส่ Screenshot ของ:
 1. Database statistics
+<img width="939" height="374" alt="image" src="https://github.com/user-attachments/assets/3dc7e7ad-2a67-4bbf-8141-6146b35822aa" />
 2. Memory configuration
+<img width="369" height="436" alt="image" src="https://github.com/user-attachments/assets/47cd60e3-4d69-49d0-a489-7789005837ae" />
 3. Active connections
+<img width="677" height="263" alt="image" src="https://github.com/user-attachments/assets/5a415bda-f454-4ec2-bb66-924c0594fa10" />
 ```
 
 ## การแก้ไขปัญหาเบื้องต้น
@@ -791,15 +806,26 @@ docker volume create postgres-data
 
 ```bash
 # พื้นที่สำหรับคำตอบ - เขียน command ที่ใช้
-
+docker run -d \
+  --name multi-postgres \
+  -e POSTGRES_PASSWORD=multipass123 \
+  -p 5434:5432 \
+  --memory="1.5g" \
+  --cpus="1.5" \
+  -v multi-postgres-data:/var/lib/postgresql/data \
+  postgres
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
 ```
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
+<img width="627" height="198" alt="image" src="https://github.com/user-attachments/assets/f1460c2d-6c44-497e-b06e-b598a651ea92" />
 2. docker ps แสดง container ใหม่
+<img width="1112" height="107" alt="image" src="https://github.com/user-attachments/assets/62aa4c2d-43f3-4ba2-8690-d9707219a3a1" />
 3. docker stats แสดงการใช้ resources
+<img width="1066" height="87" alt="image" src="https://github.com/user-attachments/assets/86acd4bd-69e7-4db0-a75b-506f2dddf3cd" />
+
 ```
 
 ### แบบฝึกหัด 2: User Management และ Security
@@ -817,15 +843,44 @@ docker volume create postgres-data
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
+docker exec -it multi-postgres psql -U postgres
 
+CREATE ROLE app_developers NOLOGIN;
+CREATE ROLE data_analysts NOLOGIN;
+CREATE ROLE db_admins NOLOGIN;
+
+CREATE ROLE dev_user LOGIN PASSWORD 'dev123';
+GRANT app_developers TO dev_user;
+
+CREATE ROLE analyst_user LOGIN PASSWORD 'analyst123';
+GRANT data_analysts TO analyst_user;
+
+CREATE ROLE admin_user LOGIN PASSWORD 'admin123';
+GRANT db_admins TO admin_user;
+
+docker exec -e PGPASSWORD=dev123 -it multi-postgres \
+  psql -U dev_user -d postgres -c "SELECT current_user, session_user;"
+
+docker exec -e PGPASSWORD=analyst123 -it multi-postgres \
+  psql -U analyst_user -d postgres -c "SELECT current_user, session_user;"
+
+docker exec -e PGPASSWORD=admin123 -it multi-postgres \
+  psql -U admin_user -d postgres -c "SELECT current_user, session_user;"
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
 ```
 ใส่ Screenshot ของ:
 1. การสร้าง roles และ users
+<img width="567" height="387" alt="image" src="https://github.com/user-attachments/assets/297a1150-6e7b-418f-8f5b-b29713fc1ceb" />
+
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
+<img width="721" height="242" alt="image" src="https://github.com/user-attachments/assets/ce3b5e8f-4b39-474b-8940-54527824ae08" />
+
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
+<img width="669" height="138" alt="image" src="https://github.com/user-attachments/assets/a0dc5880-12b7-45ba-a84d-be69664d1fc7" />
+<img width="683" height="131" alt="image" src="https://github.com/user-attachments/assets/e8af187b-61a0-45fd-a5a0-60d1c25152d5" />
+<img width="703" height="144" alt="image" src="https://github.com/user-attachments/assets/ff7c1ccc-6257-41ab-82d4-71a4df79551d" />
 ```
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
@@ -971,16 +1026,74 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 
 ```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+docker exec -it multi-postgres psql -U postgres
 
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
+
+CREATE TABLE ecommerce.categories (
+  category_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT
+);
+
+CREATE TABLE ecommerce.products (
+  product_id    BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  description   TEXT,
+  price         NUMERIC(10,2) NOT NULL,
+  category_id   BIGINT REFERENCES ecommerce.categories(category_id),
+  stock         INT NOT NULL
+);
+
+CREATE TABLE ecommerce.customers (
+  customer_id   BIGSERIAL PRIMARY KEY,
+  name          TEXT NOT NULL,
+  email         TEXT NOT NULL,
+  phone         TEXT,
+  address       TEXT
+);
+
+CREATE TABLE ecommerce.orders (
+  order_id      BIGSERIAL PRIMARY KEY,
+  customer_id   BIGINT REFERENCES ecommerce.customers(customer_id),
+  order_date    TIMESTAMP NOT NULL,
+  status        TEXT NOT NULL,
+  total         NUMERIC(12,2) NOT NULL
+);
+
+CREATE TABLE ecommerce.order_items (
+  order_item_id BIGSERIAL PRIMARY KEY,
+  order_id      BIGINT REFERENCES ecommerce.orders(order_id),
+  product_id    BIGINT REFERENCES ecommerce.products(product_id),
+  quantity      INT NOT NULL,
+  price         NUMERIC(10,2) NOT NULL
+);
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
 ```
 ใส่ Screenshot ของ:
 1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
+<img width="785" height="416" alt="image" src="https://github.com/user-attachments/assets/2fd21cee-bd44-411f-a28f-c0e7f3599352" />
 2. ข้อมูลตัวอย่างในตารางต่างๆ
+<img width="579" height="515" alt="image" src="https://github.com/user-attachments/assets/4f264b53-7f2a-442d-b2de-4d691d958a1c" />
+<img width="405" height="358" alt="image" src="https://github.com/user-attachments/assets/51c75cc8-615e-418f-81c2-b1057fdb1ebe" />
 3. ผลการรัน queries ที่สร้าง
+<img width="294" height="317" alt="image" src="https://github.com/user-attachments/assets/e6086aa5-6df8-4471-82ff-ecea4dd58a93" />
 4. การวิเคราะห์ข้อมูลที่ได้
+1. สินค้าขายดีที่สุด
+Football และ T-Shirt ถูกซื้อมากที่สุด → แสดงให้เห็นว่าได้รับความนิยมของสินค้าราคาต่ำที่มีการซื้อซ้ำบ่อย
+กลุ่มสินค้าประเภท Electronics เช่น iPhone 15 และ Wireless Headphones มียอดขายสูงถึงเเม้มีปริมาณจำนวนชิ้นไม่มาก เพราะราคาต่อชิ้นค่อนข้างสูง
+
+2. ยอดขายตามหมวดหมู่
+หมวด Electronics สร้างรายได้สูงสุด 75% ของรายได้ทั้งหมดแสดงว่าเป็นหมวดที่ต้องให้ความสำคัญ เช่น ทำโปรโมชั่นเฉพาะกลุ่ม หรือเพิ่ม stock
+หมวด Home & Garden มีรายได้น้อยที่สุด ต้องทำการตลาดเพิ่มเติมหรือเพิ่มสินค้าใหม่ให้มีความน่าสนใจมากขึ้น
+
+3. ลูกค้าที่ซื้อสินค้ามากที่สุด
+David Wilson มีการใช้จ่ายสูงสุดสามารถให้สิทธิพิเศษเพื่อรักษาลูกค้ากลุ่มนี้
+สามารถใช้ข้อมูลนี้ทำ Customer Segmentation ต่อได้
 ```
 
 
@@ -997,10 +1110,28 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 **คำตอบ Quiz 1:**
 ```
 เขียนคำตอบที่นี่
+1.Named Volume: พื้นที่เก็บข้อมูลที่ Docker สร้างและจัดการให้ เหมาะสำหรับการใช้งานจริง
+  Bind Mount: การเชื่อมโยงโฟลเดอร์ในเครื่องเรากับคอนเทนเนอร์โดยตรง เหมาะสำหรับการพัฒนาและแก้ไขไฟล์
+2.ตั้ง shared_buffers ที่ 25% ของ RAM เพื่อให้ PostgreSQL มีพื้นที่เก็บข้อมูลที่ใช้บ่อยได้อย่างมีประสิทธิภาพ โดยไม่แย่งหน่วยความจำจากระบบปฏิบัติการ (OS) ซึ่งจะช่วยให้ระบบโดยรวมทำงานได้ดีที่สุด
+3.การใช้ Schema ช่วยให้การจัดการฐานข้อมูลขนาดใหญ่เป็นระเบียบและง่ายขึ้น โดยทำหน้าที่คล้ายกับการสร้าง โฟลเดอร์ย่อย หรือ เนมสเปซ (namespace) ในฐานข้อมูลเดียว
+4.Docker ช่วยให้นักพัฒนาสร้างและจัดการ สภาพแวดล้อมฐานข้อมูลที่สอดคล้องกัน ได้อย่างรวดเร็วและง่ายดาย ทำให้ทีมทำงานร่วมกันได้ดีขึ้นและลดปัญหาความไม่เข้ากันของเวอร์ชันซอฟต์แวร์.
+
 ```
 
 
 ## สรุปและการประเมินผล
+## สิ่งที่ได้เรียนรู้: Docker และ PostgreSQL
+## การใช้ Docker เพื่อจัดการฐานข้อมูล:
+  ## Docker Volume: ใช้เพื่อเก็บข้อมูลอย่างถาวร ทำให้ข้อมูลในฐานข้อมูลไม่หายไปเมื่อ Container ถูกลบ
+  -การจัดการทรัพยากร: สามารถจำกัด Memory และ CPU ของ Container ได้ ช่วยให้ควบคุมการใช้ทรัพยากรของเซิร์ฟเวอร์ได้อย่างมีประสิทธิภาพ
+  -Container Lifecycle: เข้าใจขั้นตอนการสร้าง, รัน, หยุด, และลบ Container
+  ## โครงสร้างสถาปัตยกรรมของ PostgreSQL:
+  -Memory Management: การจัดการหน่วยความจำ เช่น Shared Buffers ที่ใช้เก็บข้อมูลที่เข้าถึงบ่อย และ Work Memory ที่ใช้ในการประมวลผลคำสั่ง
+  -การจัดระเบียบ: ใช้ Schema เพื่อจัดกลุ่มตารางและวัตถุต่าง ๆ ทำให้ฐานข้อมูลเป็นระเบียบและจัดการได้ง่ายขึ้น
+  -การจัดการผู้ใช้และสิทธิ์: User และ Role ช่วยในการกำหนดสิทธิ์การเข้าถึงข้อมูลที่แตกต่างกันไปตามหน้าที่
+  ## ความปลอดภัยของฐานข้อมูล:
+  -การจัดการสิทธิ์: การสร้าง Users/Roles ที่เหมาะสมและกำหนดสิทธิ์ในระดับต่าง ๆ เช่น การอนุญาตให้ผู้ใช้บางคนเข้าถึงได้เฉพาะบางตารางเท่านั้น
+  ## Best Practices: ปฏิบัติตามหลักการความปลอดภัย เช่น การใช้รหัสผ่านที่รัดกุมและกำหนดสิทธิ์ขั้นต่ำที่จำเป็น (principle of least privilege) เพื่อลดความเสี่ยงจากการเข้าถึงข้อมูลโดยไม่ได้รับอนุญาต
 
 ### สิ่งที่ได้เรียนรู้
 
