@@ -85,7 +85,7 @@ docker run hello-world
 
 ## ขั้นตอนการทดลอง
 
-### Step 1: Pull PostgreSQL Docker Image
+### Step 1: Pull Postgr
 
 ```bash
 # ดาวน์โหลด PostgreSQL Image (Latest เวอร์ชัน )
