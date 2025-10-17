@@ -671,8 +671,11 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
-ใส่ Screenshot ของ resource usage และ volume information ที่นี่
+``
+<img width="1462" height="116" alt="image" src="https://github.com/user-attachments/assets/6e859e3f-ee52-45f1-9e10-8d629a657f6a" />
+<img width="781" height="366" alt="image" src="https://github.com/user-attachments/assets/1e6e028d-70ed-4213-9f35-a130d596250a" />
+
+
 ```
 
 ### Checkpoint 2: Database Performance และ Configuration
@@ -719,11 +722,17 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
+``
 ใส่ Screenshot ของ:
 1. Database statistics
+<img width="1307" height="405" alt="image" src="https://github.com/user-attachments/assets/58f5b95d-3704-49c0-b30c-91232ff69ce0" />
+
 2. Memory configuration
+<img width="801" height="435" alt="image" src="https://github.com/user-attachments/assets/29affc61-aa4b-483c-be82-7a3b1a5eb40e" />
+
 3. Active connections
+<img width="656" height="238" alt="image" src="https://github.com/user-attachments/assets/cb346028-524a-4efe-b14f-f7e56ab043b3" />
+
 ```
 
 ## การแก้ไขปัญหาเบื้องต้น
@@ -784,11 +793,17 @@ docker volume create postgres-data
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
+``
 ใส่ Screenshot ของ:
 1. คำสั่งที่ใช้สร้าง container
+<img width="1523" height="104" alt="image" src="https://github.com/user-attachments/assets/e77ced7f-c391-4acb-bca7-9c1da1973fa7" />
+
 2. docker ps แสดง container ใหม่
+<img width="1465" height="232" alt="image" src="https://github.com/user-attachments/assets/80eeb738-7f25-49ae-aaf8-3d28bd10fe5f" />
+
 3. docker stats แสดงการใช้ resources
+<img width="1471" height="270" alt="image" src="https://github.com/user-attachments/assets/34cb5eec-0a0c-49be-a428-5d452726e303" />
+
 ```
 
 ### แบบฝึกหัด 2: User Management และ Security
@@ -810,11 +825,11 @@ docker volume create postgres-data
 ```
 
 **ผลการทำแบบฝึกหัด 2:**
-```
+``
 ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
+<img width="674" height="196" alt="image" src="https://github.com/user-attachments/assets/5edeb03d-001c-4e07-a821-9ac8752343f7" />
+<img width="769" height="187" alt="image" src="https://github.com/user-attachments/assets/17c5f9eb-90f7-446c-8084-afd37a4d4a11" />
+
 ```
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
@@ -964,12 +979,12 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 ```
 
 **ผลการทำแบบฝึกหัด 3:**
-```
+``
 ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
+<img width="669" height="328" alt="image" src="https://github.com/user-attachments/assets/e2e53eb5-3fc8-4739-8416-ff1ad92a5990" />
+<img width="1123" height="411" alt="image" src="https://github.com/user-attachments/assets/30eee199-a870-4de1-890b-127e4d1353c6" />
+<img width="932" height="451" alt="image" src="https://github.com/user-attachments/assets/128b4d32-3e5e-468d-ba6d-ee75250f1ba4" />
+
 ```
 
 
@@ -986,7 +1001,7 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 **คำตอบ Quiz 1:**
 ```
 เขียนคำตอบที่นี่
-```
+``
 
 
 ## สรุปและการประเมินผล
