@@ -80,7 +80,8 @@ docker run hello-world
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
 ```
-ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
+ใส่ <img width="1413" height="612" alt="image" src="https://github.com/user-attachments/assets/473598d2-354d-43f3-a455-a5c3ae1b0eb8" />
+ ของผลการรัน docker --version และ docker run hello-world ที่นี่
 ```
 
 ## ขั้นตอนการทดลอง
@@ -104,7 +105,8 @@ docker inspect postgres
 
 **บันทึกผลการทดลอง - Step 1:**
 ```
-ใส่ Screenshot ของผลการรัน docker images ที่นี่
+ใส่ <img width="825" height="192" alt="image" src="https://github.com/user-attachments/assets/f0334016-e256-438d-9c8d-ddf779ff028e" />
+ ของผลการรัน docker images ที่นี่
 ```
 
 ### Step 2: Create Docker Volume for Data Persistence
@@ -127,7 +129,9 @@ docker volume create postgres-config
 
 **บันทึกผลการทดลอง - Step 2:**
 ```
-ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
+ใส่ <img width="942" height="166" alt="image" src="https://github.com/user-attachments/assets/0533c5c0-be2b-42f0-971c-d1e53a67cb7e" />
+ <img width="852" height="332" alt="image" src="https://github.com/user-attachments/assets/a1645ebb-b06f-434c-ac30-ffccb432e286" />
+ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
 ```
 
 ### Step 3: Create PostgreSQL Container with Volume
@@ -150,7 +154,8 @@ docker volume create postgres-config
 
 **บันทึกผลการทดลอง - Step 3:**
 ```
-ใส่ Screenshot ของผลการรัน docker run ที่นี่
+ใส่ <img width="744" height="75" alt="image" src="https://github.com/user-attachments/assets/0e82fd20-0e08-4f76-abc1-79e962d07f6e" />
+ ของผลการรัน docker run ที่นี่
 ```
 
 ### Step 4: Verify Container Status and Resource Usage
@@ -172,9 +177,12 @@ docker volume inspect postgres-data
 **บันทึกผลการทดลอง - Step 4:**
 ```
 ใส่ Screenshot ของ:
-1. ผลการรัน docker ps
-2. ส่วนหนึ่งของ docker logs postgres-lab
-3. ผลการรัน docker stats
+1. ผลการรัน docker ps<img width="1466" height="126" alt="image" src="https://github.com/user-attachments/assets/19fd0aee-db68-48bc-8d9c-85fc9e4b92d6" />
+
+2. ส่วนหนึ่งของ docker logs postgres-lab <img width="1462" height="356" alt="image" src="https://github.com/user-attachments/assets/44d23f5e-b7c5-4677-9759-f30655d25bd9" />
+
+3. ผลการรัน docker stats <img width="1381" height="200" alt="image" src="https://github.com/user-attachments/assets/0d1e1e12-e6d5-4bab-8514-b92e7ba007b5" />
+
 ```
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
