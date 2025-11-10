@@ -82,6 +82,7 @@ docker run hello-world
 ```
 ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
 ```
+<img width="1156" height="744" alt="image" src="https://github.com/user-attachments/assets/608915e7-d23e-4e29-86bd-ea2c2ae158fb" />
 
 ## ขั้นตอนการทดลอง
 
@@ -106,7 +107,7 @@ docker inspect postgres
 ```
 ใส่ Screenshot ของผลการรัน docker images ที่นี่
 ```
-
+<img width="2108" height="234" alt="image" src="https://github.com/user-attachments/assets/d1d6a499-c33e-40cf-926a-3d2aa8d25caa" />
 ### Step 2: Create Docker Volume for Data Persistence
 
 ```bash
@@ -129,7 +130,7 @@ docker volume create postgres-config
 ```
 ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
 ```
-
+<img width="1508" height="536" alt="image" src="https://github.com/user-attachments/assets/ba27f716-8fe6-47b9-949a-970a8f4d784e" />
 ### Step 3: Create PostgreSQL Container with Volume
 
 
@@ -152,7 +153,7 @@ docker volume create postgres-config
 ```
 ใส่ Screenshot ของผลการรัน docker run ที่นี่
 ```
-
+<img width="1462" height="448" alt="image" src="https://github.com/user-attachments/assets/6132e66a-194e-4cab-b6ab-8669a4bf758a" />
 ### Step 4: Verify Container Status and Resource Usage
 
 ```bash
@@ -176,7 +177,7 @@ docker volume inspect postgres-data
 2. ส่วนหนึ่งของ docker logs postgres-lab
 3. ผลการรัน docker stats
 ```
-
+<img width="3420" height="706" alt="image" src="https://github.com/user-attachments/assets/a2ef0159-27ae-4a9b-88b8-4fb5a82f6415" />
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
 ```bash
@@ -221,7 +222,7 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
 3. ผลการรัน \l และ \du
 ```
-
+<img width="1994" height="1994" alt="image" src="https://github.com/user-attachments/assets/3998563f-26a3-413b-8715-01becfcf3b7e" />
 ### Step 6: Database Management Operations
 
 ```sql
@@ -265,7 +266,7 @@ WHERE datname = 'lab_db';
 2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
 3. ผลการ query ข้อมูลฐานข้อมูล
 ```
-
+<img width="2782" height="1260" alt="image" src="https://github.com/user-attachments/assets/88022ae7-1540-4a17-aa0c-d88acf6aeb0b" />
 ### Step 7: User และ Role Management
 
 ```sql
@@ -323,7 +324,7 @@ WHERE r.rolname NOT LIKE 'pg_%';
 2. ผลการรัน \du+
 3. ผลการ query pg_roles
 ```
-
+<img width="1782" height="1570" alt="image" src="https://github.com/user-attachments/assets/b80890d9-90aa-47d5-bba6-be1be86b7ab2" />
 ### Step 8: การจัดการสิทธิ์ User
 
 ```sql
@@ -385,12 +386,16 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 2. ผลการรัน \dp test_permissions
 3. ผลการ GRANT commands
 ```
+<img width="1812" height="1782" alt="image" src="https://github.com/user-attachments/assets/dca635e5-8645-45c5-9268-228c235afd79" />
 **คำถาม
  ```
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
 
 
  ```
+postgres=arwdDxtm/postgres หมายถึง:
+role postgres มีสิทธิ์ ครบทุกอย่างบนตารางนั้น (INSERT, SELECT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER, MAINTAIN)
+และสิทธิ์นี้ถูก มอบโดย user postgres เอง
 ### Step 9: Schema Management และ Namespace
 
 ```sql
@@ -497,7 +502,8 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 3. ผลการใส่ข้อมูลและ query ข้อมูล
 4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
 ```
-
+<img width="3230" height="2142" alt="image" src="https://github.com/user-attachments/assets/cb836a22-f717-49d3-bab6-cc2dd9c0f894" />
+<img width="1466" height="1452" alt="image" src="https://github.com/user-attachments/assets/0439d726-048b-4096-b28b-9688f9c79d0c" />
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
 ```sql
@@ -564,7 +570,8 @@ SET search_path TO public;
 3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
 4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
 ```
-
+<img width="1690" height="2156" alt="image" src="https://github.com/user-attachments/assets/4a8e96bf-5fb2-4a30-82fa-e3d05602851c" />
+<img width="1720" height="1342" alt="image" src="https://github.com/user-attachments/assets/e6fa5327-b161-470f-9320-dfeb0038d324" />
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
 ```bash
@@ -595,7 +602,7 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 2. ผลการทดสอบสิทธิ์ต่างๆ
 3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
 ```
-
+<img width="1652" height="716" alt="image" src="https://github.com/user-attachments/assets/a4ea751a-425c-4d3d-bf21-c706702889c6" />
 ### Step 12: การจัดการ Volume และ Data Persistence
 
 ```bash
@@ -630,7 +637,7 @@ docker run --name postgres-backup-test \
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
 3. ผลการสร้าง container พร้อม bind mount
 ```
-
+<img width="3050" height="744" alt="image" src="https://github.com/user-attachments/assets/7eff77de-7960-4536-b973-a401f11d53a3" />
 ## การตรวจสอบผลงานและ Performance
 
 ### Checkpoint 1: Container และ Resource Management
@@ -652,7 +659,7 @@ docker volume inspect postgres-data
 ```
 ใส่ Screenshot ของ resource usage และ volume information ที่นี่
 ```
-
+<img width="1516" height="602" alt="image" src="https://github.com/user-attachments/assets/f37eff46-cb43-4e77-87dc-258e0e7a816c" />
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
 -- เชื่อมต่อไปยัง postgres
@@ -703,7 +710,7 @@ WHERE state = 'active';
 2. Memory configuration
 3. Active connections
 ```
-
+<img width="1866" height="1442" alt="image" src="https://github.com/user-attachments/assets/33978503-e875-4796-8259-a6c1f4fb6eaf" />
 ## การแก้ไขปัญหาเบื้องต้น
 
 ### ปัญหา Port ซ้ำ
@@ -768,7 +775,8 @@ docker volume create postgres-data
 2. docker ps แสดง container ใหม่
 3. docker stats แสดงการใช้ resources
 ```
-
+<img width="3410" height="896" alt="image" src="https://github.com/user-attachments/assets/e098472d-f466-49d1-b142-26d5256721e8" />
+<img width="3420" height="2068" alt="image" src="https://github.com/user-attachments/assets/bc949713-01b9-4f6e-8254-b53333278e40" />
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
 
@@ -794,7 +802,7 @@ docker volume create postgres-data
 2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
 3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
 ```
-
+<img width="1264" height="896" alt="image" src="https://github.com/user-attachments/assets/917e9a51-cae8-4e36-a1da-7dc0e1f0606f" />
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
 
@@ -956,7 +964,8 @@ docker volume create postgres-data
 3. ผลการรัน queries ที่สร้าง
 4. การวิเคราะห์ข้อมูลที่ได้
 ```
-
+<img width="1980" height="2126" alt="image" src="https://github.com/user-attachments/assets/1ff488fd-a783-4909-911c-ebaca542c2ca" />
+<img width="1386" height="1396" alt="image" src="https://github.com/user-attachments/assets/bc5b0897-c7be-4fd8-a6b4-108e1d1eb7f8" />
 
 ## การทดสอบความเข้าใจ
 
@@ -972,11 +981,35 @@ docker volume create postgres-data
 ```
 เขียนคำตอบที่นี่
 ```
-
-
-## สรุปและการประเมินผล
-
-### สิ่งที่ได้เรียนรู้
+1. ความแตกต่างระหว่าง Named Volume และ Bind Mount ในบริบทของ PostgreSQL
+Named Volume
+เป็น volume ที่ Docker จัดการเอง และมักอยู่ในโฟลเดอร์ของ Docker (/var/lib/docker/volumes/...)
+ใช้สำหรับเก็บข้อมูลฐานข้อมูล PostgreSQL อย่างปลอดภัย และไม่ขึ้นอยู่กับโครงสร้างไฟล์ของ host
+Docker สามารถจัดการ lifecycle ของ volume ได้ง่าย เช่น backup, migrate, remove
+Bind Mount
+เป็นการเชื่อมโฟลเดอร์บน host machine เข้ากับ container
+เหมาะสำหรับการพัฒนา เพราะสามารถแก้ไขไฟล์บน host แล้ว container เห็นการเปลี่ยนแปลงทันที
+แต่ต้องระวังเรื่อง permissions และ path ที่ถูกต้อง เพราะ container จะพึ่งพา filesystem ของ host
+สรุป: Named Volume เหมาะสำหรับ production, Bind Mount เหมาะสำหรับ development/ทดสอบ
+2. เหตุใด shared_buffers จึงควรตั้งเป็น 25% ของ RAM
+shared_buffers คือ memory pool ที่ PostgreSQL ใช้เก็บ cache ของ data pages จาก disk
+ตั้งประมาณ 25% ของ RAM เป็นค่าแนะนำ เพราะ:
+มากเกินไป → อาจทำให้ OS ไม่มี memory เพียงพอสำหรับ cache ของ filesystem และ work memory ของ query
+น้อยเกินไป → PostgreSQL ต้องอ่าน disk บ่อย ทำให้ performance ต่ำ
+การตั้งค่าแบบนี้ช่วยให้ทั้ง PostgreSQL และ OS ใช้ memory ได้อย่างสมดุล## สรุปและการประเมินผล
+3. การใช้ Schema ช่วยในการจัดการฐานข้อมูลขนาดใหญ่
+Schema คือ namespace สำหรับจัดกลุ่มตารางและ objects ใน database
+ช่วยให้:
+แบ่งหมวดหมู่ข้อมูล เช่น ecommerce, analytics, audit
+ลดความซ้ำชื่อ table/column ใน database ขนาดใหญ่
+จัดการสิทธิ์ผู้ใช้เฉพาะ schema ได้ง่ายขึ้น
+ทำให้ database มีโครงสร้างชัดเจน และ maintain ง่าย
+4. ประโยชน์ของการใช้ Docker สำหรับ Database Development
+สร้าง environment ได้รวดเร็วและ reproducible
+แยก instance ของ database แต่ละโปรเจกต์ ไม่ชนกัน
+ง่ายต่อการ reset, upgrade หรือ migrate database
+ทำงานข้าม platform ได้เหมือนกันทุกที่ (Windows, Mac, Linux)
+สามารถใช้ images สำเร็จรูป เช่น postgres:latest ทำให้ไม่ต้องติดตั้งเอง### สิ่งที่ได้เรียนรู้
 
 1. **Docker Fundamentals**:
    - การใช้ Docker Volume เพื่อความคงทนของข้อมูล
