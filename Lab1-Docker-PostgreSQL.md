@@ -106,6 +106,8 @@ docker inspect postgres
 ```
 ใส่ Screenshot ของผลการรัน docker images ที่นี่
 ```
+<img width="1850" height="604" alt="image" src="https://github.com/user-attachments/assets/bb864475-7aea-4999-8619-8d4e860a4819" />
+
 
 ### Step 2: Create Docker Volume for Data Persistence
 
@@ -129,6 +131,8 @@ docker volume create postgres-config
 ```
 ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
 ```
+<img width="780" height="455" alt="image" src="https://github.com/user-attachments/assets/c910c22b-425e-4f9a-aec3-c80222151d9b" />
+
 
 ### Step 3: Create PostgreSQL Container with Volume
 
@@ -152,6 +156,7 @@ docker volume create postgres-config
 ```
 ใส่ Screenshot ของผลการรัน docker run ที่นี่
 ```
+<img width="1919" height="953" alt="image" src="https://github.com/user-attachments/assets/72e7159b-0e40-4bdc-9175-484b3208e3d7" />
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -171,6 +176,8 @@ docker volume inspect postgres-data
 
 **บันทึกผลการทดลอง - Step 4:**
 ```
+<img width="1348" height="910" alt="image" src="https://github.com/user-attachments/assets/b9a212e6-9e67-4595-b333-3db3988b8cc1" />
+
 ใส่ Screenshot ของ:
 1. ผลการรัน docker ps
 2. ส่วนหนึ่งของ docker logs postgres-lab
@@ -216,6 +223,9 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 
 **บันทึกผลการทดลอง - Step 5:**
 ```
+<img width="1259" height="235" alt="image" src="https://github.com/user-attachments/assets/5926d656-0dbf-4ecb-9214-5f3923ef771d" />
+
+
 ใส่ Screenshot ของ:
 1. ผลการรัน SELECT version();
 2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
@@ -260,6 +270,8 @@ WHERE datname = 'lab_db';
 
 **บันทึกผลการทดลอง - Step 6:**
 ```
+<img width="1607" height="922" alt="image" src="https://github.com/user-attachments/assets/82d0fd4d-8804-43a5-a1a3-f8591959f73a" />
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง lab_db
 2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
@@ -318,6 +330,9 @@ WHERE r.rolname NOT LIKE 'pg_%';
 
 **บันทึกผลการทดลอง - Step 7:**
 ```
+<img width="1412" height="924" alt="image" src="https://github.com/user-attachments/assets/a87cf35b-7d9a-4f21-a5c3-ff8915cb1c4d" />
+
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง users ทั้งหมด
 2. ผลการรัน \du+
@@ -380,6 +395,8 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 
 **บันทึกผลการทดลอง - Step 8:**
 ```
+<img width="1406" height="934" alt="image" src="https://github.com/user-attachments/assets/c2052ac1-5d11-4d8f-a28d-2dca570dbb2d" />
+
 ใส่ Screenshot ของ:
 1. ผลการ ALTER USER commands
 2. ผลการรัน \dp test_permissions
@@ -491,6 +508,9 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 
 **บันทึกผลการทดลอง - Step 9:**
 ```
+<img width="1378" height="937" alt="image" src="https://github.com/user-attachments/assets/76125e61-4c95-4e45-b3ee-906a8bbdb279" />
+
+
 ใส่ Screenshot ของ:
 1. ผลการสร้าง schemas (\dn+)
 2. ผลการสร้างตารางในแต่ละ schema
@@ -558,6 +578,9 @@ SET search_path TO public;
 
 **บันทึกผลการทดลอง - Step 10:**
 ```
+<img width="1314" height="963" alt="image" src="https://github.com/user-attachments/assets/cf1ba459-effc-48f7-b8a1-177543d671e8" />
+
+
 ใส่ Screenshot ของ:
 1. ผลการแสดง search_path
 2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
@@ -590,6 +613,9 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 
 **บันทึกผลการทดลอง - Step 11:**
 ```
+<img width="1391" height="938" alt="image" src="https://github.com/user-attachments/assets/8d4328f3-3604-4a3f-b301-29d0f18c8026" />
+
+
 ใส่ Screenshot ของ:
 1. ผลการเชื่อมต่อด้วย lab_user
 2. ผลการทดสอบสิทธิ์ต่างๆ
@@ -625,6 +651,8 @@ docker run --name postgres-backup-test \
 
 **บันทึกผลการทดลอง - Step 12:**
 ```
+<img width="1235" height="905" alt="image" src="https://github.com/user-attachments/assets/9aeced33-9cf6-46df-9091-714d6d1b231e" />
+
 ใส่ Screenshot ของ:
 1. ผลการหยุดและเริ่ม Container
 2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
